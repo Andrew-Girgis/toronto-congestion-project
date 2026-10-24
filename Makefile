@@ -4,9 +4,9 @@ SUMO_HOME := $(shell .venv/bin/python -c "import sumo;print(sumo.SUMO_HOME)")
 export SUMO_HOME
 export PATH := $(CURDIR)/.venv/bin:$(PATH)
 
-.PHONY: all data geometry coverage network demand sim model web check serve
+.PHONY: all data geometry coverage network demand assign sim model web check serve
 
-all: data geometry coverage network demand sim model web
+all: data geometry coverage network demand assign model web
 
 data:            ## dated snapshots of City open data + manifest
 	$(PY) -m cordon.ingest
@@ -35,7 +35,10 @@ demand:          ## counts -> calibration targets -> calibrated baseline routes
 	  -o sim/demand/baseline.rou.xml --mismatch-output sim/demand/mismatch_calibration.xml \
 	  --seed 42 --attributes 'type="car"'
 
-sim:             ## S0-S3 in SUMO (mesoscopic)
+assign:          ## S0-S3 street-level results (static equilibrium assignment; used by the demo)
+	$(PY) -m cordon.assign
+
+sim:             ## S0-S3 in SUMO mesoscopic (experimental: deadlocks on this network, see docs)
 	$(PY) -m cordon.sim.scenarios S0 S1 S2 S3
 
 model:           ## behavioural ranges + 10-year finance
