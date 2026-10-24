@@ -1,0 +1,47 @@
+# Data sources acquired by `python -m cordon.ingest`. Each entry becomes a dated
+# snapshot under data/raw/<source_id>/<YYYY-MM-DD>/ and a row in data/manifest.csv.
+# CKAN resources are resolved by package id + resource name at run time, so URLs
+# stay current; the resolved URL is recorded in the manifest.
+ckan_base: https://ckan0.cf.opendata.inter.prod-toronto.ca/api/3/action
+licence_note: >-
+  Open Government Licence - Toronto (portal-wide terms; CKAN lists most packages
+  as "License not specified", so per-dataset terms are UNVERIFIED).
+
+sources:
+  - source_id: tor_svc
+    package: traffic-volumes-midblock-vehicle-speed-volume-and-classification-counts
+    resources:
+      - svc_summary_data.csv
+      - svc_most_recent_summary_data.csv
+      - svc_data_dictionary.xlsx
+      - svc_raw_data_volume_2020_2024
+      - svc_raw_data_volume_2015_2019
+  - source_id: tor_tmc
+    package: traffic-volumes-at-intersections-for-all-modes
+    resources:
+      - tmc_summary_data.csv
+      - tmc_most_recent_summary_data.csv
+      - tmc_raw_data_2020_2029.csv
+  - source_id: tor_centreline
+    package: toronto-centreline-tcl
+    resources:
+      - Centreline - Version 2 - 4326.gpkg
+  - source_id: tor_neighbourhoods
+    package: neighbourhoods
+    resources:
+      - Neighbourhoods - 4326.geojson
+  - source_id: tor_neighbourhood_profiles
+    package: neighbourhood-profiles
+    resources:
+      - neighbourhood-profiles-2021-158-model
+  - source_id: tor_bike_cordon
+    package: bicycle-and-micromobility-cordon-count
+    resources:
+      - Bicycle and Micromobility Cordon Count 2022 - Data Dictionary
+    match_format:
+      - {name_prefix: "Bicycle and Micromobility Cordon Count 2022 - Count Summary", format: GeoJSON}
+  - source_id: tor_ptc
+    package: private-transportation-companies-summary-and-trip-data
+    resources:
+      - trips_and_summary_readme
+      - summary_stats.csv

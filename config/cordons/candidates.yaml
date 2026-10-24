@@ -1,0 +1,53 @@
+# Candidate charging boundaries. A boundary is an ordered ring of edges; each edge
+# runs from one vertex to the next. Vertices are where two Centreline features
+# meet ("meet": [A, B]) or a fixed point in the harbour ("point": [lon, lat]).
+# Edge "follow" traces a Centreline feature (street, river or railway); "straight"
+# joins vertices directly (used only for the harbour closure, which no road crosses).
+# The zone is shrunk 20 m inward so traffic travelling ALONG a boundary street is
+# outside the zone (as with 60th St in New York); only roads crossing it count.
+inward_offset_m: 20
+
+# Roads excluded from crossing counts, with the reason. Recorded, not hidden.
+exclude_roads:
+  "Island Airport": "Billy Bishop airport tunnel/ferry approach from the island; not a vehicle route into downtown"
+
+candidates:
+  C1:
+    name: Bathurst–Bloor–Parliament
+    rationale: >-
+      The boundary most often floated for Toronto ("south of Bloor, Bathurst to
+      Parliament"; data-sources.md §5, UNVERIFIED as an official proposal). Compact
+      core, but every east-west and north-south street on three sides is a crossing.
+    ring:
+      - {vertex: {point: [-79.3990, 43.6330]}, edge: {straight: true}}
+      - {vertex: {meet: ["Bathurst St", "Lake Shore Blvd W"]}, edge: {follow: "Bathurst St"}}
+      - {vertex: {meet: ["Bathurst St", "Bloor St W"]}, edge: {follow: ["Bloor St W", "Bloor St E"]}}
+      - {vertex: {meet: ["Parliament St", "Bloor St E"]}, edge: {follow: "Parliament St"}}
+      - {vertex: {meet: ["Parliament St", "Lake Shore Blvd E"]}, edge: {straight: true}}
+      - {vertex: {point: [-79.3600, 43.6400]}, edge: {straight: true}}
+  C2:
+    name: Bathurst–Bloor–Don River
+    rationale: >-
+      Moves the east edge to the Don River valley, a natural choke point crossed
+      only by a handful of bridges, so fewer gantries and less neighbourhood
+      leakage on that side (user feedback UF-001: choke points).
+    ring:
+      - {vertex: {point: [-79.3990, 43.6330]}, edge: {straight: true}}
+      - {vertex: {meet: ["Bathurst St", "Lake Shore Blvd W"]}, edge: {follow: "Bathurst St"}}
+      - {vertex: {meet: ["Bathurst St", "Bloor St W"]}, edge: {follow: ["Bloor St W", "Bloor St E", "Prince Edward Viaduct"]}}
+      - {vertex: {meet: ["Don River", "Bloor St E"]}, edge: {follow: "Don River"}}
+      - {vertex: {meet: ["Don River", "Lake Shore Blvd E"]}, edge: {straight: true}}
+      - {vertex: {point: [-79.3500, 43.6380]}, edge: {straight: true}}
+  C3:
+    name: Dufferin–CP Rail–Don River
+    rationale: >-
+      Larger zone whose north and east edges follow barriers: the CP rail corridor
+      (crossed only at grade separations) and the Don valley. Captures midtown-bound
+      through traffic but charges more residents' local trips.
+    ring:
+      - {vertex: {point: [-79.4300, 43.6300]}, edge: {straight: true}}
+      - {vertex: {meet: ["Dufferin St", "Lake Shore Blvd W"]}, edge: {follow: "Dufferin St"}}
+      - {vertex: {meet: ["Dufferin St", "C P R"]}, edge: {follow: "C P R"}}
+      - {vertex: {meet: ["C P R", "Don River"]}, edge: {follow: "Don River"}}
+      - {vertex: {meet: ["Don River", "Lake Shore Blvd E"]}, edge: {straight: true}}
+      - {vertex: {point: [-79.3500, 43.6380]}, edge: {straight: true}}
