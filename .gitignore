@@ -1,0 +1,25 @@
+# s: encrypted secrets
+.senv
+.env*
+
+# OS / editor
+.DS_Store
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Data: raw snapshots and large intermediates are not committed (manifest is)
+data/raw/
+data/processed/
+sim/out/
+
+# Web
+web/node_modules/
+web/dist/
+web/.astro/
+
+# Local tool state
+.playwright-mcp/
+.claude/settings.local.json

@@ -1,0 +1,15 @@
+[project]
+name = "congestion-cordon"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "aequilibrae>=1.7.2",
+    "duckdb>=2.0.0",
+    "eclipse-sumo>=1.28.0",
+    "geopandas>=1.2.0",
+    "httpx>=0.28.1",
+    "pandas>=3.1.0",
+    "pdfplumber>=0.11.10",
+    "pyarrow>=26.0.0",
+    "pyyaml>=6.0.3",
+]
