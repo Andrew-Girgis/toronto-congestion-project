@@ -23,3 +23,10 @@ web/.astro/
 # Local tool state
 .playwright-mcp/
 .claude/settings.local.json
+
+# Simulation intermediates (reproducible with `make sim`; large)
+sim/demand/*.rou.xml
+sim/demand/*.trips.xml
+sim/demand/*.alt.xml
+sim/demand/mismatch_*.xml
+sim/net/*.net.xml.gz

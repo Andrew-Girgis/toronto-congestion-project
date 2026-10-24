@@ -1,0 +1,31 @@
+# Scenarios simulated in SUMO (weekday 06:00-10:00) and carried into the
+# financial model. Every scenario is compared with S0 under identical demand,
+# network and assumptions. Rates are 2025 CAD per charge event.
+simulation:
+  begin_s: 21600   # 06:00
+  end_s: 36000     # 10:00
+  cordon_for_area_charge: C1   # best count coverage (docs/coverage); C2/C3 compared on crossings and coverage
+  response_case: base          # SUMO runs the base behavioural response only
+
+scenarios:
+  S0:
+    name: No pricing (baseline)
+    charges: none
+  S1:
+    name: Gardiner/DVP $3 flat toll
+    label: SIMULATED (partial check against EX8.14 Table 7; network covers only the downtown ends)
+    charges: expressway_entries
+    rate_by_hour: {6: 3.00, 7: 3.00, 8: 3.00, 9: 3.00}
+    once_per: trip
+  S2:
+    name: Downtown cordon + Gardiner/DVP, NYC-equivalent rate
+    label: SIMULATED
+    charges: cordon_and_expressway_entries
+    rate_by_hour: {6: 12.58, 7: 12.58, 8: 12.58, 9: 12.58}
+    once_per: day
+  S3:
+    name: Downtown cordon + Gardiner/DVP, time-varying
+    label: SIMULATED (shoulder rate is an ASSUMPTION)
+    charges: cordon_and_expressway_entries
+    rate_by_hour: {6: 6.29, 7: 12.58, 8: 12.58, 9: 6.29}
+    once_per: day

@@ -11,7 +11,7 @@
 ## The problem, in one minute
 
 - Downtown Toronto's roads are congested, but **Toronto's open data has no count of how many vehicles enter downtown each day**. Its downtown cordon count covers **bicycles only**.
-- Toronto has studied road tolls before. In 2015 the City modelled a $3 toll on the Gardiner and DVP ([Staff Report EX8.14](https://www.toronto.ca/legdocs/mmis/2015/ex/bgrd/backgroundfile-83671.pdf)). Under Ontario law the City cannot toll a road without a provincial regulation, so any real proposal needs strong evidence.
+- Toronto has studied road tolls before. In 2015 the City modelled a $3 toll on the Gardiner and DVP ([Staff Report EX8.14](https://www.toronto.ca/legdocs/mmis/2015/ex/bgrd/backgroundfile-83671.pdf)). Since June 2025, Ontario law says the City "does not have the power" to toll a road, even to ease congestion. Any real scheme would need the Province to pass a law, and that would take strong evidence.
 - Four cities have priced congestion, with different designs and different results. Their lessons are buried in reports.
 
 **What this tool does:** it rebuilds a picture of downtown traffic from the City's open counts. It simulates how traffic, travel times and nearby neighbourhoods could change under different charge designs, and estimates costs and revenue over 10 years. Every result sits beside observed evidence from other cities.
@@ -20,7 +20,7 @@
 
 **The ask, in two steps:**
 1. **Now:** the City's Transportation Services division runs a **90-day pilot** of this open tool on its internal data to test downtown charging options. This is low cost and within City authority.
-2. **Then, only if the evidence holds up:** a staged path toward a time-limited pricing trial, like Stockholm's 2006 trial → referendum → permanent scheme. This needs a provincial regulation, transit capacity in place before launch, and an agreed use for the revenue.
+2. **Then, only if the evidence holds up:** a staged path toward a time-limited pricing trial, like Stockholm's 2006 trial → referendum → permanent scheme. This needs provincial legislation, transit capacity in place before launch, and an agreed use for the revenue.
 
 See [`adoption/`](adoption/) *(planned)*.
 

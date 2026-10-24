@@ -1,0 +1,382 @@
+# Assumptions for the aggregate behaviour + financial model (drafted by workstream D, 2026-10-24; adopted with a calibration block).
+# Each entry: value / low / high / units / source_id (research/sources_D.csv) / label / notes.
+# Labels: OBSERVED | OBSERVED (REPORT) | ESTIMATED | ASSUMPTION | UNVERIFIED.
+# Low/high are illustrative scenario bounds, NOT confidence intervals.
+# Our calculations are marked calc: true.
+
+meta:
+  currency: CAD
+  price_base_year: 2025
+  real_terms: true
+  horizon_years: 10
+  drafted: 2026-10-24
+
+fx_cpi:
+  usd_cad_2025:
+    value: 1.3978
+    units: CAD per USD (annual average)
+    source_id: D-001
+    label: OBSERVED
+  nyc_peak_toll_cad_2025:
+    value: 12.58
+    units: CAD per day (US$9 x 1.3978)
+    source_id: [D-001, D-019]
+    label: ESTIMATED
+    calc: true
+    notes: Market-rate conversion; says nothing about relative burden on Toronto incomes.
+  cpi_ontario:
+    value: {2015: 127.4, 2021: 143.2, 2025: 165.6}
+    units: index 2002=100
+    source_id: D-002
+    label: OBSERVED
+  cpi_factor_2021_to_2025_ontario:
+    value: 1.1564
+    source_id: D-002
+    label: ESTIMATED
+    calc: true
+  cpi_factor_2015_to_2025_ontario:
+    value: 1.2998
+    source_id: D-002
+    label: ESTIMATED
+    calc: true
+
+discount:
+  financial_npv_rate:
+    value: 0.07
+    low: 0.03
+    high: 0.07
+    units: real, per year
+    source_id: D-003
+    label: OBSERVED (REPORT)
+    notes: >
+      TBS 2022 guide: 7% real; social time preference about 3%. Metrolinx uses 3.5% real
+      for Ontario transport economic cases (D-004). Show 3.5% as an Ontario-practice sensitivity.
+  metrolinx_social_rate:
+    value: 0.035
+    low: 0.025
+    high: 0.035
+    source_id: D-004
+    label: OBSERVED (REPORT)
+
+value_of_time:
+  person_hour_2025:
+    value: 21.73
+    low: 21.73
+    high: 43.46
+    units: CAD 2025 per person-hour
+    source_id: [D-004, D-002]
+    label: ESTIMATED
+    calc: true
+    notes: >
+      Metrolinx BCM $18.79 (2021$) x 1.1564. This is an average appraisal VOT across modes. Drivers who
+      keep paying a toll reveal higher VOT (NBER NYC uses US$40/h). High = 2x is an ASSUMPTION for
+      route-choice sensitivity.
+  vehicle_occupancy_auto:
+    value: 1.15
+    low: 1.05
+    high: 1.26
+    units: persons per car
+    source_id: null
+    label: ASSUMPTION
+    notes: No Toronto source verified tonight. 1.26 is Stockholm's private-car value (D-005).
+  sumo_vot_per_vehicle_hour:
+    value: 24.99
+    low: 22.82
+    high: 54.76
+    units: CAD 2025 per vehicle-hour
+    label: ASSUMPTION
+    calc: true
+    notes: person VOT x occupancy. Used to convert the toll into route cost in SUMO.
+
+auto_operating_cost:
+  perceived_per_km_2025:
+    value: 0.22
+    low: 0.14
+    high: 0.22
+    units: CAD 2025 per vehicle-km
+    source_id: [D-004, D-002]
+    label: ESTIMATED
+    calc: true
+    notes: >
+      Metrolinx fuel 0.12 + maintenance 0.05 + tires 0.02 (2021$) x 1.1564. Low = fuel only.
+      Do NOT use the CRA allowance rate (D-027); it includes fixed costs.
+  cordon_trip_length_km:
+    value: 20
+    low: 12
+    high: 30
+    units: km one-way
+    source_id: null
+    label: ASSUMPTION
+    notes: Stockholm 17 km, Gothenburg 15 km (D-006). Toronto value needs TTS (restricted) or SUMO path lengths.
+  daily_parking_cost_paid:
+    value: 15
+    low: 0
+    high: 25
+    units: CAD per day for drivers who pay parking
+    source_id: null
+    label: ASSUMPTION
+    notes: >
+      Very influential: the larger the existing out-of-pocket cost, the smaller the response to a fixed
+      charge. The share of drivers with free or employer-paid parking is unknown (UNVERIFIED).
+
+behaviour:
+  model_form: >
+    log-arc demand response on perceived money cost per cordon-crossing trip:
+    D1 = D0 * ((c0 + charge) / c0) ** elasticity, where c0 = operating cost (+ parking where paid).
+    This is the form used by Börjesson (D-006). Apply it to non-exempt traffic only.
+  elasticity_total_cost_intro:
+    value: -0.5
+    low: -0.3
+    high: -0.87
+    units: log-arc elasticity wrt total trip money cost, at introduction
+    source_id: [D-006, D-005]
+    label: ASSUMPTION (bounded by OBSERVED (REPORT))
+    notes: >
+      Observed at introduction: Stockholm -0.87, Gothenburg -0.69 (total traffic, charged hours);
+      peak only -0.67 / -0.53. US toll roads -0.30 to -0.36 (Janson & Levinson, cited in D-006).
+      Base -0.5 is a judgement: Toronto has a lower transit share than Stockholm (~75% peak) and
+      Gothenburg's lower-transit context gave smaller values. Calibrate so S2 lands inside the observed
+      10–25% band or explain why not.
+  elasticity_peak_multiplier:
+    value: 0.77
+    source_id: D-006
+    label: ESTIMATED
+    calc: true
+    notes: Stockholm peak/total at intro = -0.67/-0.87.
+  elasticity_long_run_drift_per_year:
+    value: 0.0
+    low: -0.02
+    high: 0.04
+    units: change in elasticity magnitude per year
+    source_id: D-006
+    label: ASSUMPTION
+    notes: Stockholm rose (-0.87 to -1.24 over 8 years); Gothenburg fell (-0.69 to -0.52). Direction is not transferable.
+  elasticity_rate_increase:
+    value: -0.28
+    low: -0.16
+    high: -0.28
+    units: peak elasticity when an existing charge is raised
+    source_id: D-006
+    label: OBSERVED (REPORT)
+    notes: Use for later rate rises. They are much less effective than the first introduction.
+  vehicle_class_sensitivity:
+    trucks_rel_to_private: {value: 0.4, label: ASSUMPTION, source_id: D-006, notes: "Stockholm 2016 rise: trucks -0.25 vs private -0.57 (peak)"}
+    company_cars: {value: 0.0, label: ASSUMPTION, source_id: D-006, notes: "Charge often reimbursed; little or no response"}
+    ride_hail_ptc: {value: 0.1, label: ASSUMPTION, notes: "Per-trip passenger fee in NYC; Toronto PTC response unknown"}
+  response_composition_of_removed_trips:
+    notes: >
+      Shares of trips that STOP crossing the cordon. 'continue and pay' is the remainder (D1).
+      Reroute is simulated in SUMO, not taken from these shares, when the network covers the alternative.
+    switch_to_transit:   {value: 0.45, low: 0.40, high: 0.60, source_id: [D-007, D-005], label: OBSERVED (REPORT) range, notes: "London 50–60%; Stockholm ~43% (work trips to transit)"}
+    reroute_around_zone: {value: 0.15, low: 0.09, high: 0.30, source_id: [D-007, D-005], label: OBSERVED (REPORT) range, notes: "London 20–30% (through trips); Stockholm ~9%. Toronto has a grid with many alternatives (UF-001): test in SUMO."}
+    change_destination_or_cancel_combine: {value: 0.25, low: 0.15, high: 0.26, source_id: [D-005, D-007], label: OBSERVED (REPORT) range}
+    retime_outside_charged_hours: {value: 0.05, low: 0.0, high: 0.15, source_id: [D-006, D-023], label: ASSUMPTION, notes: "Stockholm: no aggregate sign of retiming; Singapore ALS: strong shoulder surge. Depends on design (S3 tests this)."}
+    professional_traffic_unspecified: {value: 0.10, low: 0.05, high: 0.22, source_id: D-005, label: OBSERVED (REPORT), notes: "Stockholm ~5pp of ~23pp"}
+    check: shares in each column should sum to ~1.0 after normalisation
+
+time_of_day:
+  shoulder_bunching_risk:
+    value: qualitative
+    source_id: [D-023, D-024]
+    label: OBSERVED (REPORT)
+    notes: >
+      Singapore ALS needed hours extended to 10:15 because of the post-9:30 surge; shoulder pricing from 1994.
+      Stockholm found no aggregate departure-time shift. Toronto S3 (shoulder half-rate) is an ASSUMPTION test.
+  am_vs_pm_response:
+    value: {am_peak: -0.18, pm_peak: -0.23, midday: -0.22}
+    units: cordon traffic change, Stockholm 2006
+    source_id: D-005
+    label: OBSERVED (REPORT)
+
+growth:
+  population_toronto_cd:
+    value: {2025: 3271830, 2026: 3137414, 2031: 3101770, 2035: 3164717, 2051: 3567416}
+    source_id: D-013
+    label: ESTIMATED (official projection)
+  population_gta_5cd:
+    value: {2025: 7680093, 2026: 7499718, 2035: 7813268}
+    source_id: D-013
+    label: ESTIMATED (official projection)
+    notes: GTA +4.2% 2026–2035; Toronto CD +0.9% 2026–2035 (calc).
+  downtown_jobs:
+    value: {2024: 643350, 2025: 664650}
+    source_id: D-014
+    label: OBSERVED (REPORT), UNVERIFIED against PDF
+  baseline_cordon_traffic_growth_per_year:
+    value: 0.0
+    low: -0.005
+    high: 0.01
+    units: per year, applied identically to with- and without-pricing futures
+    label: ASSUMPTION
+    notes: >
+      Do not scale traffic one-for-one with population (UF-001). Downtown road capacity is built out
+      (EX8.14 p.11), Stockholm cordon traffic was flat through the 1990s–2005 despite growth (D-005),
+      Toronto population is projected roughly flat to 2035 (D-013), and remote work persists
+      (D-016, D-017). The high case reflects downtown job growth (D-014).
+  remote_work_share_toronto_cma:
+    value: 0.247
+    source_id: D-016
+    label: OBSERVED (REPORT)
+    notes: May 2024 'mostly from home'. National share falling (18.7% to 17.4%, 2024–2025).
+
+costs:
+  roadside_per_charging_point_2025:
+    value: 0.85
+    low: 0.73
+    high: 0.97
+    units: CAD M (2025$) per toll point
+    source_id: [D-008, D-002]
+    label: ESTIMATED
+    calc: true
+    notes: EX8.14 $0.56–0.75M (2015$) x 1.2998; expressway gantries. Arterial pole-mounted ANPR may be cheaper (UNVERIFIED).
+  central_system_capex_2025:
+    value: 6.5
+    low: 6.5
+    high: 25.0
+    units: CAD M (2025$)
+    source_id: [D-008]
+    label: ESTIMATED (low) / ASSUMPTION (high)
+    calc: true
+    notes: EX8.14 central system $5.0M (2015$) x 1.30. A cordon with permits, exemptions and enforcement back office is more complex; high case is an assumption.
+  annual_om_2025_reference:
+    value: 40.2
+    low: 40.2
+    high: 47.6
+    units: CAD M/yr (2025$) for a Gardiner/DVP system at 2031 volumes
+    source_id: [D-008, D-002]
+    label: ESTIMATED
+    calc: true
+  opex_share_of_gross:
+    value: 0.15
+    low: 0.07
+    high: 0.31
+    units: share of gross collections
+    source_id: [D-006, D-020]
+    label: ESTIMATED (international range)
+    notes: >
+      Reasonableness check only. Stockholm 31% (yr 2) to 7% (mature); 407 ETR 13–16% (calc). Year 1–2
+      should sit higher than at maturity. Cross-check against the bottom-up cost per point.
+  startup_cost_benchmarks:
+    stockholm: {value: "1,900 MSEK (2006) incl. information campaign and tests; ~EUR 200M", source_id: [D-005, D-006], label: OBSERVED (REPORT), notes: "Contractor later said it could be built for half (D-005 p.32)"}
+    nyc_transcore_dbom: {value: "US$507M, 7–8 year design-build-operate-maintain contract (2019)", source_id: null, label: UNVERIFIED, notes: "Search excerpt only; not a primary MTA document"}
+
+compliance:
+  collection_loss_share:
+    value: 0.03
+    low: 0.01
+    high: 0.06
+    units: share of chargeable events never collected
+    label: ASSUMPTION
+    source_id: D-007
+    notes: >
+      London 2003: PCNs ~6.4% of weekly payments and ~63% of PCNs paid, which implies ~2.4% of events
+      unrecovered (calc, early years). Stockholm reported 'high' compliance without a number (D-005).
+      NYC figure not found.
+
+taxi_ridehail:
+  ptc_share_downtown_vkt_am_peak:
+    value: 0.116
+    source_id: D-018
+    label: OBSERVED (REPORT)
+    notes: 14.2% all-day; 11.6% at 8–9am (Sept 2024 PTC vs 2023 all-vehicle VKT).
+  ptc_trips_per_day_city:
+    value: 212000
+    source_id: D-018
+    label: OBSERVED (REPORT)
+  nyc_per_trip_fees_usd:
+    value: {hvfhv: 1.50, taxi: 0.75}
+    source_id: D-019
+    label: OBSERVED
+
+institutional:
+  city_toll_power:
+    value: prohibited
+    source_id: [D-009, D-010]
+    label: OBSERVED
+    notes: >
+      Since 2025-06-05 the City of Toronto Act s.41 bars the City from tolling highways for any purpose,
+      including congestion, and s.116 (the regulation route) is repealed. A City cordon charge would need
+      an Act of the Legislature, not just a regulation. Whether a cordon fee on streets is a 'toll highway'
+      is a legal question (UNVERIFIED).
+  provincial_highway_tolls:
+    value: prohibited unless authorized by an Act
+    source_id: D-011
+    label: OBSERVED
+  gardiner_dvp_owner:
+    value: City of Toronto until fall 2027, then Province
+    source_id: D-012
+    label: OBSERVED (REPORT)
+  history_2017_block:
+    value: Council 32-9 request (Dec 2016); Premier denied 2017-01-27
+    source_id: D-022
+    label: OBSERVED (REPORT), secondary
+
+# --- Added by the model build (main thread) ---------------------------------
+calibration:
+  observed_band_at_reference_price:
+    notes: >
+      Toronto's response is CALIBRATED, not estimated: at the reference price (NYC US$9 peak in
+      2025 CAD) the share of cordon crossings removed (all responses incl. rerouting) is set to the
+      observed international band. The constant-elasticity curve D1 = D0 ((c0+p)/c0)^e is then
+      used only to move along prices (S1 $3, S3 shoulder, $5-$20 sweep), with c0 solved per case.
+      Direct transfer of Stockholm's -0.87 on Toronto money costs gives ~50-70% drops, which no
+      modern scheme has observed (research/parameters.md).
+    reference_price_cad: {value: 12.58, source_id: [D-001, D-019], label: ESTIMATED}
+    crossing_reduction_at_reference:
+      value: 0.15
+      low: 0.10
+      high: 0.22
+      units: share of chargeable crossings, first year
+      source_id: [B-NYC, B-LON, B-STO]
+      label: ASSUMPTION (bounded by OBSERVED (REPORT))
+      notes: NYC entries -11% (US$9, MTA; UNVERIFIED PDF); London 4+-wheel vehicles -18%, cars -33% (GBP 5, 2003; TfL 2nd report Table 3.1); Stockholm -22% (trial). Base 15% sits between NYC and London all-vehicle results.
+    elasticity_for_price_curve:
+      value: -0.5
+      source_id: [D-006]
+      label: ASSUMPTION
+      notes: Shape parameter only; level comes from the calibration target.
+
+design:
+  charging_days_per_year: {value: 250, label: ASSUMPTION, notes: "Weekdays excluding statutory holidays"}
+  charging_window: {value: "weekdays 06:00-19:00", label: ASSUMPTION, notes: "SUMO simulates 06:00-10:00; the rest of the day is expanded"}
+  am_window_share_of_charged_day_entries:
+    value: 0.38
+    low: 0.33
+    high: 0.43
+    label: ASSUMPTION
+    notes: >
+      Share of 06:00-19:00 inbound crossings that occur 06:00-10:00. To be replaced by the measured
+      share from City 14-hour TMC counts at boundary crossings (cordon.observed), which cover 06:00-20:00.
+  repeat_entry_share_once_per_day:
+    value: 0.15
+    low: 0.08
+    high: 0.23
+    label: ASSUMPTION
+    notes: Under a once-per-day charge, repeat entries pay nothing extra. Singapore ALS ~23% repeat entries (Phang & Toh 2004; research B).
+  exempt_or_discounted_share:
+    value: 0.08
+    low: 0.04
+    high: 0.15
+    label: ASSUMPTION
+    notes: Transit/emergency/disability-permit vehicles and low-income discount uptake. NYC/London exemption lists in research/cases.
+  ptc_per_trip_fee_cad:
+    value: 2.10
+    low: 1.05
+    high: 2.10
+    label: ASSUMPTION
+    notes: NYC HVFHV US$1.50 x 1.3978; ride-hail pays per trip instead of the daily car charge.
+  truck_rate_multiplier:
+    value: 1.6
+    label: ASSUMPTION
+    notes: NYC small trucks US$14.40 vs cars US$9 (D-019).
+  heavy_vehicle_share_of_crossings:
+    value: 0.04
+    label: ASSUMPTION
+    notes: To be replaced by TMC truck share at boundary crossings.
+
+finance:
+  ramp_up_year1_collection_factor: {value: 0.9, label: ASSUMPTION, notes: "Enforcement and account set-up in year one"}
+  opex_share_by_year: {value: [0.30, 0.22, 0.17, 0.15, 0.13, 0.12, 0.12, 0.11, 0.11, 0.11], label: ASSUMPTION, source_id: [D-006, D-020], notes: "Stockholm 31% -> 7%; 407 ETR 13-16%; start high, mature lower"}
+  implementation_years_before_launch: {value: 2, label: ASSUMPTION, notes: "Legislation, procurement, build; Stockholm ~3 yrs, NYC much longer due to litigation"}
+  transit_service_share_of_net: {value: 0.6, label: ASSUMPTION (policy choice), notes: "User-adjustable allocation; London/NYC/Stockholm earmarked to transport"}
+  equity_mitigation_share_of_net: {value: 0.15, label: ASSUMPTION (policy choice)}

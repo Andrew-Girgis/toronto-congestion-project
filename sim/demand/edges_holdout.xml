@@ -1,0 +1,78 @@
+<data>
+  <interval id="h06" begin="21600" end="25200">
+    <edge id="-1436308102#0" entered="0"/>
+    <edge id="-15803460" entered="0"/>
+    <edge id="-280535470" entered="0"/>
+    <edge id="-4963499" entered="0"/>
+    <edge id="-5001023" entered="0"/>
+    <edge id="1262439338#0" entered="405"/>
+    <edge id="189607533#0" entered="0"/>
+    <edge id="232591811#0" entered="482"/>
+    <edge id="341228254#0" entered="418"/>
+    <edge id="4006134" entered="675"/>
+    <edge id="4006136#0" entered="687"/>
+    <edge id="42333308" entered="626"/>
+    <edge id="4281297" entered="0"/>
+    <edge id="455493969#0" entered="106"/>
+    <edge id="5080129#0" entered="376"/>
+    <edge id="8119097" entered="0"/>
+  </interval>
+  <interval id="h07" begin="25200" end="28800">
+    <edge id="-1436308102#0" entered="0"/>
+    <edge id="-15803460" entered="0"/>
+    <edge id="-280535470" entered="0"/>
+    <edge id="-4963499" entered="0"/>
+    <edge id="-5001023" entered="0"/>
+    <edge id="1262439338#0" entered="595"/>
+    <edge id="189607533#0" entered="0"/>
+    <edge id="232591811#0" entered="549"/>
+    <edge id="341228254#0" entered="648"/>
+    <edge id="4006134" entered="896"/>
+    <edge id="4006136#0" entered="953"/>
+    <edge id="42333308" entered="644"/>
+    <edge id="4281297" entered="0"/>
+    <edge id="455493969#0" entered="483"/>
+    <edge id="5080129#0" entered="643"/>
+    <edge id="8119097" entered="0"/>
+  </interval>
+  <interval id="h08" begin="28800" end="32400">
+    <edge id="-1436308102#0" entered="0"/>
+    <edge id="-15803460" entered="0"/>
+    <edge id="-280535470" entered="0"/>
+    <edge id="-4651984" entered="0"/>
+    <edge id="-4963499" entered="0"/>
+    <edge id="-5001023" entered="0"/>
+    <edge id="1262439338#0" entered="693"/>
+    <edge id="156269751" entered="425"/>
+    <edge id="189607533#0" entered="0"/>
+    <edge id="22479015" entered="0"/>
+    <edge id="232591811#0" entered="656"/>
+    <edge id="341228254#0" entered="709"/>
+    <edge id="4006134" entered="996"/>
+    <edge id="4006136#0" entered="1194"/>
+    <edge id="42333308" entered="882"/>
+    <edge id="4281297" entered="0"/>
+    <edge id="455493969#0" entered="627"/>
+    <edge id="5080129#0" entered="775"/>
+    <edge id="5686815" entered="25"/>
+    <edge id="8119097" entered="0"/>
+  </interval>
+  <interval id="h09" begin="32400" end="36000">
+    <edge id="-1436308102#0" entered="0"/>
+    <edge id="-15803460" entered="0"/>
+    <edge id="-280535470" entered="0"/>
+    <edge id="-4963499" entered="0"/>
+    <edge id="-5001023" entered="0"/>
+    <edge id="1262439338#0" entered="725"/>
+    <edge id="189607533#0" entered="0"/>
+    <edge id="232591811#0" entered="710"/>
+    <edge id="341228254#0" entered="488"/>
+    <edge id="4006134" entered="881"/>
+    <edge id="4006136#0" entered="975"/>
+    <edge id="42333308" entered="1001"/>
+    <edge id="4281297" entered="0"/>
+    <edge id="455493969#0" entered="364"/>
+    <edge id="5080129#0" entered="746"/>
+    <edge id="8119097" entered="0"/>
+  </interval>
+</data>

@@ -1,0 +1,203 @@
+---
+import Base from "../layouts/Base.astro";
+import "maplibre-gl/dist/maplibre-gl.css";
+---
+<Base title="Congestion Cordon" description="Testing the case for congestion pricing in Toronto with City traffic counts, a calibrated traffic simulation and evidence from four cities.">
+  <header class="hero">
+    <div class="wrap">
+      <p class="kicker">Congestion Cordon</p>
+      <h1>Would a downtown traffic charge work in Toronto?</h1>
+      <p class="lede">We rebuilt downtown's morning traffic from the City's own counts, simulated a charge, and set the results beside what actually happened in New York, London, Stockholm and Singapore. We did not start from the answer.</p>
+
+      <div class="minute grid g4" id="minute">
+        <div class="card"><div class="label">The gap</div>
+          <div class="stat" data-bind="cover"><small>loading…</small></div>
+          <p class="muted">Toronto's open data has no count of cars entering downtown. We assembled one from intersection counts. <span class="tag obs">observed</span></p></div>
+        <div class="card"><div class="label">If a C$12.58 charge applied</div>
+          <div class="stat" data-bind="s2drop"><small>loading…</small></div>
+          <p class="muted">change in morning vehicles paying to enter (cordon + Gardiner/DVP) <span class="tag sim">simulated</span></p></div>
+        <div class="card"><div class="label">Boundary streets</div>
+          <div class="stat" data-bind="bl"><small>loading…</small></div>
+          <p class="muted">change in traffic on local streets just outside the zone <span class="tag sim">simulated</span></p></div>
+        <div class="card"><div class="label">Money, per year once running</div>
+          <div class="stat" data-bind="net"><small>loading…</small></div>
+          <p class="muted">gross collections, base case, before costs and transit spending <span class="tag est">estimated</span></p></div>
+      </div>
+
+      <div class="callout ask">
+        <strong>Our ask:</strong> let City Transportation Services run a <strong>90-day pilot</strong> of this open tool on its internal data, at an estimated <strong>C$50k–80k</strong> of staff time <span class="tag asm">assumption</span>. A pricing trial would come later, and only if the evidence holds up. Since June 2025 that step would need the Province to pass a law.
+        <a href="#adoption">See the pilot plan ↓</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="map-section">
+    <div class="wrap">
+      <h2>What happens to downtown traffic?</h2>
+      <p class="lede">A weekday morning (6–10 a.m.) in a traffic simulation fitted to <span data-bind="nsites">~550</span> City intersection counts. Choose a scenario and compare it with no charge.</p>
+      <div class="controls">
+        <div class="seg" id="scenario-buttons" role="group" aria-label="Scenario"></div>
+        <div class="seg" id="mode-buttons" role="group" aria-label="View">
+          <button data-mode="change" aria-pressed="true">Change vs no charge</button>
+          <button data-mode="volume" aria-pressed="false">Traffic volume</button>
+          <button data-mode="trips" aria-pressed="false">Moving cars</button>
+          <button data-mode="coverage" aria-pressed="false">Count coverage</button>
+        </div>
+      </div>
+      <div class="mapbox">
+        <div id="map" aria-label="Map of downtown Toronto showing simulated traffic"></div>
+        <div class="legend card" id="legend"></div>
+        <div class="clock card" id="clock" hidden>07:00</div>
+      </div>
+      <p class="src" id="scenario-note"></p>
+    </div>
+  </section>
+
+  <section id="where">
+    <div class="wrap">
+      <h2>Where to draw the line?</h2>
+      <p class="lede">Every road crossing the boundary needs a camera and is a place traffic can leak around. Boundaries along natural barriers (the lake, the Don Valley, rail corridors) cover more area with fewer crossings. A boundary is only as measurable as its count coverage.</p>
+      <div class="card"><table id="cordon-table"></table>
+        <p class="src">Crossings: drivable City Centreline segments crossing each boundary (laneways excluded). Counted = a City intersection or midblock count on the same street within 250 m since 2023 <span class="tag obs">observed</span>. Boundaries are candidates we drew <span class="tag asm">assumption</span>. The simulation uses C1, which has the best count coverage.</p></div>
+    </div>
+  </section>
+
+  <section id="diversion">
+    <div class="wrap">
+      <h2>Would drivers cut through neighbourhoods?</h2>
+      <p class="lede">A participant at this event expected drivers to face a choice: "pay a small fee and get there quickly, or take much longer and save the money." Toronto's open grid has fewer choke points than Manhattan or Stockholm, so we tested the claim instead of assuming it.</p>
+      <div class="grid g3" id="diversion-cards"></div>
+      <p class="src">Rerouting uses a value of time of C$24.99 per vehicle-hour (Metrolinx Business Case Manual VOT, CPI-adjusted, × assumed occupancy 1.15) <span class="tag asm">assumption</span>. At that value, C$12.58 equals about 30 minutes of extra driving. Only drivers facing the charge reroute; other drivers keep their routes (a one-shot response, not a full equilibrium).</p>
+    </div>
+  </section>
+
+  <section id="burden">
+    <div class="wrap">
+      <h2>Who pays, by direction of travel?</h2>
+      <p class="lede">The concern we heard: people driving in from the west (via the 401 and Gardiner) could feel singled out. Below are morning vehicles crossing into the zone by side, with and without the charge.</p>
+      <div class="grid g2">
+        <div class="card"><div id="side-chart"></div><p class="src">Simulated inbound crossings 6–10 a.m. by side of the cordon <span class="tag sim">simulated</span></p></div>
+        <div class="card">
+          <h3>Alternatives differ by side</h3>
+          <table>
+            <tr><th>Side</th><th>Main rapid-transit alternatives into downtown</th></tr>
+            <tr><td>West</td><td>Line 2 Bloor–Danforth, Lakeshore West and Kitchener GO, UP Express, King and Queen streetcars</td></tr>
+            <tr><td>North</td><td>Line 1 Yonge–University (both branches), Barrie and Richmond Hill GO</td></tr>
+            <tr><td>East</td><td>Line 2 Bloor–Danforth, Lakeshore East and Stouffville GO, Queen/King streetcars</td></tr>
+          </table>
+          <p class="src">Who pays by home area or income cannot be identified from open data: there is no public trip-level data (the TTS survey needs an account). Neighbourhood income averages describe areas, not individual drivers (ecological fallacy). Pembina Institute (2018), using TTS, found most Gardiner/DVP toll payers were above median income, but the burden as a share of income was higher for affected low-income households.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="money">
+    <div class="wrap">
+      <h2>What would it cost and raise over 10 years?</h2>
+      <p class="lede">Collections are counted from simulated charged trips × rates, net of exemptions, repeat trips and unpaid charges. They are not copied from another city's revenue. The more a charge cuts traffic, the less it collects.</p>
+      <div class="controls"><div class="seg" id="fin-buttons" role="group" aria-label="Scenario for finance"></div></div>
+      <div class="grid g2">
+        <div class="card"><div id="cash-chart"></div><p class="src">Cumulative net cash, 2025 CAD real <span class="tag est">estimated</span>. The band runs from a pessimistic case (smaller traffic response, higher costs) to an optimistic one. These are illustrative ranges, not confidence intervals.</p></div>
+        <div class="card"><table id="fin-table"></table>
+          <p class="src">Capital cost uses the City's 2015 toll-point estimate (EX8.14, CPI-adjusted) for every crossing point. Operating cost starts at 30% of collections and falls to 11%, between Stockholm (31% → 7%) and London (76% in year one). Time savings and lower emissions are benefits but are <em>not</em> added to these cash figures.</p></div>
+      </div>
+      <h3 style="margin-top:24px">Where could the money go? A choice, not an assumption</h3>
+      <div class="grid g4">
+        <div class="card"><strong>Faster, more frequent buses and streetcars</strong> on the corridors feeding downtown. London's year-one win.</div>
+        <div class="card"><strong>Transit state of good repair</strong> (TTC capital backlog). NYC bonded its revenue to a capital plan.</div>
+        <div class="card"><strong>Electrifying above-ground transit</strong>, raised at this event. GO and UP Express are provincial (Metrolinx) assets, so the Province would have to agree.</div>
+        <div class="card"><strong>Fairness measures</strong>: low-income discounts, disability exemptions, off-peak relief. Each exemption is costed.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cities">
+    <div class="wrap">
+      <h2>What happened elsewhere</h2>
+      <p class="lede">Each city's own evaluation. Charge levels, eras and measures differ, so these are lessons, not predictions.</p>
+      <div class="grid g3" id="case-cards"></div>
+    </div>
+  </section>
+
+  <section id="adoption">
+    <div class="wrap">
+      <h2>A pilot the City could say yes to</h2>
+      <div class="grid g2">
+        <div class="card">
+          <h3>Who runs it</h3>
+          <p><strong>Lead:</strong> Transportation Services, which already runs the traffic count program this tool uses. <strong>Partners:</strong> City Planning (Transportation Planning), the TTC (transit capacity), and Technology Services (hosting).</p>
+          <h3>What it costs</h3>
+          <p>About <strong>C$50k–80k</strong> for 90 days: a modeller and a data analyst at half time, plus a privacy review. The software is open source (SUMO, DuckDB, Astro), so there are no licence fees. <span class="tag asm">assumption</span> Staff rates are to be confirmed with the division.</p>
+          <h3>Data and privacy</h3>
+          <p>The tool uses <strong>aggregate counts only</strong>: no licence plates, no individual trips, no personal information. Internal data the City already holds (expressway detector loops, recent counts, travel times) stays on City infrastructure. Any future use of survey microdata or enforcement camera data would go through MFIPPA with a Privacy Impact Assessment. The code and method are published openly.</p>
+        </div>
+        <div class="card">
+          <h3>90 days</h3>
+          <ol class="timeline">
+            <li><strong>Days 1–30: Rebuild on City data.</strong> Install on City infrastructure. Add the expressway detector (RESCU) volumes that the open data lacks, plus current counts. Recalibrate. <em>Gate:</em> baseline matches held-out counts.</li>
+            <li><strong>Days 31–60: Test options.</strong> Compare boundaries (Bathurst–Parliament, Bathurst–Don, Dufferin–rail–Don), hours and rates. Check diversion against City travel-time data. <em>Gate:</em> results stable under sensitivity tests.</li>
+            <li><strong>Days 61–90: Publish and decide.</strong> Open method and results, a Council briefing, and consultation with affected neighbourhoods. <em>Decision:</em> stop, or commission a formal feasibility study.</li>
+          </ol>
+          <h3>Then, only if the evidence holds</h3>
+          <p>A Stockholm-style path: transit capacity in place first, a time-limited trial, open evaluation, then a public decision. This requires the Province to legislate. The <em>Plan to Protect Ontario Act (Budget Measures), 2025</em> re-enacted City of Toronto Act s.41 so the City "does not have the power to designate, operate or maintain a highway as a toll highway", and the Gardiner and DVP move to the Province in 2027.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="heard">
+    <div class="wrap">
+      <h2>What we heard, and what we changed</h2>
+      <p class="lede">From a conversation at this event with a participant who has policy and technology experience (n = 1 so far; notes paraphrased; more conversations will be logged).</p>
+      <table>
+        <tr><th>What we heard</th><th>What we changed</th></tr>
+        <tr><td>"Population growth could be miscalculated."</td><td>Traffic growth is an explicit, adjustable assumption (base 0%/yr). Ontario projects Toronto's population roughly flat to 2035, so traffic doesn't grow one-for-one with population.</td></tr>
+        <tr><td>"Where in Toronto, and when?"</td><td>Three candidate boundaries are compared on crossings and data coverage. A time-varying scenario charges half price in the shoulder hours.</td></tr>
+        <tr><td>"Commuters from the west would feel discriminated against."</td><td>Added the who-pays-by-direction view above, with the transit alternatives on each side.</td></tr>
+        <tr><td>"Predict the money raised."</td><td>A 10-year cash-flow model with low, base and high cases.</td></tr>
+        <tr><td>"What did other cities struggle with, and what worked?"</td><td>City panels with struggles, what worked and what didn't. This section is protected from scope cuts.</td></tr>
+        <tr><td>"Toronto drivers can cut through neighbourhoods."</td><td>Treated as a hypothesis and tested in the simulation (diversion section). Boundaries are scored on natural choke points.</td></tr>
+        <tr><td>"Use the money to electrify GO and UP Express."</td><td>Added as a revenue-use option, with the jurisdiction caveat.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="method">
+    <div class="wrap">
+      <h2>How we know, and what we don't</h2>
+      <div class="grid g2">
+        <div class="card"><h3>Does the simulation match reality?</h3><div id="validation"></div></div>
+        <div class="card"><h3>Limitations</h3>
+          <ul>
+            <li><strong>Expressway volumes</strong> (Gardiner, DVP) are not in the City's open counts, so they are not calibrated. The City's detector data would fix this in the pilot.</li>
+            <li>Counts come from different days at each intersection (most recent weekday since 2023, excluding summer and December), combined as one "typical" morning.</li>
+            <li>Behavioural response is calibrated to what other cities observed (10–22% fewer charged trips at a NYC-equivalent price), not estimated from Toronto data.</li>
+            <li>Rerouting is a one-shot response, not a full traffic equilibrium. Buses are not simulated.</li>
+            <li>Simulated values are scenarios, not forecasts with confidence intervals.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="src" style="margin-top:16px">Data: City of Toronto Open Data (Centreline, intersection and midblock counts, neighbourhoods; Open Government Licence – Toronto), © OpenStreetMap contributors (ODbL), OpenFreeMap basemap, MTA open data, and official evaluations from TfL, City of Stockholm, LTA and others. Full source register: <code>research/sources.csv</code>. Code and method: this repository.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  import "../scripts/app.ts";
+</script>
+
+<style>
+  .hero { padding: 48px 0 40px; }
+  .kicker { text-transform: uppercase; letter-spacing: .14em; font-weight: 700; color: var(--cordon); margin-bottom: .4rem; font-size: .85rem; }
+  .hero h1 { font-size: clamp(1.9rem, 4.4vw, 3.1rem); max-width: 22ch; letter-spacing: -.02em; }
+  .minute { margin: 24px 0 18px; }
+  .label { font-size: .8rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .ask { font-size: 1.05rem; }
+  .controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0; }
+  .mapbox { position: relative; }
+  #map { height: min(72vh, 680px); border-radius: var(--radius); border: 1px solid var(--rule); }
+  .legend { position: absolute; left: 12px; bottom: 12px; max-width: 290px; font-size: .82rem; padding: 10px 12px; }
+  .clock { position: absolute; right: 12px; top: 12px; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.3rem; padding: 6px 12px; }
+  .timeline { padding-left: 1.1rem; } .timeline li { margin-bottom: .6rem; }
+  @media (max-width: 640px) { .legend { position: static; margin-top: 8px; max-width: none; } }
+</style>
