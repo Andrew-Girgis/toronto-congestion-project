@@ -30,3 +30,6 @@ sim/demand/*.trips.xml
 sim/demand/*.alt.xml
 sim/demand/mismatch_*.xml
 sim/net/*.net.xml.gz
+sim/net/v*/
+sim/demand/v*/
+sim/demand/holdout_site_fit.csv

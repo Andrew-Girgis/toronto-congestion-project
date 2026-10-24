@@ -6,22 +6,20 @@ Writes to web/public/data/:
   cordons.geojson     candidate boundaries C1-C3 (ASSUMPTION)
   crossings.geojson   boundary crossings with count coverage (OBSERVED coverage)
   counts.geojson      counted intersections used for calibration/validation (OBSERVED)
-  edges.geojson       simulated AM volumes and speeds per road, S0-S3 (SIMULATED)
-  trips_<S>.json      sampled vehicle traces for the animation (SIMULATED)
+  edges.geojson       modelled AM volumes and speeds per road, S0-S3 (SIMULATED, static assignment)
   metrics.json        scenario metrics, validation (GEH), diversion and approach-side burden
 """
 
 import json
 import math
 import sys
-import xml.etree.ElementTree as ET
 from collections import defaultdict
 
 import geopandas as gpd
 import pandas as pd
 import sumo
 import yaml
-from shapely.geometry import LineString, Point
+from shapely.geometry import LineString
 from shapely.ops import transform
 
 sys.path.append(str(sumo.SUMO_HOME) + "/tools")
@@ -36,7 +34,6 @@ DEMAND = ROOT / "sim" / "demand"
 LOCAL_TYPES = {"highway.residential", "highway.unclassified", "highway.living_street", "highway.tertiary"}
 BOUNDARY_BAND_M = 800
 GRID_ROTATION_DEG = 17.0
-TRIP_WINDOW = (7 * 3600, 9 * 3600)  # animation window, 07:00-09:00
 
 
 def r5(x):
@@ -47,58 +44,45 @@ def geh(m, c):
     return math.sqrt(2 * (m - c) ** 2 / (m + c)) if m + c > 0 else 0.0
 
 
-def edge_stats(path):
-    """edge -> (vehicles entered 06-10, sampled-seconds-weighted mean speed km/h)."""
-    veh, ss, spd = defaultdict(float), defaultdict(float), defaultdict(float)
-    for interval in ET.parse(path).getroot().findall("interval"):
-        for e in interval.findall("edge"):
-            eid = e.get("id")
-            veh[eid] += float(e.get("entered") or 0)
-            s = float(e.get("sampledSeconds") or 0)
-            if s and e.get("speed"):
-                ss[eid] += s
-                spd[eid] += s * float(e.get("speed"))
-    return {eid: (veh[eid], (spd[eid] / ss[eid] * 3.6) if ss[eid] else None) for eid in veh}
-
-
-def simulated_turns(vehroutes):
-    """(from, to, hour) -> vehicles, from exit times in the simulated routes."""
-    turns = defaultdict(int)
-    for _, el in ET.iterparse(vehroutes):
-        if el.tag == "vehicle":
-            r = el.find("route")
-            edges, exits = r.get("edges").split(), r.get("exitTimes", "").split()
-            for i in range(min(len(edges) - 1, len(exits))):
-                turns[(edges[i], edges[i + 1], int(float(exits[i]) // 3600))] += 1
-            el.clear()
-    return turns
-
-
-def validation():
-    sim = simulated_turns(OUT / "S0" / "vehroutes.xml")
-    tt = pd.read_csv(DEMAND / "turn_targets.csv")
-    tt["sim"] = [sim.get((f, t, h), 0) for f, t, h in zip(tt.from_edge, tt.to_edge, tt.hr)]
+def link_stats(lk, length):
+    """scenario -> edge -> (vehicles 06-10, flow-weighted mean speed km/h) from the assignment."""
     out = {}
-    for split, g in tt.groupby("split"):
+    for sc, g in lk.groupby("scenario"):
+        agg = g.assign(vkt=g.flow * g.edge.map(length) / 1000, vht=g.flow * g.time_min / 60).groupby("edge").agg(
+            veh=("flow", "sum"), vkt=("vkt", "sum"), vht=("vht", "sum"), tmin=("time_min", "max"))
+        spd = (agg.vkt / agg.vht).where(agg.vht > 0, agg.index.map(length) / 1000 / (agg.tmin / 60))
+        out[sc] = {e: (v, sp) for e, v, sp in zip(agg.index, agg.veh, spd)}
+    return out
+
+
+def validation(lk):
+    """Assigned S0 flow on each counted approach vs the City count, by hour, calibration vs held-out sites."""
+    s0 = lk[lk.scenario == "S0"].set_index(["edge", "hour"]).flow
+    tt = pd.read_csv(DEMAND / "turn_targets.csv")
+    appr = tt.groupby(["split", "site_id", "hr", "from_edge"], as_index=False).veh.sum().rename(columns={"from_edge": "edge"})
+    et = pd.read_csv(DEMAND / "edge_targets.csv")
+    appr = pd.concat([appr, et[["split", "site_id", "hr", "edge", "veh"]]], ignore_index=True)
+    appr["sim"] = [float(s0.get((e, h), 0.0)) for e, h in zip(appr.edge, appr.hr)]
+    out = {}
+    for split, g in appr.groupby("split"):
         g = g.assign(geh=[geh(m, c) for m, c in zip(g.sim, g.veh)])
         site = g.groupby(["site_id", "hr"]).agg(sim=("sim", "sum"), obs=("veh", "sum")).reset_index()
         site["geh"] = [geh(m, c) for m, c in zip(site.sim, site.obs)]
-        big = g[g.veh >= 100]
-        corr = g[["sim", "veh"]].corr().iloc[0, 1]
         out[split] = {
-            "movement_hours": len(g),
-            "share_geh_lt5_movements": round((g.geh < 5).mean(), 3),
-            "share_geh_lt5_movements_ge100veh": round((big.geh < 5).mean(), 3) if len(big) else None,
+            "approach_hours": len(g),
+            "share_geh_lt5_approaches": round((g.geh < 5).mean(), 3),
+            "share_geh_lt10_approaches": round((g.geh < 10).mean(), 3),
             "intersection_hours": len(site),
             "share_geh_lt5_intersection_hours": round((site.geh < 5).mean(), 3),
             "share_geh_lt10_intersection_hours": round((site.geh < 10).mean(), 3),
             "total_observed": int(g.veh.sum()), "total_simulated": int(g.sim.sum()),
-            "r_movements": round(float(corr), 3),
+            "r_approaches": round(float(g[["sim", "veh"]].corr().iloc[0, 1]), 3),
         }
         if split == "holdout":
             site.to_csv(DEMAND / "holdout_site_fit.csv", index=False)
-    out["criterion"] = ("GEH < 5 for >= 85% of counts is the common UK DMRB/FHWA calibration target "
-                        "for assignment models; reported here for transparency, not as a pass/fail claim.")
+    out["criterion"] = ("GEH < 5 for >= 85% of counts is a common calibration target for assignment models "
+                        "(UK TAG/DMRB); reported for transparency, not as a pass/fail claim. Compared at "
+                        "approach level (all movements entering an intersection from one leg).")
     return out
 
 
@@ -112,7 +96,8 @@ def main():
     WEB.mkdir(parents=True, exist_ok=True)
     scen_all = yaml.safe_load((CONFIG / "scenarios.yaml").read_text())
     cordon_id = scen_all["simulation"]["cordon_for_area_charge"]
-    names = [s for s in scen_all["scenarios"] if (OUT / s / "edgedata.xml").exists()]
+    lk = pd.read_parquet(OUT / "assign" / "links.parquet")
+    names = [s for s in scen_all["scenarios"] if s in set(lk.scenario)]
     net = sumolib.net.readNet(str(NET))
 
     # Cordons
@@ -144,7 +129,7 @@ def main():
     zone = gpd.read_file(CONFIG / "cordons" / f"{cordon_id}.geojson").geometry.iloc[0]
     zone_xy = transform(lambda x, y, z=None: net.convertLonLat2XY(x, y), zone)
     band = zone_xy.buffer(BOUNDARY_BAND_M).difference(zone_xy)
-    stats = {s: edge_stats(OUT / s / "edgedata.xml") for s in names}
+    stats = link_stats(lk, {e.getID(): e.getLength() for e in net.getEdges()})
     used = set().union(*[set(v) for v in stats.values()]) if stats else set()
     features, edge_meta = [], {}
     for eid in used:
@@ -154,7 +139,8 @@ def main():
         mid = line.interpolate(0.5, normalized=True)
         in_zone = zone_xy.contains(mid)
         boundary_local = (e.getType() in LOCAL_TYPES) and band.contains(mid)
-        edge_meta[eid] = (in_zone, boundary_local, e.getLength())
+        street = not e.getType().startswith("highway.motorway")
+        edge_meta[eid] = (in_zone, boundary_local, e.getLength(), street)
         props = {"id": eid, "name": e.getName() or "", "type": e.getType().replace("highway.", ""),
                  "zone": in_zone, "bl": boundary_local}
         for s in names:
@@ -177,34 +163,25 @@ def main():
     for s in names:
         st = stats[s]
         zone_vkt = sum(v * edge_meta[k][2] / 1000 for k, (v, _) in st.items() if edge_meta[k][0])
-        bl_veh = sum(v for k, (v, _) in st.items() if edge_meta[k][1])
-        zs = [(v * edge_meta[k][2], sp) for k, (v, sp) in st.items() if edge_meta[k][0] and sp]
-        zone_speed = sum(w * sp for w, sp in zs) / max(sum(w for w, _ in zs), 1e-9)
+        bl_vkt = sum(v * edge_meta[k][2] / 1000 for k, (v, _) in st.items() if edge_meta[k][1])
+        # Zone street speed with fixed (S0) vehicle-km weights: the time to drive the baseline's
+        # zone street-km at this scenario's speeds. Fixed weights avoid a mix effect (less
+        # expressway traffic would otherwise lower the average even if every street got faster).
+        w0 = {k: v * edge_meta[k][2] / 1000 for k, (v, sp) in stats["S0"].items()
+              if edge_meta[k][0] and edge_meta[k][3] and sp and v > 0}
+        hrs = sum(w / st[k][1] for k, w in w0.items() if st.get(k, (0, None))[1])
+        zone_speed = sum(w0.values()) / hrs if hrs else None
         side_counts = defaultdict(float)
         for eid, side in sides.items():
             side_counts[side] += st.get(eid, (0, None))[0]
-        summary[s].update({"zone_vkt_am": round(zone_vkt), "zone_mean_speed_kmh": round(zone_speed, 1),
-                           "boundary_local_street_vehicles_am": round(bl_veh),
+        summary[s].update({"zone_vkt_am": round(zone_vkt), "zone_street_speed_kmh": round(zone_speed, 1),
+                           "boundary_local_street_vkt_am": round(bl_vkt),
                            "cordon_inbound_by_side_am": {k: round(v) for k, v in side_counts.items()}})
-    metrics = {"scenarios": summary, "validation": validation(),
-               "labels": {"scenario_metrics": "SIMULATED", "validation": "SIMULATED vs OBSERVED (held-out City counts)"},
+    metrics = {"scenarios": summary, "validation": validation(lk),
+               "labels": {"scenario_metrics": "SIMULATED (static equilibrium assignment)", "validation": "SIMULATED vs OBSERVED (held-out City counts)"},
                "cordon_id": cordon_id}
     (WEB / "metrics.json").write_text(json.dumps(metrics, indent=1))
 
-    # Animation traces (sampled vehicles, 07:00-09:00)
-    for s in names:
-        paths = defaultdict(list)
-        for _, el in ET.iterparse(OUT / s / "fcd.xml"):
-            if el.tag == "timestep":
-                t = float(el.get("time"))
-                if TRIP_WINDOW[0] <= t <= TRIP_WINDOW[1]:
-                    for v in el.findall("vehicle"):
-                        paths[v.get("id")].append((r5(float(v.get("x"))), r5(float(v.get("y"))), int(t - TRIP_WINDOW[0])))
-                el.clear()
-        trips = [{"p": [[x, y] for x, y, _ in pts], "t": [t for _, _, t in pts]}
-                 for pts in paths.values() if len(pts) > 2]
-        (WEB / f"trips_{s}.json").write_text(json.dumps(trips, separators=(",", ":")))
-        print(f"{s}: {len(trips)} traced vehicles")
     print(json.dumps(metrics["validation"], indent=1))
 
 

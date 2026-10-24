@@ -88,7 +88,7 @@ More conversations would strengthen this criterion. Log each one the same way.
 | Repo | This folder, standalone, with its own GitHub repo (the user creates the remote). Not connected to any other project. |
 | Frontend | **Astro** site in `web/`, with MapLibre GL JS 6 (ESM build, `maplibre-gl.mjs`) on the OpenFreeMap Positron basemap (no key; attribution required) and deck.gl TripsLayer for vehicle playback. Reads only precomputed files from `web/public/data/`; no live research APIs during the demo. |
 | Pipeline | Python 3.14 in the project `.venv`, run via `uv`. DuckDB with the spatial extension loaded in every connection; Parquet for processed tables; GeoJSON for small web layers. H3 only where hexagons help the analysis. Tippecanoe only if a layer is too large for GeoJSON. |
-| Simulation | **SUMO 1.28** (`eclipse-sumo` wheel). Microsimulation of downtown plus about a 1.5 km buffer (includes the downtown Gardiner, DVP and Lake Shore), weekday 06:00–10:00. Demand is fitted to observed City counts with SUMO `routeSampler`; about 20% of count stations are held out and the fit is reported (GEH). AequilibraE 1.7.2 is installed but optional. MATSim is not used. |
+| Simulation | **SUMO 1.28** (`eclipse-sumo` wheel). Mesoscopic simulation with signal-delay penalties (switched from microsimulation for runtime; full junction control deadlocked) of downtown plus about a 1.5 km buffer (includes the downtown Gardiner, DVP and Lake Shore), weekday 06:00–10:00. Demand is fitted to observed City counts with SUMO `routeSampler`; about 20% of count stations are held out and the fit is reported (GEH). AequilibraE 1.7.2 is installed but optional. MATSim is not used. |
 | Behaviour | An aggregate response layer, parameterised from cited evidence, splits affected trips into: continue and pay, reroute, change departure time, switch mode, combine/cancel. Only "continue" and "reroute" stay on the SUMO network. Rerouting uses toll plus value-of-time route cost. Removed trips do **not** all go to transit. |
 | Scenarios | Compared with the **same** no-pricing baseline: **S1** Gardiner/DVP $3 flat (a *partial*, labelled check against EX8.14 Table 7 and **not** a like-for-like replication, because the network only covers the expressways' downtown ends). **S2** Downtown cordon + Gardiner/DVP at about C$12.50 (NYC US$9 peak converted at a cited 2025 rate). **S3** Time-varying: C$12.50 at 07:00–09:00, C$6.25 for 06:00–07:00 and 09:00–10:00 (the shoulder rate is an ASSUMPTION). SUMO runs the base response only; low/base/high and rate sensitivity ($5–$20) come from the aggregate model. |
 | Cordon boundary | Chosen from count coverage, crossing geometry and natural choke points (fewer crossings means lower enforcement cost and less leakage), with the reasoning documented. Record road jurisdiction (City vs provincial) and institutional requirements per option. |
@@ -201,7 +201,7 @@ The five components stay separate: (1) basemap/road geometry, (2) observed traff
 
 ## 9. Commands
 
-Planned targets; update this section as they become real.
+All targets exist (see `Makefile`). Tests: `make check` (pytest, `tests/`).
 
 ```bash
 uv sync                      # install Python deps into .venv
@@ -209,7 +209,8 @@ make data                    # download dated snapshots + manifest, build proces
 make sim                     # build SUMO net, calibrate baseline, run S0–S3
 make model                   # aggregate behaviour + financial model → outputs
 make web                     # export web data, then: cd web && npm run dev
-make check                   # data tests, model invariants, Playwright smoke test
+make check                   # data tests and model invariants (pytest)
+make serve                   # demo at http://localhost:4321
 ```
 
 DuckDB CLI: `~/.duckdb/cli/latest/duckdb -no-agent`. In Python: `con.load_extension("spatial")` in every connection.

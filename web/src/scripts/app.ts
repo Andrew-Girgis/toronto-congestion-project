@@ -1,7 +1,8 @@
-import maplibregl from "maplibre-gl";
-import { MapboxOverlay } from "@deck.gl/mapbox";
-import { TripsLayer } from "@deck.gl/geo-layers";
+import * as maplibregl from "maplibre-gl";
+import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import * as Plot from "@observablehq/plot";
+
+maplibregl.setWorkerUrl(workerUrl); // bundlers must point MapLibre 6 at its worker
 
 type Json = any;
 const D = "/data/";
@@ -21,7 +22,6 @@ const labelKind = (l: string) =>
 let scenario = "S2";
 let mode = "change";
 let metrics: Json, finance: Json, edges: Json, crossings: Json;
-const tripsCache: Record<string, Json> = {};
 
 async function main() {
   [metrics, finance, edges, crossings] = await Promise.all([
@@ -49,7 +49,7 @@ function minute(counts: Json) {
   const s2 = S("S2");
   if (s2) {
     $("[data-bind=s2drop]").innerHTML = `${pct(s2.charged_vehicles / s2.baseline_chargeable - 1)} <small>vehicles paying</small>`;
-    const bl = s2.boundary_local_street_vehicles_am / S("S0").boundary_local_street_vehicles_am - 1;
+    const bl = s2.boundary_local_street_vkt_am / S("S0").boundary_local_street_vkt_am - 1;
     $("[data-bind=bl]").innerHTML = `${pct(bl)} <small>on boundary local streets</small>`;
     const f = finance.results.find((r: Json) => r.scenario === "S2" && r.case === "base");
     const lo = finance.results.find((r: Json) => r.scenario === "S2" && r.case === "low");
@@ -97,8 +97,7 @@ function short(id: string) {
 }
 
 let map: maplibregl.Map;
-let overlay: MapboxOverlay;
-let anim = 0;
+let mapReady = false;
 
 function buildMap(cordons: Json, counts: Json) {
   map = new maplibregl.Map({
@@ -108,8 +107,6 @@ function buildMap(cordons: Json, counts: Json) {
     cooperativeGestures: true,
   });
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-left");
-  overlay = new MapboxOverlay({ interleaved: false, layers: [] });
-  map.addControl(overlay as unknown as maplibregl.IControl);
   map.on("load", () => {
     map.addSource("edges", { type: "geojson", data: edges });
     map.addSource("cordons", { type: "geojson", data: cordons });
@@ -134,6 +131,7 @@ function buildMap(cordons: Json, counts: Json) {
       popup.setLngLat(e.lngLat).setHTML(`<b>${p.name || p.type}</b><br>No charge: ${fmt.format(b)} vehicles, 6–10 a.m.${d}<br>${tag("sim")}`).addTo(map);
     });
     map.on("mouseleave", "edges", () => popup.remove());
+    mapReady = true;
     map.on("click", "crossings", (e) => {
       const p = e.features![0].properties as Json;
       new maplibregl.Popup().setLngLat(e.lngLat).setHTML(
@@ -144,13 +142,13 @@ function buildMap(cordons: Json, counts: Json) {
 }
 
 function refresh() {
-  if (!map?.isStyleLoaded()) return;
+  if (!mapReady) return;
   const v = `v_${scenario}`;
   const coverage = mode === "coverage";
   map.setLayoutProperty("crossings", "visibility", coverage ? "visible" : "none");
   map.setLayoutProperty("counts", "visibility", coverage ? "visible" : "none");
   map.setLayoutProperty("cordon-alt", "visibility", coverage ? "visible" : "none");
-  map.setLayoutProperty("edges", "visibility", mode === "trips" || coverage ? "none" : "visible");
+  map.setLayoutProperty("edges", "visibility", coverage ? "none" : "visible");
   const width = ["interpolate", ["linear"], ["max", ["get", "v_S0"], ["get", v]], 50, 0.6, 1000, 2.2, 6000, 6];
   map.setFilter("edges", [">", ["max", ["get", "v_S0"], ["get", v]], 40]);
   if (mode === "change" && scenario !== "S0") {
@@ -162,11 +160,10 @@ function refresh() {
   }
   map.setPaintProperty("edges", "line-width", width as any);
   legend();
-  trips();
   const s = S(scenario);
   $("#scenario-note").innerHTML = scenario === "S0"
-    ? `Calibrated baseline: City counts at ~80% of intersections were used to fit it; the other ~20% check it. ${tag("sim")}`
-    : `${s.name}. ${s.label} ${tag("sim")}`;
+    ? `Baseline: trips fitted to City counts at ~80% of intersections (the other ~20% check it), routed by an equilibrium traffic model. ${tag("sim")}`
+    : `${s.name}. ${s.label.replace(/\s*SIMULATED\.?/i, "")} ${tag("sim")}`;
 }
 
 function legend() {
@@ -176,8 +173,6 @@ function legend() {
       <span style="color:#1f7a4d">●</span> crossing counted since 2023<br><span style="color:#a36400">●</span> counted before 2023 only<br>
       <span style="color:#b42318">●</span> expressway: no open City counts<br><span style="color:#6b6b6b">●</span> never counted<br>
       <span style="color:#c8102e">━</span> modelled boundary (C1) &nbsp;<span>┅</span> alternatives C2, C3<br>small dots: counted intersections (green = fit, amber = held out) ${tag("obs")}`;
-  } else if (mode === "trips") {
-    el.innerHTML = `<b>Moving cars</b>, 7–9 a.m., a sample of ~8% of simulated vehicles. ${tag("sim")}`;
   } else if (mode === "change" && scenario !== "S0") {
     el.innerHTML = `<b>Change in vehicles, 6–10 a.m.</b><br><span style="color:#2166ac">━</span> fewer &nbsp; <span style="color:#d6604d">━</span> more &nbsp; line width = traffic<br>${short(scenario)} vs no charge ${tag("sim")}`;
   } else {
@@ -185,40 +180,18 @@ function legend() {
   }
 }
 
-async function trips() {
-  cancelAnimationFrame(anim);
-  const clock = $("#clock");
-  if (mode !== "trips") { overlay.setProps({ layers: [] }); clock.hidden = true; return; }
-  clock.hidden = false;
-  if (!tripsCache[scenario]) tripsCache[scenario] = await get(`trips_${scenario}.json`);
-  const data = tripsCache[scenario];
-  const t0 = performance.now();
-  const loop = () => {
-    const t = ((performance.now() - t0) / 1000 * 120) % 7200; // 1 s of real time = 2 simulated minutes
-    const hh = 7 + Math.floor(t / 3600), mm = Math.floor((t % 3600) / 60);
-    clock.textContent = `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
-    overlay.setProps({ layers: [new TripsLayer({
-      id: "trips", data, getPath: (d: Json) => d.p, getTimestamps: (d: Json) => d.t,
-      getColor: scenario === "S0" ? [44, 95, 138] : [200, 16, 46], widthMinPixels: 2, trailLength: 180,
-      currentTime: t, fadeTrail: true, capRounded: true, jointRounded: true,
-    })] });
-    anim = requestAnimationFrame(loop);
-  };
-  loop();
-}
-
 function diversion() {
   const id = scenario === "S0" ? "S2" : scenario;
   const s = S(id), b = S("S0");
   if (!s) return;
-  const blChange = s.boundary_local_street_vehicles_am / b.boundary_local_street_vehicles_am - 1;
+  const blChange = s.boundary_local_street_vkt_am / b.boundary_local_street_vkt_am - 1;
   const reroute = s.rerouted_to_avoid_charge / Math.max(s.kept_chargeable, 1);
-  const zoneSpeed = s.zone_mean_speed_kmh / b.zone_mean_speed_kmh - 1;
+  const zoneSpeed = s.zone_street_speed_kmh / b.zone_street_speed_kmh - 1;
   const vht = s.vehicle_hours / b.vehicle_hours - 1;
   $("#diversion-cards").innerHTML = `
-    <div class="card"><div class="stat">${pct(blChange)}</div><p>traffic on local streets within 800 m outside the zone, ${short(id)} ${tag("sim")}</p></div>
+    <div class="card"><div class="stat">${pct(blChange)}</div><p>traffic (vehicle-km) on local and collector streets within 800 m outside the zone, ${short(id)} ${tag("sim")}</p></div>
     <div class="card"><div class="stat">${(reroute * 100).toFixed(0)}%</div><p>of drivers facing the charge who kept driving found a route around it (${fmt.format(s.rerouted_to_avoid_charge)} vehicles). London: 20–30% of removed trips diverted around the zone. ${tag("sim")}</p></div>
-    <div class="card"><div class="stat">${pct(zoneSpeed)}</div><p>average speed inside the zone. Network vehicle-hours ${pct(vht)}. ${tag("sim")}</p></div>`;
+    <div class="card"><div class="stat">${pct(zoneSpeed)}</div><p>average speed on streets inside the zone (expressways excluded; ${fmt.format(b.zone_street_speed_kmh)} → ${fmt.format(s.zone_street_speed_kmh)} km/h). Zone traffic ${pct(s.zone_vkt_am / b.zone_vkt_am - 1)}; vehicle-hours across the whole study area ${pct(vht)}. ${tag("sim")}</p></div>`;
 }
 
 function sides() {
@@ -256,7 +229,7 @@ function financeView(id: string) {
       Plot.lineY(band, { x: "year", y: "base", stroke: "#a36400", strokeWidth: 2.5, tip: true }), Plot.ruleY([0])],
   }));
   const row = (k: string, f: (r: Json) => string) => `<tr><th>${k}</th>${["low", "base", "high"].map((c) => `<td>${f(byCase[c])}</td>`).join("")}</tr>`;
-  $("#fin-table").innerHTML = `<tr><th></th><th>Pessimistic</th><th>Base</th><th>Optimistic</th></tr>
+  $("#fin-table").innerHTML = `<tr><th></th><th>Weaker traffic response, higher costs</th><th>Base</th><th>Stronger traffic response, lower costs</th></tr>
     ${row("Fewer charged trips (AM)", (r) => pct(-r.am_reduction_in_charged_traffic))}
     ${row("Gross collections / yr", (r) => `C$${r.gross_per_year_cad_m}M`)}
     ${row("Capital cost", (r) => `C$${r.capex_cad_m}M (${r.charging_points} points)`)}
@@ -285,14 +258,15 @@ function validation() {
   const v = metrics.validation;
   const h = v.holdout, c = v.calibration;
   $("#validation").innerHTML = `
-    <p>We fitted the simulation to counts at about 80% of intersections and kept the other 20% back as a test.</p>
+    <p>We fitted the trips to counts at about 80% of intersections and kept the other 20% back as a test. Below: modelled vs counted vehicles entering each intersection, hour by hour.</p>
     <table><tr><th></th><th>Fitted sites</th><th>Held-out sites</th></tr>
       <tr><td>Intersection-hours within GEH 5</td><td>${(c.share_geh_lt5_intersection_hours * 100).toFixed(0)}%</td><td><b>${(h.share_geh_lt5_intersection_hours * 100).toFixed(0)}%</b></td></tr>
       <tr><td>Intersection-hours within GEH 10</td><td>${(c.share_geh_lt10_intersection_hours * 100).toFixed(0)}%</td><td>${(h.share_geh_lt10_intersection_hours * 100).toFixed(0)}%</td></tr>
-      <tr><td>Turning movements within GEH 5</td><td>${(c.share_geh_lt5_movements * 100).toFixed(0)}%</td><td>${(h.share_geh_lt5_movements * 100).toFixed(0)}%</td></tr>
+      <tr><td>Approach-hours within GEH 5</td><td>${(c.share_geh_lt5_approaches * 100).toFixed(0)}%</td><td>${(h.share_geh_lt5_approaches * 100).toFixed(0)}%</td></tr>
       <tr><td>Vehicles counted vs simulated</td><td>${fmt.format(c.total_observed)} / ${fmt.format(c.total_simulated)}</td><td>${fmt.format(h.total_observed)} / ${fmt.format(h.total_simulated)}</td></tr>
-      <tr><td>Correlation (movements)</td><td>${c.r_movements}</td><td>${h.r_movements}</td></tr></table>
-    <p class="src">GEH is the standard statistic for comparing modelled and counted traffic; a common target is GEH &lt; 5 at 85% of count locations. ${v.criterion} ${tag("sim", "simulated vs observed")}</p>`;
+      <tr><td>Correlation (approach volumes)</td><td>${c.r_approaches}</td><td>${h.r_approaches}</td></tr></table>
+    <p class="callout warn"><b>Below the usual target.</b> Only ${(h.share_geh_lt5_approaches * 100).toFixed(0)}% of held-out approach-hours are within GEH 5 (common target: 85%), and the model carries ${(100 * h.total_simulated / h.total_observed).toFixed(0)}% of counted volume. Treat street-level numbers as indicative, not forecasts. Recalibrating on the City's internal data (expressway detectors, signal timings) is the first task of the pilot.</p>
+    <p class="src">GEH is the standard statistic for comparing modelled and counted traffic. ${v.criterion} ${tag("sim", "simulated vs observed")}</p>`;
 }
 
 main().catch((e) => {

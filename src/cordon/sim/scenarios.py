@@ -16,7 +16,7 @@ For each priced scenario:
      baseline hourly travel times plus the toll converted to time
      (value of time per vehicle-hour). Uncharged vehicles keep their routes:
      this is a one-shot response, not an equilibrium assignment.
-  5. Simulate and compare with S0.
+  5. Simulate (SUMO mesoscopic model with junction control) and compare with S0.
 
 Outputs: sim/out/<S>/ (SUMO outputs), sim/out/summary.json
 """
@@ -48,6 +48,9 @@ SEED = 42
 FCD_PROBABILITY = 0.08  # share of vehicles traced for the animation
 
 
+MESO_OPTS = ["--mesosim", "--meso-tls-penalty", 1, "--meso-tls-flow-penalty", 1, "--meso-minor-penalty", 3]
+
+
 def run(cmd):
     print("  $", " ".join(str(c) for c in cmd[:3]), "...", flush=True)
     subprocess.run([str(c) for c in cmd], check=True, stdout=subprocess.DEVNULL)
@@ -68,11 +71,15 @@ def simulate(name, routes, sim_cfg):
     write_additional(add, outdir)
     run([BIN / "sumo", "-n", NET, "-r", routes, "-a", add,
          "--begin", sim_cfg["begin_s"], "--end", sim_cfg["end_s"] + 3600,
+         # Mesoscopic queue model (~8x faster than microsimulation on this 279k-vehicle
+         # morning). Full junction control deadlocked the network, so signals are
+         # represented by green-split delay and headway penalties instead.
+         *MESO_OPTS, "--statistic-output", outdir / "stats.xml",
          "--time-to-teleport", 300, "--ignore-route-errors", "--no-step-log", "--no-warnings",
          "--seed", SEED, "--tripinfo-output", outdir / "tripinfo.xml",
          "--vehroute-output", outdir / "vehroutes.xml", "--vehroute-output.exit-times",
          "--device.fcd.probability", FCD_PROBABILITY, "--fcd-output", outdir / "fcd.xml",
-         "--fcd-output.geo", "--device.fcd.period", 5])
+         "--fcd-output.geo", "--device.fcd.period", 10])
     return outdir
 
 
@@ -225,14 +232,14 @@ def main(selected):
     cordon_inbound, xwy_entries = charged_edges(net, sim_cfg["cordon_for_area_charge"])
     print(f"cordon {sim_cfg['cordon_for_area_charge']} inbound edges: {len(cordon_inbound)}; "
           f"expressway entry edges: {len(xwy_entries)}")
-    summary_path = OUT / "summary.json"
-    summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
-    names = selected or list(scen)
+    summary = {}
+    names = [n for n in (selected or list(scen)) if n != "merge"]
     base = read_routes(BASE_ROUTES)
     if "S0" in names:
         print("S0: baseline")
         simulate("S0", BASE_ROUTES, sim_cfg)
         summary["S0"] = {"name": scen["S0"]["name"], **network_metrics(OUT / "S0")}
+        (OUT / "S0" / "summary.json").write_text(json.dumps(summary["S0"], indent=1))
     for name in [n for n in names if n != "S0"]:
         cfg = scen[name]
         print(f"{name}: {cfg['name']}")
@@ -252,7 +259,11 @@ def main(selected):
             "response_case": sim_cfg["response_case"], **resp_counts, **network_metrics(outdir)}
         print("  ", {k: summary[name][k] for k in ("baseline_chargeable", "charged_vehicles",
                                                    "removed_offnetwork", "rerouted_to_avoid_charge")})
-    summary_path.write_text(json.dumps(summary, indent=1))
+        (outdir / "summary.json").write_text(json.dumps(summary[name], indent=1))
+    # Per-scenario summaries let S1-S3 run as parallel processes; merge whatever exists.
+    merged = {n: json.loads((OUT / n / "summary.json").read_text())
+              for n in scen if (OUT / n / "summary.json").exists()}
+    (OUT / "summary.json").write_text(json.dumps(merged, indent=1))
     (OUT / "charged_edges.json").write_text(json.dumps(
         {"cordon_inbound": sorted(cordon_inbound), "expressway_entries": sorted(xwy_entries)}))
 

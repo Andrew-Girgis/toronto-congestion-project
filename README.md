@@ -43,7 +43,7 @@ flowchart LR
 ```
 
 1. **Road network and counts.** Downloads Toronto's road centreline plus midblock and intersection traffic counts as dated snapshots, then cleans and checks them (year, season, direction, vehicle class, gaps).
-2. **Baseline simulation.** A SUMO traffic microsimulation of downtown plus about a 1.5 km buffer for a weekday morning (6–10 a.m.). Simulated traffic is fitted to the City's counts. About 20% of count locations are held back to test whether the simulation reproduces reality, and the fit is published.
+2. **Baseline simulation.** A SUMO traffic simulation (mesoscopic) of downtown plus about a 1.5 km buffer for a weekday morning (6–10 a.m.). Simulated traffic is fitted to the City's counts. About 20% of count locations are held back to test whether the simulation reproduces reality, and the fit is published.
 3. **Behaviour.** When a charge is applied, affected trips are split into: keep driving and pay, take another route, leave at a different time, switch to transit/walk/bike, or combine/cancel the trip. The shares come from published evidence and are shown as low/base/high ranges. Only drivers who keep driving stay in the simulation.
 4. **Scenarios**, each compared with the *same* Toronto without pricing:
    - **S1:** $3 Gardiner/DVP toll, a partial check against the City's 2015 study.
@@ -55,7 +55,7 @@ flowchart LR
 
 ---
 
-## Run it locally *(planned; commands will be finalised as the pipeline is built)*
+## Run it locally
 
 Requirements: macOS or Linux, Python 3.14, [uv](https://docs.astral.sh/uv/), Node 24. No accounts or API keys are needed.
 
@@ -66,7 +66,8 @@ make data          # download dated snapshots of the open data
 make sim           # build the road network, fit the baseline, run scenarios
 make model         # behaviour + financial model
 make web           # export map data
-cd web && npm install && npm run dev
+make check         # sanity tests
+make serve         # demo at http://localhost:4321
 ```
 
 The demo reads only precomputed files in `web/public/data/`, so it works offline.

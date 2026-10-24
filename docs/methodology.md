@@ -20,9 +20,9 @@ How each component works, in pipeline order. The rules behind every choice are i
   - Assumption: counts from different days are combined as one "typical base-window weekday".
 
 ## 3. Baseline demand and simulation
-- **Candidate routes:** SUMO `randomTrips` (fringe factor 20, minimum 400 m, validated).
+- **Candidate routes:** SUMO `randomTrips` (fringe factor 50, minimum 2 km, validated). A first build with 400 m minimum trips fitted the counts with many short synthetic trips (median 1.85 km, 279k vehicles in four hours), and the network gridlocked. A real car passes many count stations on one trip, so longer candidate trips reproduce the same counts with fewer vehicles.
 - **Demand fitting:** SUMO `routeSampler` selects routes to match hourly turn and edge counts at calibration sites.
-- **Simulation:** SUMO microsimulation from 06:00 to 10:00, plus one hour to clear. Teleport after 300 s of standstill. Outputs: hourly edge data, trip info, routes with exit times, and an 8% vehicle trace sample for the animation.
+- **Simulation:** SUMO mesoscopic simulation (queue-based; chosen over microsimulation for runtime: ~8× faster). Traffic signals are represented by green-split delay and headway penalties, because full mesoscopic junction control deadlocked the network from 06:00 to 10:00, plus one hour to clear. Teleport after 300 s of standstill. Outputs: hourly edge data, trip info, routes with exit times, and an 8% vehicle trace sample for the animation.
 - **Validation:** simulated turning movements (from route exit times) are compared with held-out counts using GEH. Results are in `metrics.json` and the demo.
 
 ## 4. Behavioural response (aggregate)
@@ -31,7 +31,7 @@ How each component works, in pipeline order. The rules behind every choice are i
 - **Rerouting:** drivers who still face the charge are re-routed by `duarouter` on baseline hourly travel times plus the toll converted to time (C$24.99 per vehicle-hour). Other drivers keep their routes. This is a one-shot response, not an equilibrium.
 
 ## 5. Financial model
-- **Collections:** charged trips from the simulation (06:00–10:00) are expanded to the charging day (AM share 38%, ASSUMPTION), then adjusted for once-per-day repeat entries, exemptions, the truck multiplier, ride-hail per-trip fees, collection loss and 250 charging days.
+- **Collections:** charged trips from the simulation (06:00–10:00) are expanded to the charging day (AM share 27.6%, measured from 652 City 14-hour counts, all directions; range 25–33%), then adjusted for once-per-day repeat entries, exemptions, the truck multiplier, ride-hail per-trip fees, collection loss and 250 charging days.
 - **Costs:** capital = charging points × the City's 2015 toll-point cost (CPI-adjusted) + a central system. Operating cost is a falling share of collections. Two implementation years come before launch.
 - **Reporting:** 2025 CAD real, 10 years, NPV at 7% (Treasury Board), 3.5% (Metrolinx) and 3%. Low/base/high pair traffic response with costs. Toll revenue is a transfer and is never added to time savings.
 

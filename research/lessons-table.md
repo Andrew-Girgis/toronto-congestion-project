@@ -1,6 +1,6 @@
 # Cross-case lessons table (Workstream B)
 
-Researched 2026-10-24. Source IDs refer to `research/sources_B.csv`. Full detail is in `research/cases/*.md`.
+Researched 2026-10-24. Source IDs refer to `research/sources.csv`. Full detail is in `research/cases/*.md`.
 
 **Labels**
 - **[O]** OBSERVED (REPORT)

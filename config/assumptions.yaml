@@ -340,13 +340,16 @@ design:
   charging_days_per_year: {value: 250, label: ASSUMPTION, notes: "Weekdays excluding statutory holidays"}
   charging_window: {value: "weekdays 06:00-19:00", label: ASSUMPTION, notes: "SUMO simulates 06:00-10:00; the rest of the day is expanded"}
   am_window_share_of_charged_day_entries:
-    value: 0.38
-    low: 0.33
-    high: 0.43
-    label: ASSUMPTION
+    value: 0.276
+    low: 0.251
+    high: 0.33
+    label: ESTIMATED (from OBSERVED City counts)
+    source_id: tor_tmc
     notes: >
-      Share of 06:00-19:00 inbound crossings that occur 06:00-10:00. To be replaced by the measured
-      share from City 14-hour TMC counts at boundary crossings (cordon.observed), which cover 06:00-20:00.
+      Pooled share of 06:00-19:00 vehicles counted 06:00-10:00 across 652 fourteen-hour City TMC
+      counts in the study area (weekdays since 2023, excluding Jul/Aug/Dec); median 0.272, IQR
+      0.251-0.289. All directions, not inbound only: AM inbound is likely more peaked, so the
+      pessimistic bound is raised to 0.33 (ASSUMPTION). Higher share = fewer daily entries = less revenue.
   repeat_entry_share_once_per_day:
     value: 0.15
     low: 0.08
@@ -380,3 +383,27 @@ finance:
   implementation_years_before_launch: {value: 2, label: ASSUMPTION, notes: "Legislation, procurement, build; Stockholm ~3 yrs, NYC much longer due to litigation"}
   transit_service_share_of_net: {value: 0.6, label: ASSUMPTION (policy choice), notes: "User-adjustable allocation; London/NYC/Stockholm earmarked to transport"}
   equity_mitigation_share_of_net: {value: 0.15, label: ASSUMPTION (policy choice)}
+
+assignment:
+  # Static user-equilibrium assignment (AequilibraE, BPR, bi-conjugate Frank-Wolfe), one per hour.
+  # Replaced SUMO mesoscopic runs for street-level results: those deadlocked at expressway-ramp
+  # junctions of the OSM-built network even at half demand (see docs/validation.md).
+  capacity_veh_per_lane_hour:
+    value: {motorway: 1800, motorway_link: 1300, primary: 800, primary_link: 800, secondary: 700,
+            secondary_link: 700, tertiary: 600, tertiary_link: 600, unclassified: 450,
+            residential: 450, living_street: 300}
+    label: ASSUMPTION
+    source_id: null
+    notes: >
+      Planning-level values: ~1,800 veh/h/lane saturation flow times a typical downtown green
+      share (~0.4-0.45) for signalised arterials; uninterrupted flow for expressways. Not
+      calibrated to Toronto signal timings, which the open data does not provide.
+  bpr_alpha: {value: 0.15, label: ASSUMPTION, source_id: null, notes: "Standard BPR (US BPR 1964)"}
+  bpr_beta: {value: 4, label: ASSUMPTION, source_id: null, notes: "Standard BPR"}
+  signal_delay_min:
+    value: 0.25
+    label: ASSUMPTION
+    source_id: null
+    notes: Fixed free-flow delay added to links ending at a signalised junction (~15 s average).
+  rgap_target: {value: 0.001, label: ASSUMPTION, source_id: null, notes: "Convergence: relative gap"}
+  max_iter: {value: 100, label: ASSUMPTION, source_id: null, notes: "Iteration cap"}

@@ -25,7 +25,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
       </div>
 
       <div class="callout ask">
-        <strong>Our ask:</strong> let City Transportation Services run a <strong>90-day pilot</strong> of this open tool on its internal data, at an estimated <strong>C$50k–80k</strong> of staff time <span class="tag asm">assumption</span>. A pricing trial would come later, and only if the evidence holds up. Since June 2025 that step would need the Province to pass a law.
+        <strong>Our ask:</strong> let City Transportation Services run a <strong>90-day pilot</strong> of this open tool on its internal data, at an estimated <strong>C$50k–80k</strong> of staff time <span class="tag asm">assumption</span>. A pricing trial would come later, and only if the evidence holds up. Since June 2025 that step would need the Province to pass a law. 
         <a href="#adoption">See the pilot plan ↓</a>
       </div>
     </div>
@@ -34,20 +34,18 @@ import "maplibre-gl/dist/maplibre-gl.css";
   <section id="map-section">
     <div class="wrap">
       <h2>What happens to downtown traffic?</h2>
-      <p class="lede">A weekday morning (6–10 a.m.) in a traffic simulation fitted to <span data-bind="nsites">~550</span> City intersection counts. Choose a scenario and compare it with no charge.</p>
+      <p class="lede">A weekday morning (6–10 a.m.) in a traffic model fitted to <span data-bind="nsites">~550</span> City intersection counts. Choose a scenario and compare it with no charge.</p>
       <div class="controls">
         <div class="seg" id="scenario-buttons" role="group" aria-label="Scenario"></div>
         <div class="seg" id="mode-buttons" role="group" aria-label="View">
           <button data-mode="change" aria-pressed="true">Change vs no charge</button>
           <button data-mode="volume" aria-pressed="false">Traffic volume</button>
-          <button data-mode="trips" aria-pressed="false">Moving cars</button>
           <button data-mode="coverage" aria-pressed="false">Count coverage</button>
         </div>
       </div>
       <div class="mapbox">
         <div id="map" aria-label="Map of downtown Toronto showing simulated traffic"></div>
         <div class="legend card" id="legend"></div>
-        <div class="clock card" id="clock" hidden>07:00</div>
       </div>
       <p class="src" id="scenario-note"></p>
     </div>
@@ -58,7 +56,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
       <h2>Where to draw the line?</h2>
       <p class="lede">Every road crossing the boundary needs a camera and is a place traffic can leak around. Boundaries along natural barriers (the lake, the Don Valley, rail corridors) cover more area with fewer crossings. A boundary is only as measurable as its count coverage.</p>
       <div class="card"><table id="cordon-table"></table>
-        <p class="src">Crossings: drivable City Centreline segments crossing each boundary (laneways excluded). Counted = a City intersection or midblock count on the same street within 250 m since 2023 <span class="tag obs">observed</span>. Boundaries are candidates we drew <span class="tag asm">assumption</span>. The simulation uses C1, which has the best count coverage.</p></div>
+        <p class="src">Crossings: drivable City Centreline segments crossing each boundary (laneways excluded). Counted = a City intersection or midblock count on the same street within 250 m since 2023 <span class="tag obs">observed</span>. Boundaries are candidates we drew <span class="tag asm">assumption</span>. The traffic model uses C1, the boundary most often floated for Toronto; C2 and C3 have similar count coverage and are next in line for the pilot.</p></div>
     </div>
   </section>
 
@@ -67,7 +65,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
       <h2>Would drivers cut through neighbourhoods?</h2>
       <p class="lede">A participant at this event expected drivers to face a choice: "pay a small fee and get there quickly, or take much longer and save the money." Toronto's open grid has fewer choke points than Manhattan or Stockholm, so we tested the claim instead of assuming it.</p>
       <div class="grid g3" id="diversion-cards"></div>
-      <p class="src">Rerouting uses a value of time of C$24.99 per vehicle-hour (Metrolinx Business Case Manual VOT, CPI-adjusted, × assumed occupancy 1.15) <span class="tag asm">assumption</span>. At that value, C$12.58 equals about 30 minutes of extra driving. Only drivers facing the charge reroute; other drivers keep their routes (a one-shot response, not a full equilibrium).</p>
+      <p class="src">Rerouting uses a value of time of C$24.99 per vehicle-hour (Metrolinx Business Case Manual VOT, CPI-adjusted, × assumed occupancy 1.15) <span class="tag asm">assumption</span>. At that value, C$12.58 equals about 30 minutes of extra driving. Every driver picks the quickest route given traffic and any charge (a user-equilibrium assignment), so other drivers also adjust to the freed-up roads.</p>
     </div>
   </section>
 
@@ -97,7 +95,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
       <p class="lede">Collections are counted from simulated charged trips × rates, net of exemptions, repeat trips and unpaid charges. They are not copied from another city's revenue. The more a charge cuts traffic, the less it collects.</p>
       <div class="controls"><div class="seg" id="fin-buttons" role="group" aria-label="Scenario for finance"></div></div>
       <div class="grid g2">
-        <div class="card"><div id="cash-chart"></div><p class="src">Cumulative net cash, 2025 CAD real <span class="tag est">estimated</span>. The band runs from a pessimistic case (smaller traffic response, higher costs) to an optimistic one. These are illustrative ranges, not confidence intervals.</p></div>
+        <div class="card"><div id="cash-chart"></div><p class="src">Cumulative net cash, 2025 CAD real <span class="tag est">estimated</span>. The band spans a weaker-response/higher-cost case and a stronger-response/lower-cost case. A stronger response cuts more traffic but collects less per vehicle-day. These are illustrative ranges, not confidence intervals.</p></div>
         <div class="card"><table id="fin-table"></table>
           <p class="src">Capital cost uses the City's 2015 toll-point estimate (EX8.14, CPI-adjusted) for every crossing point. Operating cost starts at 30% of collections and falls to 11%, between Stockholm (31% → 7%) and London (76% in year one). Time savings and lower emissions are benefits but are <em>not</em> added to these cash figures.</p></div>
       </div>
@@ -172,8 +170,8 @@ import "maplibre-gl/dist/maplibre-gl.css";
             <li><strong>Expressway volumes</strong> (Gardiner, DVP) are not in the City's open counts, so they are not calibrated. The City's detector data would fix this in the pilot.</li>
             <li>Counts come from different days at each intersection (most recent weekday since 2023, excluding summer and December), combined as one "typical" morning.</li>
             <li>Behavioural response is calibrated to what other cities observed (10–22% fewer charged trips at a NYC-equivalent price), not estimated from Toronto data.</li>
-            <li>Rerouting is a one-shot response, not a full traffic equilibrium. Buses are not simulated.</li>
-            <li>Simulated values are scenarios, not forecasts with confidence intervals.</li>
+            <li>Street-level results come from a static equilibrium model (hourly averages, standard speed–flow curves, no signal timings), not a vehicle-by-vehicle simulation: our SUMO microsimulation of the same trips gridlocked at expressway-ramp junctions and was set aside. Queues and spill-back are not represented. Buses are not modelled.</li>
+            <li>Modelled values are scenarios, not forecasts with confidence intervals.</li>
           </ul>
         </div>
       </div>
@@ -197,7 +195,6 @@ import "maplibre-gl/dist/maplibre-gl.css";
   .mapbox { position: relative; }
   #map { height: min(72vh, 680px); border-radius: var(--radius); border: 1px solid var(--rule); }
   .legend { position: absolute; left: 12px; bottom: 12px; max-width: 290px; font-size: .82rem; padding: 10px 12px; }
-  .clock { position: absolute; right: 12px; top: 12px; font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.3rem; padding: 6px 12px; }
   .timeline { padding-left: 1.1rem; } .timeline li { margin-bottom: .6rem; }
   @media (max-width: 640px) { .legend { position: static; margin-top: 8px; max-width: none; } }
 </style>
