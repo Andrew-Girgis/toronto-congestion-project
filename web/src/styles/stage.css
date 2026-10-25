@@ -82,7 +82,7 @@ body { margin: 0; }
   .viewport { position: static; display: block; }
   .stage { position: static; transform: none !important; overflow: visible; height: auto; background: none; }
   .slide { position: relative; visibility: visible; opacity: 1; width: 1920px; height: 1080px; page-break-after: always; background: var(--bg); }
-  .slide[data-appendix] { display: none; }
+  .slide[data-appendix]:not([data-print]) { display: none; }
   [data-step].pending { opacity: 1; }
   .progress, .pageno { display: none; }
 }

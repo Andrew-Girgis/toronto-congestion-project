@@ -1,4 +1,4 @@
-"""Print every non-appendix slide to one 1920x1080 PDF page (backup if the laptop fails).
+"""Print every timed slide, plus the sources slides (data-print), to one 1920x1080 PDF page each.
 
 Usage: uv run python scripts/present/export_pdf.py [base_url]   (default http://localhost:4321)
 Writes web/dist/congestion-cordon-talk.pdf and a copy in sim/out/present/.

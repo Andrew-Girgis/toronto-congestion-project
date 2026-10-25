@@ -430,8 +430,8 @@
   "value": 0.85,
   "display": "85%",
   "label": "OBSERVED (REPORT)",
-  "src": "metrics.json validation.criterion (UK TAG/DMRB)",
-  "note": "usual target"
+  "src": "metrics.json validation.criterion [D-028]",
+  "note": "usual target (UK TAG M3.1)"
  },
  "fit_r": {
   "value": 0.738,
@@ -579,8 +579,8 @@
   "value": 4.65,
   "display": "C$4.65M",
   "label": "ESTIMATED",
-  "src": "assumptions.yaml costs.all_in_per_charging_point_2025 (B-NYC-019, B-NYC-020)",
-  "note": "New York contract per detection point, all-in"
+  "src": "assumptions.yaml costs.all_in_per_charging_point_2025 [B-NYC-021, B-NYC-020]",
+  "note": "New York capital spending per detection point"
  },
  "opex_y1": {
   "value": 94.42,

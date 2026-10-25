@@ -1,0 +1,1262 @@
+{
+ "repo": "https://github.com/Andrew-Girgis/toronto-congestion-project",
+ "groups": [
+  {
+   "id": "toronto_today",
+   "name": "Toronto today",
+   "items": [
+    {
+     "ids": [
+      "A-TT-001"
+     ],
+     "author": "TomTom",
+     "title": "TomTom Traffic Index: Toronto traffic report (15th edition)",
+     "published": "2026-01-21 (edition release; page undated)",
+     "url": "https://www.tomtom.com/traffic-index/city/toronto/",
+     "where": "Toronto city page (City tab)",
+     "status": "checked 2026-10-25",
+     "n": 1
+    },
+    {
+     "ids": [
+      "A-SC-001"
+     ],
+     "author": "Statistics Canada",
+     "title": "Commuting to work, May 2025 (The Daily), Table 4: Average commute times for the 15 largest CMAs",
+     "published": "2025-08-26",
+     "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/250826/t004a-eng.htm",
+     "where": "Table 4",
+     "status": "checked 2026-10-25",
+     "n": 2
+    },
+    {
+     "ids": [
+      "A-CN-001"
+     ],
+     "author": "Canadian Centre for Economic Analysis (CANCEA)",
+     "title": "Impact of Congestion in the GTHA and Ontario: Economic and Social Risks",
+     "published": "2024-12",
+     "url": "https://www.cancea.ca/documents/publications/impact-of-congestion-in-the-gtha-and-ontario-economic-and-social-risks.pdf",
+     "where": "Table 4, printed p.37; Table 1 and text p.9",
+     "status": "checked 2026-10-25",
+     "n": 3
+    },
+    {
+     "ids": [
+      "A-KS-001"
+     ],
+     "author": "City of Toronto",
+     "title": "King Street Transit Priority Corridor, July 2024 Update (dashboard)",
+     "published": "2024-07",
+     "url": "https://www.toronto.ca/wp-content/uploads/2024/07/8f53-TSKing-Street-DashboardJuly-2024-Dashboard-Update.pdf",
+     "where": "Highlights p.1 (motor vehicle volumes); p.2 summary",
+     "status": "checked 2026-10-25",
+     "n": 4
+    }
+   ]
+  },
+  {
+   "id": "toronto_data",
+   "name": "Toronto data",
+   "items": [
+    {
+     "ids": [
+      "tor_svc"
+     ],
+     "author": "City of Toronto Open Data",
+     "title": "Traffic Volumes: Midblock Vehicle Speed, Volume and Classification Counts",
+     "published": "retrieved 2026-10-24",
+     "url": "https://open.toronto.ca/dataset/traffic-volumes-midblock-vehicle-speed-volume-and-classification-counts/",
+     "where": "",
+     "status": "Open Government Licence – Toronto",
+     "n": 5
+    },
+    {
+     "ids": [
+      "tor_tmc"
+     ],
+     "author": "City of Toronto Open Data",
+     "title": "Traffic Volumes at Intersections for All Modes (turning movement counts)",
+     "published": "retrieved 2026-10-24",
+     "url": "https://open.toronto.ca/dataset/traffic-volumes-at-intersections-for-all-modes/",
+     "where": "",
+     "status": "Open Government Licence – Toronto",
+     "n": 6
+    },
+    {
+     "ids": [
+      "tor_centreline"
+     ],
+     "author": "City of Toronto Open Data",
+     "title": "Toronto Centreline (TCL)",
+     "published": "retrieved 2026-10-24",
+     "url": "https://open.toronto.ca/dataset/toronto-centreline-tcl/",
+     "where": "",
+     "status": "Open Government Licence – Toronto",
+     "n": 7
+    },
+    {
+     "ids": [
+      "tor_neighbourhoods"
+     ],
+     "author": "City of Toronto Open Data",
+     "title": "Neighbourhoods (158)",
+     "published": "retrieved 2026-10-24",
+     "url": "https://open.toronto.ca/dataset/neighbourhoods/",
+     "where": "",
+     "status": "Open Government Licence – Toronto",
+     "n": 8
+    },
+    {
+     "ids": [
+      "tor_neighbourhood_profiles"
+     ],
+     "author": "City of Toronto Open Data",
+     "title": "Neighbourhood Profiles (2021 Census)",
+     "published": "retrieved 2026-10-24",
+     "url": "https://open.toronto.ca/dataset/neighbourhood-profiles/",
+     "where": "",
+     "status": "Open Government Licence – Toronto",
+     "n": 9
+    },
+    {
+     "ids": [
+      "tor_bike_cordon"
+     ],
+     "author": "City of Toronto Open Data",
+     "title": "Bicycle and Micromobility Cordon Count",
+     "published": "retrieved 2026-10-24",
+     "url": "https://open.toronto.ca/dataset/bicycle-and-micromobility-cordon-count/",
+     "where": "",
+     "status": "Open Government Licence – Toronto",
+     "n": 10
+    },
+    {
+     "ids": [
+      "tor_ptc"
+     ],
+     "author": "City of Toronto Open Data",
+     "title": "Private Transportation Companies: Summary and Trip Data",
+     "published": "retrieved 2026-10-24",
+     "url": "https://open.toronto.ca/dataset/private-transportation-companies-summary-and-trip-data/",
+     "where": "",
+     "status": "Open Government Licence – Toronto",
+     "n": 11
+    },
+    {
+     "ids": [
+      "osm"
+     ],
+     "author": "OpenStreetMap contributors",
+     "title": "OpenStreetMap road network (Overpass API)",
+     "published": "retrieved 2026-10-24",
+     "url": "https://www.openstreetmap.org/copyright",
+     "where": "",
+     "status": "ODbL 1.0",
+     "n": 12
+    }
+   ]
+  },
+  {
+   "id": "toronto_policy",
+   "name": "Toronto and Ontario: law, policy, costs and growth",
+   "items": [
+    {
+     "ids": [
+      "D-008"
+     ],
+     "author": "City of Toronto",
+     "title": "Tolling Options for the Gardiner Expressway and Don Valley Parkway (Staff Report EX8.14)",
+     "published": "2015-09-10",
+     "url": "https://www.toronto.ca/legdocs/mmis/2015/ex/bgrd/backgroundfile-83671.pdf",
+     "where": "p.1 (volumes), p.9 Tables 2a/2b, p.12 Table 5, p.13 Tables 6-7, p.16 summary",
+     "status": "checked 2026-10-24",
+     "n": 13
+    },
+    {
+     "ids": [
+      "D-009"
+     ],
+     "author": "Legislative Assembly of Ontario (e-Laws)",
+     "title": "Plan to Protect Ontario Act (Budget Measures), 2025, S.O. 2025, c. 10 (Bill 24), Schedule 2",
+     "published": "2025-06-05 (Royal Assent)",
+     "url": "https://www.ontario.ca/laws/statute/s25010",
+     "where": "Schedule 2, ss.1-2, in force on Royal Assent",
+     "status": "checked 2026-10-24",
+     "n": 14
+    },
+    {
+     "ids": [
+      "D-010"
+     ],
+     "author": "Ontario e-Laws",
+     "title": "City of Toronto Act, 2006, S.O. 2006, c. 11, Sched. A (current consolidation)",
+     "published": "consolidation viewed 2026-10-24",
+     "url": "https://www.ontario.ca/laws/statute/06c11",
+     "where": "ss.3, 41, 116",
+     "status": "checked 2026-10-24",
+     "n": 15
+    },
+    {
+     "ids": [
+      "D-011"
+     ],
+     "author": "Legislative Assembly of Ontario (e-Laws)",
+     "title": "Get It Done Act, 2024, S.O. 2024, c. 9 (Bill 162), Schedule 6",
+     "published": "2024-05-16 (Royal Assent)",
+     "url": "https://www.ontario.ca/laws/statute/s24009",
+     "where": "Schedule 6, s.1 (new s.100 of Public Transportation and Highway Improvement Act)",
+     "status": "checked 2026-10-24",
+     "n": 16
+    },
+    {
+     "ids": [
+      "D-012"
+     ],
+     "author": "City of Toronto (news release)",
+     "title": "City of Toronto and Province of Ontario advancing transfer of Gardiner Expressway and Don Valley Parkway",
+     "published": "2026-06-04",
+     "url": "https://www.toronto.ca/news/city-of-toronto-and-province-of-ontario-advancing-transfer-of-gardiner-expressway-and-don-valley-parkway/",
+     "where": "News release body",
+     "status": "checked 2026-10-24",
+     "n": 17
+    },
+    {
+     "ids": [
+      "D-013"
+     ],
+     "author": "Ontario Ministry of Finance",
+     "title": "Ontario Population Projections, 2025-2051: 49 Census Divisions (XLSX)",
+     "published": "2026 (Summer)",
+     "url": "https://data.ontario.ca/dataset/f52a6457-fb37-4267-acde-11a1e57c4dc8/resource/03abe0d5-0995-4ce2-ad9d-e904d50106a5/download/49_census_divisions_mof_population_projections_2025-2051.xlsx",
+     "where": "Sheet 'CDs Age & Gender 2025-2051', rows GENDER='TOTAL BOTH GENDERS'; file sha256 cd5c695a...d792",
+     "status": "checked 2026-10-24",
+     "n": 18
+    },
+    {
+     "ids": [
+      "D-014"
+     ],
+     "author": "City of Toronto, City Planning",
+     "title": "Toronto Employment Survey (2024 bulletin; 2025 results)",
+     "published": "2025-01 / 2026",
+     "url": "https://www.toronto.ca/city-government/data-research-maps/research-reports/planning-development/toronto-employment-survey/",
+     "where": "City employment survey pages / 2024 bulletin",
+     "status": "checked 2026-10-24",
+     "n": 19
+    },
+    {
+     "ids": [
+      "D-015"
+     ],
+     "author": "Government of Ontario",
+     "title": "Growth Plan for the Greater Golden Horseshoe, Schedule 3",
+     "published": "2020 amendment",
+     "url": "https://ontario.ca/document/growth-plan-greater-golden-horseshoe/schedules",
+     "where": "Schedule 3",
+     "status": "checked 2026-10-24",
+     "n": 20
+    },
+    {
+     "ids": [
+      "D-016"
+     ],
+     "author": "Statistics Canada",
+     "title": "Daily: Work from home (Labour Force Survey, May 2024)",
+     "published": "2024-08-26",
+     "url": "https://www150.statcan.gc.ca/daily-quotidien/240826/dq240826a-eng.htm",
+     "where": "The Daily, 2024-08-26",
+     "status": "checked 2026-10-24",
+     "n": 21
+    },
+    {
+     "ids": [
+      "D-017"
+     ],
+     "author": "TTC via Global News",
+     "title": "TTC CEO report ridership update (as reported)",
+     "published": "2025 (fall)",
+     "url": "https://globalnews.ca/news/11589127/ttc-ridership-fall-2025/",
+     "where": "News report of TTC CEO report",
+     "status": "checked 2026-10-24",
+     "n": 22
+    },
+    {
+     "ids": [
+      "D-018"
+     ],
+     "author": "City of Toronto",
+     "title": "Transportation Impacts of Vehicle-for-Hire (backgroundfile-251488)",
+     "published": "2024-12",
+     "url": "https://www.toronto.ca/legdocs/mmis/2024/ex/bgrd/backgroundfile-251488.pdf",
+     "where": "Executive summary p.viii; Section 5.1 p.23 and Figures 5-1, 5-2 p.24 (PDF pp.43-44); Fig 5-3",
+     "status": "checked 2026-10-24",
+     "n": 23
+    },
+    {
+     "ids": [
+      "D-020"
+     ],
+     "author": "407 International Inc.",
+     "title": "407 International Reports 2025 Results",
+     "published": "2026-02-18",
+     "url": "https://newsroom.407etr.com/2026-02-18-407-International-Reports-2025-Results",
+     "where": "Results summary table",
+     "status": "checked 2026-10-24",
+     "n": 24
+    },
+    {
+     "ids": [
+      "D-022"
+     ],
+     "author": "Global News / CTV",
+     "title": "Ontario premier slams brakes on tolls for DVP, Gardiner (and related coverage)",
+     "published": "2017-01-27",
+     "url": "https://globalnews.ca/news/3209418/ontario-premier-slams-brakes-on-tolls-for-dvp-gardiner/",
+     "where": "News reports",
+     "status": "checked 2026-10-24",
+     "n": 25
+    },
+    {
+     "ids": [
+      "D-025"
+     ],
+     "author": "TTC",
+     "title": "TTC eBus milestone / Green Bus Program board update",
+     "published": "2025-06",
+     "url": "https://www.ttc.ca/news/2025/June/TTC-reaches-new-eBus-milestone-with-over-100-vehicles-in-service",
+     "where": "News release; July 2025 board update",
+     "status": "checked 2026-10-24",
+     "n": 26
+    },
+    {
+     "ids": [
+      "D-027"
+     ],
+     "author": "Department of Finance Canada",
+     "title": "CRA automobile allowance rates 2025 (Department of Finance announcement)",
+     "published": "2024-12",
+     "url": "https://www.canada.ca/en/department-finance/news/2024/12/government-announces-the-2025-automobile-deduction-limits-and-expense-benefit-rates-for-businesses.html",
+     "where": "Announcement",
+     "status": "checked 2026-10-24",
+     "n": 27
+    },
+    {
+     "ids": [
+      "P-001"
+     ],
+     "author": "Pembina Institute",
+     "title": "Fare Pricing",
+     "published": "2018-11-28",
+     "url": "https://www.pembina.org/pub/fare-pricing",
+     "where": "Publication summary page",
+     "status": "checked 2026-10-24",
+     "n": 28
+    },
+    {
+     "ids": [
+      "T-001"
+     ],
+     "author": "Toronto Transit Commission",
+     "title": "Budget Update and 2026 Outlook (TTC Strategic Planning Committee)",
+     "published": "2025-09-04",
+     "url": "https://www.toronto.ca/legdocs/mmis/2025/tts/bgrd/backgroundfile-258192.pdf",
+     "where": "p.5, p.17",
+     "status": "checked 2026-10-24",
+     "n": 29
+    },
+    {
+     "ids": [
+      "M-001"
+     ],
+     "author": "Metrolinx",
+     "title": "Metrolinx 2023-24 Annual Report",
+     "published": "2025",
+     "url": "https://assets.metrolinx.com/image/upload/v1747425421/Documents/Metrolinx/MX_2023-24_Annual_Report_EN.pdf",
+     "where": "p.47",
+     "status": "checked 2026-10-24",
+     "n": 30
+    }
+   ]
+  },
+  {
+   "id": "nyc",
+   "name": "New York",
+   "items": [
+    {
+     "ids": [
+      "B-NYC-001",
+      "B-NYC-002",
+      "B-NYC-003",
+      "B-NYC-004"
+     ],
+     "author": "MTA",
+     "title": "CBDTP Financial Report (Dec 2025 YTD accrual statement of operations)",
+     "published": "2026-01",
+     "url": "https://www.mta.info/document/197586",
+     "where": "p.2 Year-to-Date Dec 2025, Vehicle Toll Revenue, Actual; p.2 YTD Total Revenue; p.2 YTD Total Expenses (after Less: Depreciation 18.775); p.2 YTD Net Surplus/(Deficit)",
+     "status": "checked 2026-10-24",
+     "n": 31
+    },
+    {
+     "ids": [
+      "B-NYC-006",
+      "B-NYC-007",
+      "B-NYC-017",
+      "B-NYC-018"
+     ],
+     "author": "Citizens Budget Commission / TRB",
+     "title": "TRB Webinar: NYC Congestion Pricing - Modeling a New Reality (CBC presentation by A. Schmidt)",
+     "published": "2026-06-09",
+     "url": "https://onlinepubs.trb.org/onlinepubs/webinars/260609.pdf",
+     "where": "Slide 30; Slides 27-28, 32; Slides 9, 11; Slides 51-52 (advocacy presentation)",
+     "status": "checked 2026-10-24",
+     "n": 32
+    },
+    {
+     "ids": [
+      "B-NYC-008",
+      "B-NYC-021",
+      "B-NYC-022",
+      "B-NYC-023",
+      "B-NYC-024",
+      "B-NYC-025",
+      "B-NYC-026"
+     ],
+     "author": "MTA",
+     "title": "Congestion Relief Zone Tolling: First Evaluation Report",
+     "published": "2026-01",
+     "url": "https://www.mta.info/document/195631",
+     "where": "Executive summary p.1; p.8 text and Table 2-1 p.9 (monthly -8% to -14%); p.67 (PDF p.75), text below Table 6-1; p.24; p.23, Table 2-5; p.20; p.40-41, Table 4-2; p.42",
+     "status": "checked 2026-10-25",
+     "n": 33
+    },
+    {
+     "ids": [
+      "B-NYC-009",
+      "D-021"
+     ],
+     "author": "Cook, Kreidieh, Vasserman, Allcott et al.",
+     "title": "The Short-Run/Network-Wide Effects of Congestion Pricing in New York City (NBER WP 33584)",
+     "published": "2025-03",
+     "url": "https://www.nber.org/papers/w33584",
+     "where": "Abstract; Abstract / NBER Digest 2025-06",
+     "status": "checked 2026-10-24",
+     "n": 34
+    },
+    {
+     "ids": [
+      "B-NYC-010"
+     ],
+     "author": "NBER",
+     "title": "Impact of New York City's Congestion Pricing Program (NBER Digest)",
+     "published": "2025-06",
+     "url": "https://www.nber.org/digest/202506/impact-new-york-citys-congestion-pricing-program",
+     "where": "Digest text (via search)",
+     "status": "checked 2026-10-24",
+     "n": 35
+    },
+    {
+     "ids": [
+      "B-NYC-011",
+      "D-019"
+     ],
+     "author": "MTA",
+     "title": "Congestion Relief Zone - About tolls",
+     "published": "accessed 2026-10-24",
+     "url": "https://www.mta.info/fares-tolls/tolls/congestion-relief-zone/about",
+     "where": "Toll tables and phase-in section; Rates page",
+     "status": "checked 2026-10-24",
+     "n": 36
+    },
+    {
+     "ids": [
+      "N-001"
+     ],
+     "author": "MTA via data.ny.gov",
+     "title": "MTA Daily Ridership and Traffic: Beginning 2020 (sayj-mze2)",
+     "published": "2026-10",
+     "url": "https://data.ny.gov/d/sayj-mze2",
+     "where": "dataset",
+     "status": "checked 2026-10-24",
+     "n": 37
+    },
+    {
+     "ids": [
+      "N-002"
+     ],
+     "author": "MTA via data.ny.gov",
+     "title": "MTA Vehicle Miles Traveled in the CBD (jbxx-kxff)",
+     "published": "2026-10",
+     "url": "https://data.ny.gov/d/jbxx-kxff",
+     "where": "dataset",
+     "status": "checked 2026-10-24",
+     "n": 38
+    },
+    {
+     "ids": [
+      "N-003"
+     ],
+     "author": "MTA via data.ny.gov",
+     "title": "MTA Congestion Relief Zone Vehicle Entries (t6yz-b64h)",
+     "published": "2026-10",
+     "url": "https://data.ny.gov/d/t6yz-b64h",
+     "where": "dataset",
+     "status": "checked 2026-10-24",
+     "n": 39
+    },
+    {
+     "ids": [
+      "B-NYC-019"
+     ],
+     "author": "MTA",
+     "title": "MTA Board Action Items November 2019 (minutes of Regular Board Meeting 23 Oct 2019)",
+     "published": "2019-11-14",
+     "url": "https://www.mta.info/document/12161",
+     "where": "Master page 37",
+     "status": "checked 2026-10-25",
+     "n": 40
+    },
+    {
+     "ids": [
+      "B-NYC-020"
+     ],
+     "author": "MTA",
+     "title": "The most detailed view of NYC traffic (so far)",
+     "published": "2025-01-30",
+     "url": "https://www.mta.info/article/most-detailed-view-of-nyc-traffic-so-far",
+     "where": "Article text",
+     "status": "checked 2026-10-25",
+     "n": 41
+    }
+   ]
+  },
+  {
+   "id": "london",
+   "name": "London",
+   "items": [
+    {
+     "ids": [
+      "B-LON-001",
+      "B-LON-002",
+      "B-LON-003",
+      "B-LON-004",
+      "B-LON-005",
+      "B-LON-006",
+      "B-LON-007",
+      "B-LON-016",
+      "D-007"
+     ],
+     "author": "Transport for London",
+     "title": "Central London Congestion Charging Impacts Monitoring Second Annual Report",
+     "published": "2004-04",
+     "url": "https://content.tfl.gov.uk/impacts-monitoring-report-2.pdf",
+     "where": "Table 3.1, p.27 [PDF p.31]; Overview p.1-2 [PDF p.5-6]; Overview p.4 [PDF p.8]; s6.5 p.90; Overview p.3 [PDF p.7]; Table 6.1, p.91 [PDF p.95]; Overview p.5 [PDF p.9]; p.4 & p.55 (PDF p.8, p.59), p.60 (PDF p.64), Table 6.1 p.91 (PDF p.95), pp.112-116 (PDF pp.116-120)",
+     "status": "checked 2026-10-24",
+     "n": 42
+    },
+    {
+     "ids": [
+      "B-LON-008",
+      "B-LON-009",
+      "B-LON-010",
+      "B-LON-011",
+      "B-LON-017"
+     ],
+     "author": "Transport for London",
+     "title": "Central London Congestion Charging Impacts Monitoring Sixth Annual Report",
+     "published": "2008-07",
+     "url": "https://content.tfl.gov.uk/central-london-congestion-charging-impacts-monitoring-sixth-annual-report.pdf",
+     "where": "Overview p.3 [PDF p.10]; s3 p.39 [PDF p.47], Table 3.1; Table 10.2-10.3, p.220 [PDF p.227]; Overview p.8 [PDF p.15]; Overview p.7 [PDF p.14]",
+     "status": "checked 2026-10-24",
+     "n": 43
+    },
+    {
+     "ids": [
+      "B-LON-014"
+     ],
+     "author": "Transport for London",
+     "title": "TfL press release: initial results following removal of the western extension",
+     "published": "2011-06",
+     "url": "https://tfl.gov.uk/info-for/media/press-releases/2011/june/tfl-announces-initial-results-following-removal-of-the-western-extension-of-the-congestion-charging-zone",
+     "where": "Press release text",
+     "status": "checked 2026-10-24",
+     "n": 44
+    },
+    {
+     "ids": [
+      "B-LON-015"
+     ],
+     "author": "Transport for London",
+     "title": "Congestion Charge page",
+     "published": "accessed 2026-10-24",
+     "url": "https://tfl.gov.uk/modes/driving/congestion-charge",
+     "where": "Page text",
+     "status": "checked 2026-10-24",
+     "n": 45
+    }
+   ]
+  },
+  {
+   "id": "stockholm",
+   "name": "Stockholm",
+   "items": [
+    {
+     "ids": [
+      "B-LON-012",
+      "B-STO-010",
+      "B-STO-011",
+      "B-STO-012",
+      "B-STO-013",
+      "B-STO-014",
+      "B-STO-015"
+     ],
+     "author": "Borjesson, M. & Kristoffersson, I.",
+     "title": "The Swedish Congestion Charges: Ten Years On (CTS WP 2017:2; publ. TR-A 107, 2018)",
+     "published": "2017",
+     "url": "https://www.transportportal.se/swopec/cts2017-2.pdf",
+     "where": "p.10 (citing TfL 2004, 2016); p.7; p.9; Table 3 p.11; Table 5 p.14; p.2; p.19",
+     "status": "checked 2026-10-24",
+     "n": 46
+    },
+    {
+     "ids": [
+      "B-STO-001",
+      "B-STO-002",
+      "B-STO-003",
+      "B-STO-004",
+      "B-STO-005",
+      "B-STO-006",
+      "B-STO-007",
+      "B-STO-008",
+      "B-STO-009",
+      "B-STO-018"
+     ],
+     "author": "Eliasson, J.",
+     "title": "The Stockholm congestion charging system (WCTR paper; summary of official trial evaluation)",
+     "published": "2006/2007",
+     "url": "https://wctrs-society.com/wp-content/uploads/abstracts/berkeley/G6/1525/Stockholm%20congestion%20charges%20WCTR%20Eliasson.doc",
+     "where": "Traffic section; Traffic/revenue section; Travel time section; PT section; Costs section; CBA section; Public opinion section; Referendum section; Design section",
+     "status": "checked 2026-10-24",
+     "n": 47
+    },
+    {
+     "ids": [
+      "B-STO-016"
+     ],
+     "author": "Transportstyrelsen",
+     "title": "Hours and amounts in Stockholm",
+     "published": "accessed 2026-10-24",
+     "url": "https://www.transportstyrelsen.se/en/road/vehicles/taxes-and-fees/road-tolls/congestion-taxes-in-stockholm-and-gothenburg/congestion-tax-in-stockholm/hours-and-amounts-in-stockholm/",
+     "where": "Rate tables",
+     "status": "checked 2026-10-24",
+     "n": 48
+    },
+    {
+     "ids": [
+      "D-005"
+     ],
+     "author": "Eliasson, J.",
+     "title": "The Stockholm congestion charges: an overview (CTS Working Paper 2014:7)",
+     "published": "2014",
+     "url": "https://transportportal.se/swopec/cts2014-7.pdf",
+     "where": "pp.8-9 (Table 1), p.14 (Fig.7 text), pp.34-35 (Table 2, start-up cost)",
+     "status": "checked 2026-10-24",
+     "n": 49
+    },
+    {
+     "ids": [
+      "D-006"
+     ],
+     "author": "Börjesson, M. (OECD/ITF)",
+     "title": "Long-Term Effects of the Swedish Congestion Charges (ITF Discussion Paper / Roundtable 170)",
+     "published": "2018",
+     "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2018/10/long-term-effects-of-the-swedish-congestion-charges_41933a53/d944f94b-en.pdf",
+     "where": "p.10 (elasticities, departure time), p.11-12 (costs, Table 2), pp.13-15 (Table 3), p.16-18 (Tables 5-6)",
+     "status": "checked 2026-10-24",
+     "n": 50
+    }
+   ]
+  },
+  {
+   "id": "singapore",
+   "name": "Singapore",
+   "items": [
+    {
+     "ids": [
+      "B-ALS-001",
+      "B-ALS-002",
+      "B-ALS-003",
+      "B-ALS-004",
+      "B-ALS-005",
+      "B-ALS-006",
+      "B-ALS-007",
+      "B-ALS-008",
+      "B-ALS-009",
+      "B-ALS-010",
+      "B-ALS-011",
+      "B-ALS-012"
+     ],
+     "author": "Holland, E.P. & Watson, P.L. (World Bank)",
+     "title": "Measuring the impacts of Singapore's area license scheme (WCTR 1977)",
+     "published": "1977",
+     "url": "https://wctrs-society.com/wp-content/uploads/abstracts/rotterdam/Segment%20050%20of%20WCTR77_Rotterdam%20(3).pdf",
+     "where": "p.418-419; p.419; p.419-420; p.420; p.417-418; p.418; p.421",
+     "status": "checked 2026-10-24",
+     "n": 51
+    },
+    {
+     "ids": [
+      "B-ERP-001",
+      "B-ERP-002",
+      "B-ERP-004"
+     ],
+     "author": "Menon, A.P.G. & Guttikunda, S.",
+     "title": "Electronic Road Pricing: Experience & Lessons from Singapore (SIM-air WP 33-2010)",
+     "published": "2010",
+     "url": "https://urbanemissions.info/wp-content/uploads/docs/SIM-33-2010.pdf",
+     "where": "p.4 [PDF p.6]; p.8 [PDF p.10]; p.7-8 [PDF p.9-10]",
+     "status": "checked 2026-10-24",
+     "n": 52
+    },
+    {
+     "ids": [
+      "B-ERP-003"
+     ],
+     "author": "LTA",
+     "title": "Revised ERP rates (news release, 23 Mar 2026)",
+     "published": "2026-03",
+     "url": "https://www.lta.gov.sg/content/ltagov/en/newsroom/2026/3/news-releases/revised-erp-rates-23mar26.html",
+     "where": "Footnote",
+     "status": "checked 2026-10-24",
+     "n": 53
+    },
+    {
+     "ids": [
+      "B-ERP-008"
+     ],
+     "author": "data.gov.sg / LTA",
+     "title": "Average Daily Traffic Volume Entering the City (d_3136f317a1f282a33fe7a2f6a907c047)",
+     "published": "accessed 2026-10-24",
+     "url": "",
+     "where": "Dataset (per docs/access-audit.md)",
+     "status": "checked 2026-10-24",
+     "n": 54
+    },
+    {
+     "ids": [
+      "D-023"
+     ],
+     "author": "National Library Board Singapore; Phang & Toh (SMU)",
+     "title": "Area Licensing Scheme (Infopedia) and Phang & Toh (2004) abstract",
+     "published": "2004 / n.d.",
+     "url": "https://eresources.nlb.gov.sg/infopedia/articles/SIP_777_2004-12-13.html",
+     "where": "Infopedia article; https://ink.library.smu.edu.sg/soe_research/117/",
+     "status": "checked 2026-10-24",
+     "n": 55
+    },
+    {
+     "ids": [
+      "D-024"
+     ],
+     "author": "Olszewski, P. & Xie, L.",
+     "title": "Modelling the effects of road pricing on traffic in Singapore, Transportation Research Part A 39(7-9) 755-772",
+     "published": "2005",
+     "url": "https://ideas.repec.org/a/eee/transa/v39y2005i7-9p755-772.html",
+     "where": "Abstract",
+     "status": "checked 2026-10-24",
+     "n": 56
+    }
+   ]
+  },
+  {
+   "id": "methods",
+   "name": "Methods, prices and exchange rates",
+   "items": [
+    {
+     "ids": [
+      "D-001"
+     ],
+     "author": "Bank of Canada",
+     "title": "Annual average exchange rates (Valet series FXAUSDCAD)",
+     "published": "2026",
+     "url": "https://www.bankofcanada.ca/valet/observations/FXAUSDCAD/json",
+     "where": "Valet API observation d=2025-01-01; also annual-average-exchange-rates page US dollar row",
+     "status": "checked 2026-10-24",
+     "n": 57
+    },
+    {
+     "ids": [
+      "D-002"
+     ],
+     "author": "Statistics Canada",
+     "title": "Consumer Price Index, annual average, not seasonally adjusted (Table 18-10-0005-01)",
+     "published": "2026",
+     "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000501",
+     "where": "Vectors v41693271 (Canada), v41694217 (Ontario), v41695186 (Toronto); full-table CSV download via WDS",
+     "status": "checked 2026-10-24",
+     "n": 58
+    },
+    {
+     "ids": [
+      "D-003"
+     ],
+     "author": "Treasury Board of Canada Secretariat",
+     "title": "Canada's Cost-Benefit Analysis Guide for Regulatory Proposals",
+     "published": "2022-03-28",
+     "url": "https://publications.gc.ca/collections/collection_2022/sct-tbs/BT58-5-2022-eng.pdf",
+     "where": "PDF p.36 (section 6.1, Box 2): '7 per cent is to be used as the discount rate...'; 'social time preference rate has been estimated to be around 3 per cent'",
+     "status": "checked 2026-10-24",
+     "n": 59
+    },
+    {
+     "ids": [
+      "D-004"
+     ],
+     "author": "Metrolinx",
+     "title": "Business Case Manual Volume 2: Guidance (August 2021)",
+     "published": "2021-08",
+     "url": "https://assets.metrolinx.com/image/upload/v1663237565/Documents/Metrolinx/Metrolinx-Business-Case-Guidance-Volume-2.pdf",
+     "where": "Table 5.35 p.170 (PDF p.179); Table 5.1 p.87 (PDF p.96); pp.122-123 (PDF pp.131-132)",
+     "status": "checked 2026-10-24",
+     "n": 60
+    },
+    {
+     "ids": [
+      "D-028"
+     ],
+     "author": "UK Department for Transport",
+     "title": "TAG unit M3.1: Highway Assignment Modelling",
+     "published": "2026-05-28 (last updated)",
+     "url": "https://assets.publishing.service.gov.uk/media/6a033d074fb0713aa63ea802/tag-m3-1-highway-assignment-modelling.pdf",
+     "where": "section 3.3, PDF p.32",
+     "status": "checked 2026-10-25",
+     "n": 61
+    }
+   ]
+  },
+  {
+   "id": "software",
+   "name": "Software and basemap",
+   "items": [
+    {
+     "ids": [
+      "sw-sumo"
+     ],
+     "author": "Eclipse Foundation",
+     "title": "SUMO: Simulation of Urban MObility (routeSampler)",
+     "published": "",
+     "url": "https://eclipse.dev/sumo/",
+     "where": "",
+     "status": "open source",
+     "n": 62
+    },
+    {
+     "ids": [
+      "sw-aequilibrae"
+     ],
+     "author": "AequilibraE developers",
+     "title": "AequilibraE: traffic assignment",
+     "published": "",
+     "url": "https://www.aequilibrae.com/",
+     "where": "",
+     "status": "open source",
+     "n": 63
+    },
+    {
+     "ids": [
+      "sw-duckdb"
+     ],
+     "author": "DuckDB Foundation",
+     "title": "DuckDB with the spatial extension",
+     "published": "",
+     "url": "https://duckdb.org/",
+     "where": "",
+     "status": "open source",
+     "n": 64
+    },
+    {
+     "ids": [
+      "sw-maplibre"
+     ],
+     "author": "MapLibre",
+     "title": "MapLibre GL JS",
+     "published": "",
+     "url": "https://maplibre.org/",
+     "where": "",
+     "status": "open source",
+     "n": 65
+    },
+    {
+     "ids": [
+      "sw-openfreemap"
+     ],
+     "author": "OpenFreeMap",
+     "title": "OpenFreeMap Positron basemap (© OpenMapTiles)",
+     "published": "",
+     "url": "https://openfreemap.org/",
+     "where": "",
+     "status": "open source",
+     "n": 66
+    },
+    {
+     "ids": [
+      "sw-astro"
+     ],
+     "author": "Astro",
+     "title": "Astro (this deck and site)",
+     "published": "",
+     "url": "https://astro.build/",
+     "where": "",
+     "status": "open source",
+     "n": 67
+    }
+   ]
+  },
+  {
+   "id": "images",
+   "name": "Images (user-supplied; licences unverified)",
+   "items": [
+    {
+     "ids": [
+      "IMG-001"
+     ],
+     "author": "OpenStreetMap-based map; original author UNVERIFIED",
+     "title": "London congestion charge zone map (user-supplied image)",
+     "published": "",
+     "url": "",
+     "where": "n/a",
+     "status": "unverified",
+     "n": 68
+    },
+    {
+     "ids": [
+      "IMG-002"
+     ],
+     "author": "Vägverket",
+     "title": "Försök med trängselskatt i Stockholm: betalstationernas placering (user-supplied image)",
+     "published": "2005-06-28",
+     "url": "",
+     "where": "n/a",
+     "status": "unverified",
+     "n": 69
+    },
+    {
+     "ids": [
+      "IMG-003"
+     ],
+     "author": "Metro (newspaper)",
+     "title": "Metro Stockholm front page, January 2006 (user-supplied image)",
+     "published": "2006-01",
+     "url": "",
+     "where": "n/a",
+     "status": "unverified",
+     "n": 70
+    },
+    {
+     "ids": [
+      "IMG-004"
+     ],
+     "author": "Streetdirectory.com",
+     "title": "ERP gantry, Singapore (user-supplied image)",
+     "published": "2023",
+     "url": "",
+     "where": "n/a",
+     "status": "unverified",
+     "n": 71
+    }
+   ]
+  },
+  {
+   "id": "unverified",
+   "name": "Consulted, not verified against the primary source",
+   "items": [
+    {
+     "ids": [
+      "B-NYC-005"
+     ],
+     "author": "MTA",
+     "title": "MTA Annual Disclosure Statement Update",
+     "published": "2026",
+     "url": "https://www.mta.info/document/199581",
+     "where": "CBDTP section (seen via search excerpt; direct fetch HTTP 403)",
+     "status": "unverified",
+     "n": 72
+    },
+    {
+     "ids": [
+      "B-NYC-012"
+     ],
+     "author": "MTA",
+     "title": "CRZ discounts (MTA briefing decks)",
+     "published": "2024",
+     "url": "https://mta.info/document/131571",
+     "where": "Seen via search excerpts of MTA deck",
+     "status": "unverified",
+     "n": 73
+    },
+    {
+     "ids": [
+      "B-NYC-013"
+     ],
+     "author": "amNY / Mass Transit / GovTech",
+     "title": "Press coverage of TransCore CBD tolling contract",
+     "published": "2019-2024",
+     "url": "https://www.amny.com/transit/congestion-pricing-mta-tolling-cameras-future/",
+     "where": "Press",
+     "status": "unverified",
+     "n": 74
+    },
+    {
+     "ids": [
+      "B-NYC-014"
+     ],
+     "author": "Siena College",
+     "title": "Siena College Research Institute polls (SNY Mar 2025)",
+     "published": "2025-03-10",
+     "url": "https://scri.siena.edu/wp-content/uploads/2025/03/SNY-March-2025-Poll-Release-FINAL.pdf",
+     "where": "Via search excerpts; PDF not opened",
+     "status": "unverified",
+     "n": 75
+    },
+    {
+     "ids": [
+      "B-NYC-015"
+     ],
+     "author": "amNY / Railway Age / Tollroads News",
+     "title": "Press coverage of MTA v. Duffy ruling",
+     "published": "2026-03",
+     "url": "https://www.amny.com/news/congestion-pricing-judge-rules-trump-unlawful",
+     "where": "Press",
+     "status": "unverified",
+     "n": 76
+    },
+    {
+     "ids": [
+      "B-NYC-016"
+     ],
+     "author": "various",
+     "title": "Press timelines (CBS NY, amNY, NY1)",
+     "published": "2024",
+     "url": "https://cbsnews.com/amp/newyork/news/nyc-congestion-pricing-timeline",
+     "where": "Press",
+     "status": "unverified",
+     "n": 77
+    },
+    {
+     "ids": [
+      "B-LON-013"
+     ],
+     "author": "",
+     "title": "UBC student blog quoting a 2007 report",
+     "published": "",
+     "url": "https://blogs.ubc.ca/jessy/",
+     "where": "",
+     "status": "unverified",
+     "n": 78
+    },
+    {
+     "ids": [
+      "B-LON-019"
+     ],
+     "author": "cinch",
+     "title": "cinch FOI report",
+     "published": "2025",
+     "url": "https://www.cinch.co.uk/news/increased-congestion-charge-earnings",
+     "where": "",
+     "status": "unverified",
+     "n": 79
+    },
+    {
+     "ids": [
+      "B-ALS-014",
+      "B-ALS-015"
+     ],
+     "author": "Wikipedia",
+     "title": "Wikipedia: Area Licensing Scheme (citing The Journey)",
+     "published": "accessed 2026-10-24",
+     "url": "https://en.wikipedia.org/wiki/Area_Licensing_Scheme",
+     "where": "Impact section",
+     "status": "unverified",
+     "n": 80
+    },
+    {
+     "ids": [
+      "B-ERP-005"
+     ],
+     "author": "MOT / press",
+     "title": "Minister speech 2008 / Torque citing 2012 parliamentary disclosure",
+     "published": "2008/2012",
+     "url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/20080306983.htm",
+     "where": "",
+     "status": "unverified",
+     "n": 81
+    },
+    {
+     "ids": [
+      "B-ERP-006"
+     ],
+     "author": "MOT",
+     "title": "Written reply to PQ on ERP 2.0 cost",
+     "published": "2023",
+     "url": "https://mot.gov.sg/news/details/written-reply-to-parliamentary-question-on-estimated-overall-cost-and-timeframe-to-move-into-erp-2.0-system-era",
+     "where": "Via search excerpt",
+     "status": "unverified",
+     "n": 82
+    },
+    {
+     "ids": [
+      "D-026"
+     ],
+     "author": "Bradford Today / money.ca / Toronto Life",
+     "title": "GO Expansion electrification timeline reporting (leaked draft fleet strategy; March 2026 coverage)",
+     "published": "2026",
+     "url": "https://www.bradfordtoday.ca/local-news/metrolinx-could-run-first-electric-go-trains-in-2036-leaked-document-12018913",
+     "where": "News coverage",
+     "status": "unverified",
+     "n": 83
+    }
+   ]
+  }
+ ],
+ "by_id": {
+  "A-TT-001": 1,
+  "A-SC-001": 2,
+  "A-CN-001": 3,
+  "A-KS-001": 4,
+  "tor_svc": 5,
+  "tor_tmc": 6,
+  "tor_centreline": 7,
+  "tor_neighbourhoods": 8,
+  "tor_neighbourhood_profiles": 9,
+  "tor_bike_cordon": 10,
+  "tor_ptc": 11,
+  "osm": 12,
+  "D-008": 13,
+  "D-009": 14,
+  "D-010": 15,
+  "D-011": 16,
+  "D-012": 17,
+  "D-013": 18,
+  "D-014": 19,
+  "D-015": 20,
+  "D-016": 21,
+  "D-017": 22,
+  "D-018": 23,
+  "D-020": 24,
+  "D-022": 25,
+  "D-025": 26,
+  "D-027": 27,
+  "P-001": 28,
+  "T-001": 29,
+  "M-001": 30,
+  "B-NYC-001": 31,
+  "B-NYC-002": 31,
+  "B-NYC-003": 31,
+  "B-NYC-004": 31,
+  "B-NYC-006": 32,
+  "B-NYC-007": 32,
+  "B-NYC-017": 32,
+  "B-NYC-018": 32,
+  "B-NYC-008": 33,
+  "B-NYC-021": 33,
+  "B-NYC-022": 33,
+  "B-NYC-023": 33,
+  "B-NYC-024": 33,
+  "B-NYC-025": 33,
+  "B-NYC-026": 33,
+  "B-NYC-009": 34,
+  "D-021": 34,
+  "B-NYC-010": 35,
+  "B-NYC-011": 36,
+  "D-019": 36,
+  "N-001": 37,
+  "N-002": 38,
+  "N-003": 39,
+  "B-NYC-019": 40,
+  "B-NYC-020": 41,
+  "B-LON-001": 42,
+  "B-LON-002": 42,
+  "B-LON-003": 42,
+  "B-LON-004": 42,
+  "B-LON-005": 42,
+  "B-LON-006": 42,
+  "B-LON-007": 42,
+  "B-LON-016": 42,
+  "D-007": 42,
+  "B-LON-008": 43,
+  "B-LON-009": 43,
+  "B-LON-010": 43,
+  "B-LON-011": 43,
+  "B-LON-017": 43,
+  "B-LON-014": 44,
+  "B-LON-015": 45,
+  "B-LON-012": 46,
+  "B-STO-010": 46,
+  "B-STO-011": 46,
+  "B-STO-012": 46,
+  "B-STO-013": 46,
+  "B-STO-014": 46,
+  "B-STO-015": 46,
+  "B-STO-001": 47,
+  "B-STO-002": 47,
+  "B-STO-003": 47,
+  "B-STO-004": 47,
+  "B-STO-005": 47,
+  "B-STO-006": 47,
+  "B-STO-007": 47,
+  "B-STO-008": 47,
+  "B-STO-009": 47,
+  "B-STO-018": 47,
+  "B-STO-016": 48,
+  "D-005": 49,
+  "D-006": 50,
+  "B-ALS-001": 51,
+  "B-ALS-002": 51,
+  "B-ALS-003": 51,
+  "B-ALS-004": 51,
+  "B-ALS-005": 51,
+  "B-ALS-006": 51,
+  "B-ALS-007": 51,
+  "B-ALS-008": 51,
+  "B-ALS-009": 51,
+  "B-ALS-010": 51,
+  "B-ALS-011": 51,
+  "B-ALS-012": 51,
+  "B-ERP-001": 52,
+  "B-ERP-002": 52,
+  "B-ERP-004": 52,
+  "B-ERP-003": 53,
+  "B-ERP-008": 54,
+  "D-023": 55,
+  "D-024": 56,
+  "D-001": 57,
+  "D-002": 58,
+  "D-003": 59,
+  "D-004": 60,
+  "D-028": 61,
+  "sw-sumo": 62,
+  "sw-aequilibrae": 63,
+  "sw-duckdb": 64,
+  "sw-maplibre": 65,
+  "sw-openfreemap": 66,
+  "sw-astro": 67,
+  "IMG-001": 68,
+  "IMG-002": 69,
+  "IMG-003": 70,
+  "IMG-004": 71,
+  "B-NYC-005": 72,
+  "B-NYC-012": 73,
+  "B-NYC-013": 74,
+  "B-NYC-014": 75,
+  "B-NYC-015": 76,
+  "B-NYC-016": 77,
+  "B-LON-013": 78,
+  "B-LON-019": 79,
+  "B-ALS-014": 80,
+  "B-ALS-015": 80,
+  "B-ERP-005": 81,
+  "B-ERP-006": 82,
+  "D-026": 83
+ }
+}

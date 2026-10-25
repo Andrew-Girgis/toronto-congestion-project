@@ -107,7 +107,7 @@ def main():
     g5 = v["holdout"]["share_geh_lt5_approaches"]
     add("fit_holdout", g5, f"{g5 * 100:.0f}%", "SIMULATED", "metrics.json validation.holdout.share_geh_lt5_approaches",
         "held-out counts the model matches closely (GEH < 5)")
-    add("fit_target", 0.85, "85%", "OBSERVED (REPORT)", "metrics.json validation.criterion (UK TAG/DMRB)", "usual target")
+    add("fit_target", 0.85, "85%", "OBSERVED (REPORT)", "metrics.json validation.criterion [D-028]", "usual target (UK TAG M3.1)")
     rr = v["holdout"]["r_approaches"]
     add("fit_r", rr, f"{rr:.2f}", "SIMULATED", "metrics.json validation.holdout.r_approaches", "correlation with held-out counts")
 
@@ -148,8 +148,8 @@ def main():
     pbs = [bc[c]["payback_year"] for c in ("low", "base", "high")]
     add("payback_range", [min(pbs), max(pbs)], f"{min(pbs)}–{max(pbs)}", "ESTIMATED", f"finance.json {HEADLINE} all cases payback_year")
     nyc_pp = a["costs"]["all_in_per_charging_point_2025"]["high"]
-    add("nyc_per_point", nyc_pp, f"C${nyc_pp:.2f}M", "ESTIMATED", "assumptions.yaml costs.all_in_per_charging_point_2025 (B-NYC-019, B-NYC-020)",
-        "New York contract per detection point, all-in")
+    add("nyc_per_point", nyc_pp, f"C${nyc_pp:.2f}M", "ESTIMATED", "assumptions.yaml costs.all_in_per_charging_point_2025 [B-NYC-021, B-NYC-020]",
+        "New York capital spending per detection point")
     yr1 = next(c for c in bc["base"]["cashflow"] if c["year"] == 1)
     add("opex_y1", yr1["opex"], money(yr1["opex"]), "ESTIMATED", f"finance.json {HEADLINE} base cashflow year 1 opex",
         "running cost in year one")

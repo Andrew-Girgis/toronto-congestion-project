@@ -49,6 +49,7 @@ web:             ## export web layers and metrics
 	$(PY) -m cordon.export.web
 	$(PY) -m cordon.export.nyc
 	$(PY) -m cordon.export.figures
+	$(PY) -m cordon.export.references
 
 serve:           ## run the demo locally
 	cd web && npm install && npx astro dev
@@ -58,6 +59,7 @@ check:           ## data and model sanity tests
 
 present:         ## export deck figures and build the site (deck at /present)
 	$(PY) -m cordon.export.figures
+	$(PY) -m cordon.export.references
 	cd web && npx astro build
 
 present-check: present  ## deck numbers match figures.json; slides render at 1920x1080 and 1280x720

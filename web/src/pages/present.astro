@@ -4,7 +4,8 @@
 // at build time from the same data files. Check with `make present-check`.
 import Base from "../layouts/Base.astro";
 import Fig from "../components/Fig.astro";
-import { fig, read } from "../lib/data";
+import Ref from "../components/Ref.astro";
+import { fig, read, references, repoFile } from "../lib/data";
 import "../styles/stage.css";
 
 const d = (id: string) => fig(id).display; // for speaker notes only
@@ -34,6 +35,15 @@ const band = years.map((y: number, i: number) => `${cx(y)},${cy(hi[i])}`).join("
 const baseLine = years.map((y: number, i: number) => `${cx(y)},${cy(cum("base")[i])}`).join(" ");
 const yticks = Array.from({ length: Math.round((ymax - ymin) / 500) + 1 }, (_, k) => ymin + k * 500);
 
+// Sources slides: whole groups per slide, about 46 entries each
+const srcPages: (typeof references.groups)[] = [[]];
+let srcCount = 0;
+for (const g of references.groups.filter((g) => g.items.length)) {
+  if (srcCount + g.items.length > 46 && srcPages.at(-1)!.length) { srcPages.push([]); srcCount = 0; }
+  srcPages.at(-1)!.push(g);
+  srcCount += g.items.length;
+}
+
 const fit = fig("fit_holdout").value as number, target = fig("fit_target").value as number;
 
 // Cross-case charts (build-time SVG); values from figures.json, sources from cases.json
@@ -61,7 +71,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
           <div class="big"><Fig id="roads_counted" /><span class="lbl">roads crossing into downtown have a nearby City traffic count since <span data-literal>2023</span>. We found no daily total of cars entering downtown on the City&apos;s open-data portal.</span></div>
           <p class="lead" style="max-width:760px">We tested the hypothesis against four cities that did it, and with a traffic model built on the City's own counts: it estimates the cars entering downtown that open data doesn't count, and where traffic would move.</p>
         </div>
-        <p class="src">Source: City of Toronto Open Data, intersection and midblock traffic counts, matched to the roads crossing our downtown boundary (a count within <span data-literal>250</span> m). The rest: <Fig id="roads_old" class="inline" /> counted only before <span data-literal>2023</span>, <Fig id="roads_expressway" class="inline" /> Gardiner lanes and ramps with no open City counts, <Fig id="roads_never" class="inline" /> with no count nearby.</p>
+        <p class="src">Source: City of Toronto Open Data, <Ref id="tor_tmc">intersection</Ref> and <Ref id="tor_svc">midblock traffic counts</Ref>, matched to the roads crossing our downtown boundary (a count within <span data-literal>250</span> m). The rest: <Fig id="roads_old" class="inline" /> counted only before <span data-literal>2023</span>, <Fig id="roads_expressway" class="inline" /> Gardiner lanes and ramps with no open City counts, <Fig id="roads_never" class="inline" /> with no count nearby.</p>
         <aside class="notes">Downtown Toronto is slow, but nobody publishes how many cars come downtown each day. Only {d("roads_counted")} roads into downtown have a City count since 2023, and the Gardiner has none in open data. Our hypothesis: a New York-style charge cuts downtown traffic, doesn't dump it on neighbourhood streets, and funds transit. Here's what we found.</aside>
       </section>
 
@@ -84,7 +94,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
           <p class="check-h">Drivers pour onto whatever street is open</p>
           <p class="story">When Queen Street closed for Ontario Line work in <span data-literal>2023</span>, King Street carried <Fig id="today_king_cars" class="inline" /> more cars at the evening rush, and eastbound streetcar trips took nearly twice as long as in <span data-literal>2019</span>.</p>
         </div>
-        <p class="src" data-literal>Sources: TomTom Traffic Index, 2025 data, Toronto city area (assumes 10 km each way on 230 workdays; page as of 25 Oct 2026). Statistics Canada, The Daily, 26 Aug 2025, Table 4 (May 2025, all modes). CANCEA, Impact of Congestion in the GTHA and Ontario (Dec 2024), Table 4, commissioned by road-builder groups (RCCAO, ORBA). City of Toronto, King Street Transit Priority Corridor, July 2024 Update, pp.1–2.</p>
+        <p class="src" data-literal>Sources: <Ref id="A-TT-001">TomTom Traffic Index</Ref>, 2025 data, Toronto city area (assumes 10 km each way on 230 workdays; page as of 25 Oct 2026). <Ref id="A-SC-001">Statistics Canada, The Daily, 26 Aug 2025</Ref>, Table 4 (May 2025, all modes). <Ref id="A-CN-001">CANCEA, Impact of Congestion in the GTHA and Ontario (Dec 2024)</Ref>, Table 4, commissioned by road-builder groups (RCCAO, ORBA). <Ref id="A-KS-001">City of Toronto, King Street Transit Priority Corridor, July 2024 Update</Ref>, pp.1–2.</p>
         <aside class="notes">Toronto drivers lost about a hundred hours each to rush-hour traffic last year. Our region has the longest commute of Canada's big cities. One estimate puts the cost at ten billion dollars a year. And when one downtown street closes, traffic floods the next: King Street took a third more cars when Queen closed, and streetcars crawled.</aside>
       </section>
 
@@ -115,7 +125,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <p><b>Traffic</b> <Fig id="case_nyc_traffic" class="txt" /></p>
             <p><b>Speed</b> <Fig id="case_nyc_speed" class="txt" /></p>
             <p><b>Money</b> <Fig id="case_nyc_money" class="txt" /></p>
-            <p class="credit" data-literal>Chart: MTA open data (data.ny.gov), system-wide average weekday riders, each year against the year before.</p>
+            <p class="credit" data-literal>Chart: <Ref id="N-001">MTA open data (data.ny.gov)</Ref>, system-wide average weekday riders, each year against the year before.</p>
           </article>
           <article class="case" data-step>
             <div class="vis"><img src="/present/media/london-charge-zone-map.jpg" alt="Map of London's central congestion charge zone" /></div>
@@ -123,7 +133,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <p><b>Traffic</b> <Fig id="case_london_traffic" class="txt" /></p>
             <p><b>Congestion</b> <Fig id="case_london_speed" class="txt" /></p>
             <p><b>Money</b> <Fig id="case_london_money" class="txt" /></p>
-            <p class="credit">Map: user-supplied, OpenStreetMap-based; licence unverified.</p>
+            <p class="credit">Map: <Ref id="IMG-001">user-supplied, OpenStreetMap-based</Ref>; licence unverified.</p>
           </article>
           <article class="case" data-step>
             <div class="vis"><img src="/present/media/stockholm-metro-front-page.jpg" alt="Metro Stockholm front page: the same road at rush hour before and after the charge, headline 'Stockholmers, where did you go?'" /></div>
@@ -131,7 +141,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <p><b>Traffic</b> <Fig id="case_stockholm_traffic" class="txt" /></p>
             <p><b>Queues</b> <Fig id="case_stockholm_speed" class="txt" /></p>
             <p><b>Money</b> <Fig id="case_stockholm_money" class="txt" /></p>
-            <p class="credit" data-literal>Metro Stockholm front page, January 2006: "Stockholmers, where did you go?"</p>
+            <p class="credit" data-literal><Ref id="IMG-003">Metro Stockholm front page, January 2006</Ref>: "Stockholmers, where did you go?"</p>
           </article>
           <article class="case" data-step>
             <div class="vis"><img src="/present/media/singapore-erp-gantry.jpg" alt="Electronic Road Pricing gantry over a Singapore street" /></div>
@@ -140,10 +150,10 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <p><b>Speed</b> <Fig id="case_sg-erp_speed" class="txt" /></p>
             <p><b>Money</b> <Fig id="case_sg-erp_money" class="txt" /></p>
             <p class="small" style="font-size:18px">Separate earlier scheme (<span data-literal>1975</span> paper licence): <Fig id="case_sg-als_traffic" class="txt" /></p>
-            <p class="credit" data-literal>Photo: © 2023 Streetdirectory.com.</p>
+            <p class="credit" data-literal>Photo: <Ref id="IMG-004">© 2023 Streetdirectory.com</Ref>.</p>
           </article>
         </div>
-        <p class="src" data-literal>Sources: New York: MTA First Evaluation Report (Jan 2026, pp.8, 23–24), MTA CBDTP Financial Report Dec 2025 (preliminary). London: TfL Impacts Monitoring Reports 2 (2004) and 6 (2008). Stockholm: Eliasson (WCTR); Börjesson & Kristoffersson (2017). Singapore: Menon & Guttikunda (2010); Holland & Watson (1977). Full list: research/sources.csv.</p>
+        <p class="src" data-literal>Sources: New York: <Ref id="B-NYC-008">MTA First Evaluation Report (Jan 2026)</Ref>, pp.8, 23–24; <Ref id="B-NYC-001">MTA CBDTP Financial Report, Dec 2025 (preliminary)</Ref>. London: TfL Impacts Monitoring Reports <Ref id="B-LON-001">2 (2004)</Ref> and <Ref id="B-LON-008">6 (2008)</Ref>. Stockholm: <Ref id="B-STO-001">Eliasson (WCTR)</Ref>; <Ref id="B-LON-012">Börjesson &amp; Kristoffersson (2017)</Ref>. Singapore: <Ref id="B-ERP-001">Menon &amp; Guttikunda (2010)</Ref>; <Ref id="B-ALS-001">Holland &amp; Watson (1977)</Ref>.</p>
         <aside class="notes">Four cities, four designs. New York, the closest match to Toronto, cut entries about 11 percent in its first ten months, sped up its bridges and tunnels by about a quarter in the morning, and nets over half a billion US dollars. Bus riders on routes into the zone rose 8 percent, more than on routes that don't go there. London cut cars by a third. Stockholm cut crossings about a fifth, and it lasted a decade. Singapore runs electronic gantries with rates tied to speed targets. Different eras and prices, but the direction is the same everywhere.</aside>
       </section>
 
@@ -166,7 +176,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
                 </g>);
               })}
             </svg>
-            <figcaption class="src" data-literal>{drop.map((b: any) => `${b.name}: ${b.cite}.`).join(" ")}</figcaption>
+            <figcaption class="src" data-literal>{drop.map((b: any) => <>{b.name}: <Ref id={b.src.split(",")[0]}>{b.cite}</Ref>. </>)}</figcaption>
           </figure>
           <figure class="xchart">
             <h3>{charts.opex_share.measure}</h3>
@@ -184,7 +194,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
               <rect x={ow.l} y="0" width="18" height="18" fill="var(--toronto-soft)" /><text x={ow.l + 26} y="16" font-size="19" fill="var(--muted)">first years</text>
               <rect x={ow.l + 160} y="0" width="18" height="18" fill="var(--toronto)" /><text x={ow.l + 186} y="16" font-size="19" fill="var(--muted)">mature</text>
             </svg>
-            <figcaption class="src" data-literal>{opex.filter((b: any) => b.cite !== "same").map((b: any) => `${b.name}: ${b.cite}.`).join(" ")}</figcaption>
+            <figcaption class="src" data-literal>{opex.filter((b: any) => b.cite !== "same").map((b: any) => <>{b.name}: <Ref id={b.src.split(",")[0]}>{b.cite}</Ref>. </>)}</figcaption>
           </figure>
         </div>
         <aside class="notes">Side by side: traffic into the charged area fell in every city, by about a tenth to a fifth in modern schemes, though each city measured it differently. And running costs: London spent three quarters of its revenue on operations in year one, Stockholm almost a third, and both shares fell as the systems matured.</aside>
@@ -210,7 +220,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <li><b>Money.</b> Charged trips × rate over ten years, in today's dollars, minus build and running costs.</li>
           </ol>
         </div>
-        <p class="src" data-literal>Sources: City of Toronto Open Data; MTA open data (data.ny.gov); response anchored to New York's first-year fall in entries (MTA 2026), upper end from Stockholm's trial (Eliasson); share switching to transit from TfL (2004). Every input: config/assumptions.yaml.</p>
+        <p class="src" data-literal>Sources: City of Toronto Open Data (<Ref id="tor_tmc">turning counts</Ref>, <Ref id="tor_svc">midblock counts</Ref>, <Ref id="tor_centreline">Centreline</Ref>, <Ref id="tor_ptc">ride-hail trips</Ref>, <Ref id="tor_neighbourhood_profiles">neighbourhood profiles</Ref>); <Ref id="osm">OpenStreetMap</Ref>; MTA open data (<Ref id="N-001">ridership</Ref>, <Ref id="N-003">zone entries</Ref>, <Ref id="N-002">miles driven</Ref>). Response anchored to New York's first-year fall in entries (<Ref id="B-NYC-008">MTA 2026</Ref>), upper end from Stockholm's trial (<Ref id="B-STO-001">Eliasson</Ref>); share switching to transit from <Ref id="B-LON-001">TfL (2004)</Ref>. Tools: <Ref id="sw-sumo">SUMO</Ref>, <Ref id="sw-aequilibrae">AequilibraE</Ref>. Every input: <a class="ref" href={repoFile("config/assumptions.yaml")} target="_blank" rel="noopener">config/assumptions.yaml</a>.</p>
         <aside class="notes">We used the City's own counts, New York's open data, and the official reports from the other cities. Four steps: rebuild a morning from the counts, take how many stop driving in from New York, let the model work out where everyone else drives, then add up the money.</aside>
       </section>
 
@@ -230,6 +240,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
         </div>
         <div class="callout" style="margin-top:36px"><b>It misses the target.</b> Good enough to compare designs side by side; not good enough to forecast street speeds. Recalibrating on the City's internal data is the pilot's first job.</div>
         <p class="foot">Model: {method}. A vehicle-by-vehicle SUMO simulation gridlocked at expressway ramps, so we switched methods.</p>
+        <p class="src" style="margin-top:8px" data-literal>Sources: held-out counts from City of Toronto Open Data (<Ref id="tor_tmc">turning counts</Ref>, <Ref id="tor_svc">midblock counts</Ref>); target from <Ref id="D-028">UK Department for Transport, TAG unit M3.1 (2026)</Ref>, §3.3, p.32. Method and results: <a class="ref" href={repoFile("docs/validation.md")} target="_blank" rel="noopener">docs/validation.md</a>.</p>
         <aside class="notes">We held back a fifth of the count locations and checked the model against them. It matches {d("fit_holdout")} closely; the usual target is {d("fit_target")}. So we use it to compare designs, not to promise speeds. Fixing that with City data is step one of the pilot.</aside>
       </section>
 
@@ -254,6 +265,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <div class="sm"><Fig id="s4_paying" /><span class="lbl">cars paying to enter downtown. <Fig id="s4_stopped" class="inline" /> stop driving in, a rate set from New York; <Fig id="s4_rerouted" class="inline" /> drive around downtown, worked out by the model.</span></div>
           </div>
         </div>
+        <p class="src" style="margin-top:14px" data-literal>Sources: our traffic model, fitted to City of Toronto Open Data counts (<Ref id="tor_tmc">turning</Ref>, <Ref id="tor_svc">midblock</Ref>) on the <Ref id="osm">OpenStreetMap</Ref> road network, routes by <Ref id="sw-aequilibrae">AequilibraE</Ref>; share who stop driving in set from <Ref id="B-NYC-008">MTA First Evaluation Report (Jan 2026)</Ref>, p.8. Basemap: <Ref id="sw-openfreemap">OpenFreeMap</Ref>.</p>
         <aside class="notes">This is the model running the morning rush. First, today's traffic. Then the same morning with a downtown charge: downtown streets get lighter. Blue means fewer cars, red more. The Gardiner and DVP stay free, so through trips move onto them. How many people stop driving in comes from New York; where everyone else goes is what the model works out.</aside>
       </section>
 
@@ -282,7 +294,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <p><b>Driving downtown:</b> our model <Fig id="s4_zone" class="inline" /> · New York measured <Fig id="nyc_eval_vmt" class="inline" /></p>
             <p><b>Downtown speed:</b> our model <Fig id="s4_speed" class="inline" /> · New York weekdays <Fig id="nyc_eval_speed_weekday" class="inline" />. Our model has no queues, so it understates speed.</p>
           </div>
-          <p class="src" data-literal>New York: MTA First Evaluation Report (Jan 2026), driving p.20 (Jan–Sep), speeds p.24 (Jan–Oct), both year on year.</p>
+          <p class="src" data-literal>New York: <Ref id="B-NYC-008">MTA First Evaluation Report (Jan 2026)</Ref>, driving p.20 (Jan–Sep), speeds p.24 (Jan–Oct), both year on year. Toronto: our traffic model (<a class="ref" href={repoFile("docs/methodology.md")} target="_blank" rel="noopener">docs/methodology.md</a>); share of drivers switching to transit from <Ref id="D-007">London (TfL, 2004)</Ref> and <Ref id="D-005">Stockholm (Eliasson, 2014)</Ref>.</p>
         </div>
         <aside class="notes">Traffic on downtown streets: {d("s4_zone")}. About {d("t_daily_new_transit_trips")} new transit trips a day. Sense check: New York measured {d("nyc_eval_vmt")} driving in its zone, close to our result. Its weekday speeds rose {d("nyc_eval_speed_weekday")}; ours barely move, because our model has no queues. And the key design lesson: with the Gardiner and DVP free, streets just outside downtown barely change. Charge them too and those streets take {d("s2_boundary")} more traffic. Keep them free.</aside>
       </section>
@@ -312,7 +324,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <div class="sm"><Fig id="t_ttc_fares_cad_m" /> <Fig id="t_go_fares_cad_m" /><span class="lbl">extra TTC fares (City) and GO fares (Metrolinx) per year</span></div>
           </div>
         </div>
-        <p class="src" data-literal>From our ten-year financial model, 2025 dollars. Build cost: New York&apos;s capital spending on tolling infrastructure, US$365.9M to Oct 2025 (MTA First Evaluation Report, Jan 2026, p.67) ÷ 110 detection points (MTA, Jan 2025), at the 2025 Bank of Canada rate; low end from the City of Toronto Gardiner/DVP tolling study (EX8.14, 2015), CPI-adjusted. Running cost: Stockholm (Börjesson 2018), London (TfL), 407 ETR (2025 results). Every input: config/assumptions.yaml.</p>
+        <p class="src" data-literal>From our ten-year financial model, 2025 dollars. Build cost: New York&apos;s capital spending on tolling infrastructure, US$365.9M to Oct 2025 (<Ref id="B-NYC-021">MTA First Evaluation Report, Jan 2026</Ref>, p.67) ÷ 110 detection points (<Ref id="B-NYC-020">MTA, Jan 2025</Ref>), at the 2025 <Ref id="D-001">Bank of Canada</Ref> rate; low end from the <Ref id="D-008">City of Toronto Gardiner/DVP tolling study (EX8.14, 2015)</Ref>, <Ref id="D-002">CPI</Ref>-adjusted. Running cost: <Ref id="D-006">Stockholm (Börjesson 2018)</Ref>, <Ref id="B-LON-008">London (TfL)</Ref>, <Ref id="D-020">407 ETR (2025 results)</Ref>. Fares: <Ref id="T-001">TTC (Sept 2025)</Ref>, <Ref id="M-001">Metrolinx 2023-24</Ref>. Discount rate: <Ref id="D-003">Treasury Board of Canada</Ref>. Every input: <a class="ref" href={repoFile("config/assumptions.yaml")} target="_blank" rel="noopener">config/assumptions.yaml</a>.</p>
         <aside class="notes">We priced the build at what New York actually spent per tolling point, about {d("nyc_per_point")}, so roughly {d("capex")}. The City's own 2015 toll study implies far less. Even so, our base case pays back in year {d("payback")} after launch. It would collect about {d("gross")} a year before running costs, roughly {d("npv")} over ten years in today's money. And if traffic falls more, revenue falls too.</aside>
       </section>
 
@@ -342,7 +354,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             </ul>
           </div>
         </div>
-        <p class="src" data-literal>Sources: TfL Impacts Monitoring Report 6 (2008); Holland & Watson (1977); MTA First Evaluation Report (Jan 2026), pp.7, 42; Eliasson (WCTR).</p>
+        <p class="src" data-literal>Sources: <Ref id="B-LON-008">TfL Impacts Monitoring Report 6 (2008)</Ref>; <Ref id="B-ALS-001">Holland &amp; Watson (1977)</Ref>; <Ref id="B-NYC-008">MTA First Evaluation Report (Jan 2026)</Ref>, pp.7, 42; <Ref id="B-STO-001">Eliasson (WCTR)</Ref>. Our model: <a class="ref" href={repoFile("docs/validation.md")} target="_blank" rel="noopener">docs/validation.md</a>; feedback: <a class="ref" href={repoFile("research/user-feedback/log.csv")} target="_blank" rel="noopener">research/user-feedback/log.csv</a>.</p>
         <aside class="notes">Our model misses the usual fit target, has no queues, and has no trip data, so we can't say who pays. We've logged only one user conversation. Elsewhere: London's congestion relief faded from 30 percent to 8 as road space went to buses and pedestrians, though the car cut lasted. Singapore's first scheme pushed traffic onto the ring road. New York has ten months of data, measured against an estimated before. Stockholm is the success, and it won by running a trial first.</aside>
       </section>
 
@@ -364,7 +376,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <p><b>Needs an Act of the Ontario Legislature</b> (City of Toronto Act s.<span data-literal>41</span>, amended <span data-literal>2025</span>), transit capacity in place before launch, and an agreed use for the money.</p>
           </div>
         </div>
-        <p class="foot">Open code and method · scroll version of this demo at <span data-literal>localhost:4321</span> · <a href="/">back to the full page</a></p>
+        <p class="src" data-literal>Sources: <Ref id="D-010">City of Toronto Act, 2006</Ref>, s.41, as amended by the <Ref id="D-009">Plan to Protect Ontario Act (Budget Measures), 2025</Ref>, Sched. 2; Stockholm's trial and vote: <Ref id="B-STO-009">Eliasson (WCTR)</Ref>. Pilot cost: <a class="ref" href={repoFile("adoption/cost.md")} target="_blank" rel="noopener">adoption/cost.md</a>. Open code and method: <a class="ref" href={references.repo} target="_blank" rel="noopener">github.com/Andrew-Girgis/toronto-congestion-project</a> · <a href="/">back to the full page</a></p>
         <aside class="notes">Two asks. First: Transportation Services runs a 90-day pilot of this tool on its own data, for about {d("pilot_cost")}, with no personal data. Second, and only if that evidence holds: a Stockholm-style trial, which needs the Province to pass a law, plus transit capacity in place first. Thank you.</aside>
       </section>
 
@@ -379,25 +391,31 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
           <tr><td>Predict the money raised</td><td>Ten-year cash flow with ranges; more congestion relief can mean less revenue</td></tr>
           <tr><td>Learn from the other cities' struggles</td><td>Lessons table per city, protected from scope cuts</td></tr>
         </table>
-        <p class="foot">One conversation is a signal, not a sample. Name withheld pending consent.</p>
+        <p class="foot">One conversation is a signal, not a sample. Name withheld pending consent. Source: <a class="ref" href={repoFile("research/user-feedback/log.csv")} target="_blank" rel="noopener" data-literal>research/user-feedback/log.csv</a>, <a class="ref" href={repoFile("research/user-feedback/synthesis.md")} target="_blank" rel="noopener">synthesis.md</a>.</p>
         <aside class="notes">Appendix: feedback.</aside>
       </section>
 
-      <section class="slide" data-appendix>
-        <p class="kicker">Appendix · sources</p>
-        <h2>Where the numbers come from</h2>
-        <ul class="tight apx-list" data-literal>
-          <li>Case figures: research/sources.csv lists every source with URL, page and date; results are descriptive before/after, not causal.</li>
-          <li>New York transit: MTA Daily Ridership (data.ny.gov sayj-mze2), zone entries (t6yz-b64h), zone vehicle-miles (jbxx-kxff).</li>
-          <li>Toronto today: TomTom Traffic Index (2025 data, Toronto city area; time lost assumes 10 km each way on 230 workdays); Statistics Canada, The Daily 26 Aug 2025, Table 4; CANCEA, Impact of Congestion in the GTHA and Ontario (Dec 2024), Table 4, commissioned by RCCAO and ORBA; City of Toronto, King Street Transit Priority Corridor July 2024 Update, pp.1–2.</li>
-          <li>New York evaluation: MTA, Congestion Relief Zone Tolling: First Evaluation Report (Jan 2026). Entries p.8 and Table 2-1; driving p.20; speeds pp.23–24; bus riders pp.40–41; subway p.42; capital spending p.67. Year on year, descriptive, not causal. Economists' estimate of the speed effect: NBER WP 33584 (+11%, synthetic control).</li>
-          <li>Toronto: City of Toronto Open Data turning-movement and midblock counts, Toronto Centreline, OpenStreetMap.</li>
-          <li>Fares: TTC Budget Update Sept 2025 (average fare); Metrolinx 2023-24 Annual Report (GO fare revenue ÷ rides).</li>
-          <li>Images: London map (OSM-based, user-supplied), Metro Stockholm front page (Jan 2006), Singapore gantry (Streetdirectory.com). Licences unverified; credited on slide.</li>
-          <li>Every modelling assumption: config/assumptions.yaml. Validation: docs/validation.md.</li>
-        </ul>
-        <aside class="notes">Appendix: sources.</aside>
-      </section>
+      {srcPages.map((groups, k) => (
+        <section class="slide sources" data-appendix data-print>
+          <p class="kicker">Sources{srcPages.length > 1 && <span data-literal> · {k + 1} of {srcPages.length}</span>}</p>
+          <h2>{k === 0 ? "Where everything in this deck comes from" : "Sources, continued"}</h2>
+          {k === 0 && <p class="src-lead" data-literal>Bracketed numbers match the source notes at the foot of each slide; in the browser, hover any number to see its source. Page numbers, observation periods and limitations for every claim: <a href={repoFile("research/sources.csv")} target="_blank" rel="noopener">research/sources.csv</a>. Every modelling assumption: <a href={repoFile("config/assumptions.yaml")} target="_blank" rel="noopener">config/assumptions.yaml</a>. Downloads with dates and checksums: <a href={repoFile("data/manifest.csv")} target="_blank" rel="noopener">data/manifest.csv</a>.</p>}
+          <div class="reflist" data-literal>
+            {groups.map((g) => (<>
+              <h3>{g.name}</h3>
+              {g.id === "unverified" && <p class="refnote">Leads and context only: no number on these slides relies on them.</p>}
+              <ol>
+                {g.items.map((r) => (
+                  <li value={r.n}>
+                    <span class="refn">[{r.n}]</span> {r.author && `${r.author.replace(/\.$/, "")}. `}{r.url ? <a href={r.url} target="_blank" rel="noopener">{r.title}</a> : r.title}{r.published && `. ${r.published}`}{r.status && <span class="refstat"> · {r.status}</span>}
+                  </li>
+                ))}
+              </ol>
+            </>))}
+          </div>
+          <aside class="notes">Appendix: sources. Not presented.</aside>
+        </section>
+      ))}
 
       <div class="progress"></div>
       <div class="pageno"></div>
@@ -417,6 +435,18 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
 </Base>
 
 <style is:global>
+  .ref { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  .ref .refn, .reflist .refn { color: var(--toronto); font-weight: 700; }
+  .slide.title .ref .refn { color: inherit; }
+  .sources h2 { margin-bottom: 8px; }
+  .src-lead { font-size: 17px; color: var(--muted); margin: 0 0 14px; max-width: 1700px; }
+  .src-lead a, .reflist a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+  .reflist { columns: 3; column-gap: 40px; font-size: 14.5px; line-height: 1.3; flex: 1; min-height: 0; }
+  .reflist h3 { font-size: 15px; text-transform: uppercase; letter-spacing: .04em; color: var(--toronto); margin: 0 0 6px; break-after: avoid; }
+  .reflist ol { list-style: none; padding: 0; margin: 0 0 14px; }
+  .reflist li { margin: 0 0 5px; break-inside: avoid; }
+  .reflist .refstat, .refnote { color: var(--muted); }
+  .refnote { font-size: 14px; margin: 0 0 6px; }
   .cases { flex: 1; min-height: 0; }
   .case { display: flex; flex-direction: column; font-size: 21px; line-height: 1.35; }
   .case .vis { height: 250px; border-radius: 12px; overflow: hidden; background: var(--panel); border: 1px solid var(--rule); margin-bottom: 14px; display: grid; place-items: center; }

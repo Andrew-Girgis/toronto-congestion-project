@@ -32,7 +32,7 @@ function show(i: number, st = 0, broadcast = true) {
   slides.forEach((x, k) => x.classList.toggle("active", k === idx));
   all.forEach((el, k) => el.classList.toggle("pending", k >= step));
   progress.style.width = `${((timed.indexOf(s) + 1) / timed.length) * 100}%`;
-  pageno.textContent = s.hasAttribute("data-appendix") ? "appendix" : `${timed.indexOf(s) + 1} / ${timed.length}`;
+  pageno.textContent = s.classList.contains("sources") ? "sources" : s.hasAttribute("data-appendix") ? "appendix" : `${timed.indexOf(s) + 1} / ${timed.length}`;
   history.replaceState(null, "", `${location.search}#${idx + 1}`);
   if (broadcast) chan?.postMessage({ idx, step });
   if (isPresenter) renderPresenter();
@@ -42,7 +42,7 @@ function next() {
   if (started === null) started = Date.now();
   const all = steps(slides[idx]);
   if (step < all.length) show(idx, step + 1);
-  else if (idx < slides.length - 1 && !slides[idx + 1].hasAttribute("data-appendix")) show(idx + 1, 0);
+  else if (idx < slides.length - 1) show(idx + 1, 0); // past the ask: appendix, then sources
 }
 function prev() {
   if (step > 0) show(idx, step - 1);

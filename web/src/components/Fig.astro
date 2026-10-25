@@ -1,9 +1,9 @@
 ---
 // The only way a slide shows a number: display text from figures.json, tagged only if SIMULATED.
-import { fig, showTag, tagKind, tagText } from "../lib/data";
+import { fig, figSource, showTag, tagKind, tagText } from "../lib/data";
 interface Props { id: string; tag?: boolean; class?: string }
 const { id, class: cls = "" } = Astro.props;
 const f = fig(id);
 const tag = Astro.props.tag ?? showTag(f.label);
 ---
-<span class={`figwrap ${cls}`}><span class="fig" data-fig={id}>{f.display}</span>{tag && <span class={`tag ${tagKind(f.label)}`} title={f.label}>{tagText(f.label)}</span>}</span>
+<span class={`figwrap ${cls}`}><span class="fig" data-fig={id} title={figSource(id)}>{f.display}</span>{tag && <span class={`tag ${tagKind(f.label)}`} title={f.label}>{tagText(f.label)}</span>}</span>

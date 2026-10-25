@@ -1,0 +1,10 @@
+---
+// A cited name on a slide, linked to its source and numbered to match the sources slides.
+import { ref } from "../lib/data";
+interface Props { id: string }
+const r = ref(Astro.props.id);
+const tip = [r.author, r.title, r.published].filter(Boolean).join(", ");
+---
+{r.url
+  ? <a class="ref" href={r.url} target="_blank" rel="noopener" title={tip} data-literal><slot /> <span class="refn">[{r.n}]</span></a>
+  : <span class="ref" title={tip} data-literal><slot /> <span class="refn">[{r.n}]</span></span>}
