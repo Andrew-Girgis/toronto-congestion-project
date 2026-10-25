@@ -19,7 +19,8 @@ const tag = (kind: string, text?: string) =>
 const labelKind = (l: string) =>
   /UNVERIFIED/.test(l) ? "unv" : /OBSERVED/.test(l) ? "obs" : /ESTIMATED/.test(l) ? "est" : /SIMULATED/.test(l) ? "sim" : "asm";
 
-let scenario = "S2";
+const HEADLINE = "S4"; // NYC-style: cordon only, expressways free
+let scenario = HEADLINE;
 let mode = "change";
 let metrics: Json, finance: Json, edges: Json, crossings: Json;
 
@@ -34,7 +35,7 @@ async function main() {
   buildMap(cordons, counts);
   diversion();
   sides();
-  financeView("S2");
+  financeView(HEADLINE);
   caseCards(cases);
   validation();
 }
@@ -46,14 +47,14 @@ function minute(counts: Json) {
   const counted = c1.filter((f: Json) => f.properties.coverage === "counted 2023+").length;
   $("[data-bind=cover]").innerHTML = `${counted} of ${c1.length} <small>roads into downtown counted since 2023</small>`;
   $("[data-bind=nsites]").textContent = fmt.format(counts.features.length);
-  const s2 = S("S2");
+  const s2 = S(HEADLINE);
   if (s2) {
     $("[data-bind=s2drop]").innerHTML = `${pct(s2.charged_vehicles / s2.baseline_chargeable - 1)} <small>vehicles paying</small>`;
     const bl = s2.boundary_local_street_vkt_am / S("S0").boundary_local_street_vkt_am - 1;
     $("[data-bind=bl]").innerHTML = `${pct(bl)} <small>on boundary local streets</small>`;
-    const f = finance.results.find((r: Json) => r.scenario === "S2" && r.case === "base");
-    const lo = finance.results.find((r: Json) => r.scenario === "S2" && r.case === "low");
-    const hi = finance.results.find((r: Json) => r.scenario === "S2" && r.case === "high");
+    const f = finance.results.find((r: Json) => r.scenario === HEADLINE && r.case === "base");
+    const lo = finance.results.find((r: Json) => r.scenario === HEADLINE && r.case === "low");
+    const hi = finance.results.find((r: Json) => r.scenario === HEADLINE && r.case === "high");
     $("[data-bind=net]").innerHTML = `C$${Math.round(f.gross_per_year_cad_m)}M <small>(range ${Math.round(lo.gross_per_year_cad_m)}–${Math.round(hi.gross_per_year_cad_m)})</small>`;
   }
 }
@@ -75,7 +76,7 @@ function cordonTable(cordons: Json) {
 
 function scenarioButtons() {
   const box = $("#scenario-buttons");
-  for (const id of Object.keys(metrics.scenarios)) {
+  for (const id of ["S0", "S4", "S2", "S3", "S1"].filter((k) => metrics.scenarios[k])) {
     const b = document.createElement("button");
     b.textContent = id === "S0" ? "No charge" : `${id}: ${short(id)}`;
     b.dataset.s = id;
@@ -93,7 +94,7 @@ function scenarioButtons() {
 }
 
 function short(id: string) {
-  return ({ S1: "Gardiner/DVP $3", S2: "Cordon $12.58", S3: "Cordon, cheaper shoulders" } as Record<string, string>)[id] ?? id;
+  return ({ S1: "Gardiner/DVP $3", S2: "Cordon + Gardiner/DVP", S3: "Cordon + Gardiner/DVP, cheaper shoulders", S4: "Cordon $12.58 (NYC-style)" } as Record<string, string>)[id] ?? id;
 }
 
 let map: maplibregl.Map;
@@ -153,10 +154,11 @@ function refresh() {
   map.setFilter("edges", [">", ["max", ["get", "v_S0"], ["get", v]], 40]);
   if (mode === "change" && scenario !== "S0") {
     map.setPaintProperty("edges", "line-color", ["interpolate", ["linear"], ["-", ["get", v], ["get", "v_S0"]],
-      -600, "#08306b", -150, "#2166ac", -25, "#d1d9e0", 25, "#d1d9e0", 150, "#d6604d", 600, "#67001f"]);
+      -600, "#08306b", -200, "#2166ac", -60, "#d9dde2", 60, "#d9dde2", 200, "#d6604d", 600, "#67001f"]);
   } else {
+    // Volume uses a neutral ramp so it can't be read as the blue "fewer vehicles" of the change view.
     map.setPaintProperty("edges", "line-color", ["interpolate", ["linear"], ["get", v],
-      100, "#cfd8dc", 1000, "#7fa7c9", 3000, "#2c5f8a", 8000, "#0b2545"]);
+      100, "#e3dccf", 1000, "#c4a77d", 3000, "#8a6a3b", 8000, "#3d2b14"]);
   }
   map.setPaintProperty("edges", "line-width", width as any);
   legend();
@@ -173,15 +175,17 @@ function legend() {
       <span style="color:#1f7a4d">●</span> crossing counted since 2023<br><span style="color:#a36400">●</span> counted before 2023 only<br>
       <span style="color:#b42318">●</span> expressway: no open City counts<br><span style="color:#6b6b6b">●</span> never counted<br>
       <span style="color:#c8102e">━</span> modelled boundary (C1) &nbsp;<span>┅</span> alternatives C2, C3<br>small dots: counted intersections (green = fit, amber = held out) ${tag("obs")}`;
+  } else if (mode === "change" && scenario === "S0") {
+    el.innerHTML = `<b>No charge: this is the comparison point.</b><br>Colours show traffic volume (darker = more). Pick a charge scenario to see what changes. ${tag("sim")}`;
   } else if (mode === "change" && scenario !== "S0") {
-    el.innerHTML = `<b>Change in vehicles, 6–10 a.m.</b><br><span style="color:#2166ac">━</span> fewer &nbsp; <span style="color:#d6604d">━</span> more &nbsp; line width = traffic<br>${short(scenario)} vs no charge ${tag("sim")}`;
+    el.innerHTML = `<b>Change in vehicles, 6–10 a.m.</b><br><span style="color:#2166ac">━</span> fewer &nbsp; <span style="color:#d6604d">━</span> more &nbsp; grey: within ±60 &nbsp; line width = traffic<br>${short(scenario)} vs no charge ${tag("sim")}`;
   } else {
     el.innerHTML = `<b>Vehicles, 6–10 a.m.</b><br>darker and wider = more traffic ${tag("sim")}`;
   }
 }
 
 function diversion() {
-  const id = scenario === "S0" ? "S2" : scenario;
+  const id = scenario === "S0" ? HEADLINE : scenario;
   const s = S(id), b = S("S0");
   if (!s) return;
   const blChange = s.boundary_local_street_vkt_am / b.boundary_local_street_vkt_am - 1;
@@ -191,12 +195,13 @@ function diversion() {
   $("#diversion-cards").innerHTML = `
     <div class="card"><div class="stat">${pct(blChange)}</div><p>traffic (vehicle-km) on local and collector streets within 800 m outside the zone, ${short(id)} ${tag("sim")}</p></div>
     <div class="card"><div class="stat">${(reroute * 100).toFixed(0)}%</div><p>of drivers facing the charge who kept driving found a route around it (${fmt.format(s.rerouted_to_avoid_charge)} vehicles). London: 20–30% of removed trips diverted around the zone. ${tag("sim")}</p></div>
-    <div class="card"><div class="stat">${pct(zoneSpeed)}</div><p>average speed on streets inside the zone (expressways excluded; ${fmt.format(b.zone_street_speed_kmh)} → ${fmt.format(s.zone_street_speed_kmh)} km/h). Zone traffic ${pct(s.zone_vkt_am / b.zone_vkt_am - 1)}; vehicle-hours across the whole study area ${pct(vht)}. ${tag("sim")}</p></div>`;
+    <div class="card"><div class="stat">${pct(zoneSpeed)}</div><p>average speed on streets inside the zone (expressways excluded; ${fmt.format(b.zone_street_speed_kmh)} → ${fmt.format(s.zone_street_speed_kmh)} km/h). Zone traffic ${pct(s.zone_vkt_am / b.zone_vkt_am - 1)}; vehicle-hours across the whole study area ${pct(vht)}. ${tag("sim")}</p></div>
+    ${S("S2") && S("S4") ? `<div class="card"><div class="stat">${pct(S("S2").zone_vkt_am / b.zone_vkt_am - 1)} vs ${pct(S("S4").zone_vkt_am / b.zone_vkt_am - 1)}</div><p><b>Lesson from New York: leave the bypass free.</b> Zone traffic with the Gardiner/DVP also charged (S2) vs cordon only (S4). Charging the expressways mostly pushes their traffic onto Lake Shore and side streets: study-area vehicle-hours ${pct(S("S2").vehicle_hours / b.vehicle_hours - 1)} vs ${pct(S("S4").vehicle_hours / b.vehicle_hours - 1)}. ${tag("sim")}</p></div>` : ""}`;
 }
 
 function sides() {
   const rows: Json[] = [];
-  for (const id of ["S0", "S2"]) {
+  for (const id of ["S0", HEADLINE]) {
     const s = S(id);
     if (!s) continue;
     for (const [side, n] of Object.entries(s.cordon_inbound_by_side_am)) rows.push({ side, n, scen: id === "S0" ? "No charge" : "Cordon $12.58" });
@@ -211,7 +216,7 @@ function sides() {
 function financeView(id: string) {
   const box = $("#fin-buttons");
   if (!box.childElementCount) {
-    for (const s of ["S1", "S2", "S3"]) {
+    for (const s of ["S4", "S2", "S3", "S1"]) {
       const b = document.createElement("button");
       b.textContent = `${s}: ${short(s)}`;
       b.onclick = () => { box.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", String(x === b))); financeView(s); };

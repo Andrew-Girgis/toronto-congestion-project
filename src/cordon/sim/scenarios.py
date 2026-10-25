@@ -122,6 +122,20 @@ def charged_edges(net, cordon_id):
     return inbound, entries
 
 
+def nyc_style_cordon(net, cordon_id, inbound):
+    """Cordon charge with the expressway mainline free, as New York leaves the FDR Drive and West
+    Side Highway uncharged: surface roads crossing into the zone, plus expressway off-ramps that
+    lead into the zone (drivers pay when they exit into it)."""
+    zone = gpd.read_file(CONFIG / "cordons" / f"{cordon_id}.geojson").geometry.iloc[0]
+    zone_xy = transform(lambda x, y, z=None: net.convertLonLat2XY(x, y), zone)
+    surface = {eid for eid in inbound if not net.getEdge(eid).getType().startswith("highway.motorway")}
+    exits = {e.getID() for e in net.getEdges()
+             if e.getType() == "highway.motorway_link"
+             and any(i.getType() == "highway.motorway" for i in e.getFromNode().getIncoming())
+             and zone_xy.contains(Point(e.getToNode().getCoord()))}
+    return surface | exits
+
+
 def hour_of(t):
     return int(t // 3600)
 
@@ -243,8 +257,9 @@ def main(selected):
     for name in [n for n in names if n != "S0"]:
         cfg = scen[name]
         print(f"{name}: {cfg['name']}")
-        charged = (xwy_entries if cfg["charges"] == "expressway_entries"
-                   else cordon_inbound | xwy_entries)
+        charged = {"expressway_entries": xwy_entries,
+                   "cordon_inbound": nyc_style_cordon(net, sim_cfg["cordon_for_area_charge"], cordon_inbound),
+                   "cordon_and_expressway_entries": cordon_inbound | xwy_entries}[cfg["charges"]]
         rates = {int(k): v for k, v in cfg["rate_by_hour"].items()}
         b_charged, _ = charged_from_vehroutes(OUT / "S0", charged, rates, cfg["once_per"])
         routes, resp_counts = build_scenario_routes(name, cfg, sim_cfg, base, charged, resp, a, net)

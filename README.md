@@ -33,7 +33,7 @@ See [`adoption/`](adoption/) *(planned)*.
 ```mermaid
 flowchart LR
     A[City of Toronto open data<br/>road network + traffic counts] --> B[Clean & check<br/>DuckDB / Parquet]
-    B --> C[Traffic simulation<br/>SUMO, fitted to real counts]
+    B --> C[Traffic model<br/>trips fitted to real counts,<br/>equilibrium route choice]
     D[Evidence from NYC, London,<br/>Stockholm, Singapore] --> E[Behaviour model<br/>pay / reroute / retime / switch / drop trip]
     E --> C
     C --> F[Financial model<br/>10-year costs & revenue]
@@ -43,14 +43,14 @@ flowchart LR
 ```
 
 1. **Road network and counts.** Downloads Toronto's road centreline plus midblock and intersection traffic counts as dated snapshots, then cleans and checks them (year, season, direction, vehicle class, gaps).
-2. **Baseline simulation.** A SUMO traffic simulation (mesoscopic) of downtown plus about a 1.5 km buffer for a weekday morning (6–10 a.m.). Simulated traffic is fitted to the City's counts. About 20% of count locations are held back to test whether the simulation reproduces reality, and the fit is published.
-3. **Behaviour.** When a charge is applied, affected trips are split into: keep driving and pay, take another route, leave at a different time, switch to transit/walk/bike, or combine/cancel the trip. The shares come from published evidence and are shown as low/base/high ranges. Only drivers who keep driving stay in the simulation.
+2. **Baseline traffic model.** Trips across downtown plus about a 1.5 km buffer for a weekday morning (6–10 a.m.), fitted to the City's counts with SUMO's routeSampler. Street-level volumes and speeds come from an hourly equilibrium assignment (AequilibraE): trips that touch a charged road choose routes on time plus the charge, and all other trips keep their fitted routes. About 20% of count locations are held back as a test, and the fit is published (below target; see `docs/validation.md`). A SUMO vehicle simulation was tried first but gridlocked at expressway-ramp junctions.
+3. **Behaviour.** When a charge is applied, affected trips are split into: keep driving and pay, take another route, leave at a different time, switch to transit/walk/bike, or combine/cancel the trip. The shares come from published evidence and are shown as low/base/high ranges. Only drivers who keep driving stay in the traffic model.
 4. **Scenarios**, each compared with the *same* Toronto without pricing:
    - **S1:** $3 Gardiner/DVP toll, a partial check against the City's 2015 study.
    - **S2:** Downtown cordon plus Gardiner/DVP at about C$12.50 in the morning peak, matching New York's US$9.
    - **S3:** Same cordon with a time-varying rate: full price 7–9 a.m., half price in the shoulder hours.
 5. **Money.** Gross collections are estimated from chargeable trips *after* people respond, times the rates, with exemptions, ride-hail treatment and collection losses applied. Startup costs, operating costs, transit service and fairness measures are shown separately over 10 years, in 2025 dollars. Toll revenue is never counted as a social benefit. The model shows that the more a charge cuts traffic, the less it may collect.
-6. **Fairness.** Neighbourhood income and transit access around the zone, plus where the simulation says diverted traffic would go. Without trip-level data we can't say who would pay, and the tool says so.
+6. **Fairness.** Neighbourhood income and transit access around the zone, plus where the model says diverted traffic would go. Without trip-level data we can't say who would pay, and the tool says so.
 7. **Other cities.** City-level panels of what was observed before and after, taken from official evaluations, plus New York charts from its open data. No case has open street-level data from before its launch, so we don't invent street-level history.
 
 ---
@@ -84,7 +84,7 @@ The demo reads only precomputed files in `web/public/data/`, so it works offline
 ├── config/              # scenario settings and every modelling assumption, each with its source
 ├── data/                # raw dated snapshots (not committed) + manifest of sources, dates, checksums
 ├── src/cordon/  # Python pipeline: ingest → network → demand → behaviour → finance → export
-├── sim/                 # SUMO simulation configs
+├── sim/                 # network, fitted demand and model outputs (large files gitignored)
 ├── research/            # source register, research brief, city case studies, user feedback
 ├── adoption/            # who would run it, cost, data & privacy plan, 90-day pilot
 ├── docs/                # access audit, methodology, validation results, gaps and next steps
@@ -138,14 +138,14 @@ The complete register with dates, units and limitations is in `research/sources.
 
 ## Built with
 
-Python · [DuckDB](https://duckdb.org) (spatial) · [Eclipse SUMO](https://eclipse.dev/sumo/) · [AequilibraE](https://www.aequilibrae.com) · GeoPandas · [Astro](https://astro.build) · [MapLibre GL JS](https://maplibre.org) · [deck.gl](https://deck.gl) · uv
+Python · [DuckDB](https://duckdb.org) (spatial) · [Eclipse SUMO](https://eclipse.dev/sumo/) · [AequilibraE](https://www.aequilibrae.com) · GeoPandas · [Astro](https://astro.build) · [MapLibre GL JS](https://maplibre.org) · [Observable Plot](https://observablehq.com/plot) · uv
 
 ## Limitations (read these)
 
 - Toronto's counts are short-term and taken on different dates at different places. They are not a coordinated cordon count, and the tool shows where coverage is missing.
-- There is no public trip-level origin–destination data, so the simulation is fitted to counts, not to observed trips. Who pays, by home area, cannot be identified.
+- There is no public trip-level origin–destination data, so the traffic model is fitted to counts, not to observed trips. Who pays, by home area, cannot be identified.
 - Behavioural responses come from other cities and published research, so they are assumptions, shown as ranges.
-- Simulation results are **simulated**, not predictions with statistical confidence intervals.
+- Modelled results are labelled **simulated**; they are scenarios, not predictions with statistical confidence intervals. The baseline is below the usual calibration target, so speed gains are likely understated and diversion likely overstated (`docs/validation.md`).
 
 ## Licence
 

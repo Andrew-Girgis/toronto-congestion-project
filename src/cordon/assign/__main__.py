@@ -39,7 +39,7 @@ import sumolib  # noqa: E402
 
 from cordon import CONFIG, ROOT  # noqa: E402
 from cordon.behaviour.response import load_assumptions, response_for  # noqa: E402
-from cordon.sim.scenarios import charged_edges  # noqa: E402
+from cordon.sim.scenarios import charged_edges, nyc_style_cordon  # noqa: E402
 
 NET = ROOT / "sim" / "net" / "study_area.net.xml.gz"
 ROUTES = ROOT / "sim" / "demand" / "baseline.rou.xml"
@@ -150,8 +150,10 @@ def main():
     eid2link = dict(zip(links.edge, links.link_id))
     inbound, xwy = charged_edges(net, sim_cfg["cordon_for_area_charge"])
     sets = {"xwy": sorted(eid2link[e] for e in xwy),
+            "cordon": sorted(eid2link[e] for e in nyc_style_cordon(net, sim_cfg["cordon_for_area_charge"], inbound)),
             "cordon_xwy": sorted(eid2link[e] for e in inbound | xwy)}
-    set_of = lambda cfg: "xwy" if cfg["charges"] == "expressway_entries" else "cordon_xwy"  # noqa: E731
+    set_of = lambda cfg: {"expressway_entries": "xwy", "cordon_inbound": "cordon",  # noqa: E731
+                          "cordon_and_expressway_entries": "cordon_xwy"}[cfg["charges"]]
     n = len(nodes)
     dem, pre_e, fixed = hourly_demand(net, nodes, inbound | xwy)
     pre = {h: {eid2link[e]: v for e, v in pre_e[h].items()} for h in HOURS}
@@ -201,7 +203,8 @@ def main():
         summary[name] = {
             "name": cfg["name"], "label": cfg["label"],
             "cordon_id": None if k == "xwy" else sim_cfg["cordon_for_area_charge"],
-            "n_cordon_inbound_edges": 0 if k == "xwy" else len(inbound), "n_expressway_points": len(xwy),
+            "n_cordon_inbound_edges": 0 if k == "xwy" else len(sets[k]) - (len(sets["xwy"]) if k == "cordon_xwy" else 0),
+            "n_expressway_points": 0 if k == "cordon" else len(xwy),
             "baseline_chargeable": round(b_charged), "charged_vehicles": round(charged),
             "charge_revenue": round(rev, 2), "response_case": sim_cfg["response_case"],
             "removed_offnetwork": round(removed), "retimed_to_shoulder": round(retimed),

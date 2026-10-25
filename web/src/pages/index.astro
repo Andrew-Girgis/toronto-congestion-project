@@ -15,7 +15,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
           <p class="muted">Toronto's open data has no count of cars entering downtown. We assembled one from intersection counts. <span class="tag obs">observed</span></p></div>
         <div class="card"><div class="label">If a C$12.58 charge applied</div>
           <div class="stat" data-bind="s2drop"><small>loading…</small></div>
-          <p class="muted">change in morning vehicles paying to enter (cordon + Gardiner/DVP) <span class="tag sim">simulated</span></p></div>
+          <p class="muted">change in morning vehicles paying to enter downtown (NYC-style: expressways stay free) <span class="tag sim">simulated</span></p></div>
         <div class="card"><div class="label">Boundary streets</div>
           <div class="stat" data-bind="bl"><small>loading…</small></div>
           <p class="muted">change in traffic on local streets just outside the zone <span class="tag sim">simulated</span></p></div>
@@ -171,6 +171,8 @@ import "maplibre-gl/dist/maplibre-gl.css";
             <li>Counts come from different days at each intersection (most recent weekday since 2023, excluding summer and December), combined as one "typical" morning.</li>
             <li>Behavioural response is calibrated to what other cities observed (10–22% fewer charged trips at a NYC-equivalent price), not estimated from Toronto data.</li>
             <li>Street-level results come from a static equilibrium model (hourly averages, standard speed–flow curves, no signal timings), not a vehicle-by-vehicle simulation: our SUMO microsimulation of the same trips gridlocked at expressway-ramp junctions and was set aside. Queues and spill-back are not represented. Buses are not modelled.</li>
+            <li><strong>Speed gains are likely understated.</strong> The model averages traffic over each hour and has no queues, and its baseline is less congested than real mornings, so it shows almost no speed gain inside the zone (about +1%). New York's zone speeds rose about 11% (an estimated effect, in a far more congested Manhattan).</li>
+            <li><strong>Diversion is likely overstated.</strong> Every driver gets the same value of time (C$12.58 ≈ 30 minutes of detour), and drivers don't stick to habit, so more of them reroute around the zone than in reality.</li>
             <li>Modelled values are scenarios, not forecasts with confidence intervals.</li>
           </ul>
         </div>

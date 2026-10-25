@@ -1,10 +1,10 @@
-# Scenarios simulated in SUMO (weekday 06:00-10:00) and carried into the
+# Scenarios modelled for a weekday 06:00-10:00 (cordon.assign) and carried into the
 # financial model. Every scenario is compared with S0 under identical demand,
 # network and assumptions. Rates are 2025 CAD per charge event.
 simulation:
   begin_s: 21600   # 06:00
   end_s: 36000     # 10:00
-  cordon_for_area_charge: C1   # best count coverage (docs/coverage); C2/C3 compared on crossings and coverage
+  cordon_for_area_charge: C1   # most-discussed boundary; C2/C3 compared on crossings and coverage
   response_case: base          # SUMO runs the base behavioural response only
 
 scenarios:
@@ -28,4 +28,12 @@ scenarios:
     label: SIMULATED (shoulder rate is an ASSUMPTION)
     charges: cordon_and_expressway_entries
     rate_by_hour: {6: 6.29, 7: 12.58, 8: 12.58, 9: 6.29}
+    once_per: day
+  S4:
+    name: Downtown cordon only, Gardiner/DVP free (NYC-style)
+    label: >
+      SIMULATED. Mirrors New York's design, where the FDR Drive and West Side Highway
+      bypasses are not charged; headline scenario.
+    charges: cordon_inbound
+    rate_by_hour: {6: 12.58, 7: 12.58, 8: 12.58, 9: 12.58}
     once_per: day

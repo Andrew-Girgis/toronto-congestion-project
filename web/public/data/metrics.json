@@ -103,6 +103,35 @@
     "north": 13383,
     "west": 16207
    }
+  },
+  "S4": {
+   "name": "Downtown cordon only, Gardiner/DVP free (NYC-style)",
+   "label": "SIMULATED. Mirrors New York's design, where the FDR Drive and West Side Highway bypasses are not charged; headline scenario.\n",
+   "cordon_id": "C1",
+   "n_cordon_inbound_edges": 61,
+   "n_expressway_points": 0,
+   "baseline_chargeable": 57922,
+   "charged_vehicles": 41247,
+   "charge_revenue": 518881.79,
+   "response_case": "base",
+   "removed_offnetwork": 7385,
+   "retimed_to_shoulder": 0,
+   "kept_chargeable": 50537,
+   "rerouted_to_avoid_charge": 9291,
+   "trips": 271319.92051609524,
+   "vehicle_km": 699821,
+   "vehicle_hours": 23525,
+   "mean_speed_kmh": 29.7,
+   "mean_trip_min": 5.2,
+   "method": "hourly static equilibrium assignment (AequilibraE BFW, BPR) of trips touching charged links, on top of fixed counts-fitted routes for all other trips",
+   "zone_vkt_am": 172159,
+   "zone_street_speed_kmh": 22.2,
+   "boundary_local_street_vkt_am": 55756,
+   "cordon_inbound_by_side_am": {
+    "east": 15308,
+    "north": 12534,
+    "west": 17698
+   }
   }
  },
  "validation": {
