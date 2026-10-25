@@ -1,0 +1,378 @@
+---
+// Congestion Cordon: the five-minute judged talk. Every number renders through <Fig> from
+// public/data/figures.json (written by `python -m cordon.export.figures`); charts are drawn
+// at build time from the same data files. Check with `make present-check`.
+import Base from "../layouts/Base.astro";
+import Fig from "../components/Fig.astro";
+import { fig, read } from "../lib/data";
+import "../styles/stage.css";
+
+const d = (id: string) => fig(id).display; // for speaker notes only
+const fin = read("finance.json").results.filter((r: any) => r.scenario === "S4");
+const nyc = read("nyc_transit.json");
+const method = read("metrics.json").scenarios.S0.method;
+
+// NYC ridership change, before vs after the charge (build-time SVG)
+const modes: [string, string][] = [["Subway", "Subway"], ["Bus", "Bus"], ["LIRR", "Long Island RR"], ["MNR", "Metro-North"]];
+const yr = Object.fromEntries(nyc.yearly_weekday.map((r: any) => [r.mode, r]));
+const nb = { w: 420, h: 230, top: 18, bot: 52, lo: -6, hi: 16 };
+const ny = (v: number) => nb.top + (nb.hi - v) / (nb.hi - nb.lo) * (nb.h - nb.top - nb.bot);
+
+// Cumulative net cash band, S4 (build-time SVG)
+const byCase = Object.fromEntries(fin.map((r: any) => [r.case, r]));
+const years = byCase.base.cashflow.map((c: any) => c.year);
+const cum = (c: string) => byCase[c].cashflow.map((x: any) => x.cumulative_net);
+const lo = years.map((_: number, i: number) => Math.min(cum("low")[i], cum("high")[i], cum("base")[i]));
+const hi = years.map((_: number, i: number) => Math.max(cum("low")[i], cum("high")[i], cum("base")[i]));
+const cw = { w: 1000, h: 560, l: 90, r: 20, t: 20, b: 60 };
+const ymax = Math.ceil(Math.max(...hi) / 500) * 500;
+const ymin = Math.min(0, Math.floor(Math.min(...lo) / 500) * 500);
+const cx = (y: number) => cw.l + (y - years[0]) / (years.at(-1) - years[0]) * (cw.w - cw.l - cw.r);
+const cy = (v: number) => cw.t + (ymax - v) / (ymax - ymin) * (cw.h - cw.t - cw.b);
+const band = years.map((y: number, i: number) => `${cx(y)},${cy(hi[i])}`).join(" ") + " " +
+  years.map((y: number, i: number) => `${cx(y)},${cy(lo[i])}`).reverse().join(" ");
+const baseLine = years.map((y: number, i: number) => `${cx(y)},${cy(cum("base")[i])}`).join(" ");
+const yticks = Array.from({ length: Math.round((ymax - ymin) / 500) + 1 }, (_, k) => ymin + k * 500);
+
+const fit = fig("fit_holdout").value as number, target = fig("fit_target").value as number;
+---
+<Base title="Congestion Cordon: the talk" description="Five-minute presentation: would a downtown congestion charge work in Toronto?">
+  <div class="viewport">
+    <div class="stage">
+
+      <!-- 1 Hypothesis -->
+      <section class="slide" data-target="0:25">
+        <p class="kicker">Congestion Cordon · Toronto</p>
+        <h1>Would charging cars to enter downtown Toronto work?</h1>
+        <div class="callout ok" style="max-width:1500px">
+          <b>Our hypothesis:</b> a charge like New York's would cut traffic downtown, without pushing it onto neighbourhood streets, and would raise money for transit.
+        </div>
+        <div class="row" style="margin-top:56px; align-items:flex-end; gap:72px">
+          <div class="big"><Fig id="roads_counted" /><span class="lbl">roads into downtown with any recent City count, and no daily count of cars entering downtown at all</span></div>
+          <p class="lead" style="max-width:760px">We tested the hypothesis against four cities that did it, and against a traffic model built on the City's own counts.</p>
+        </div>
+        <p class="foot">It could also fail. "It would backfire here" is a valid answer.</p>
+        <aside class="notes">Downtown Toronto is slow, but the City doesn't even count how many cars come downtown each day. Only {d("roads_counted")} entry roads have any recent count. Our hypothesis: a New York-style charge cuts downtown traffic, doesn't dump it on neighbourhood streets, and funds transit. We tested that, and we were ready for the answer to be no.</aside>
+      </section>
+
+      <!-- 2 Case studies -->
+      <section class="slide" data-target="0:50">
+        <p class="kicker">Case studies</p>
+        <h2>Four cities priced congestion. Traffic fell in every one.</h2>
+        <div class="cols c4 cases">
+          <article class="case" data-step>
+            <div class="vis">
+              <svg viewBox={`0 0 ${nb.w} ${nb.h}`} width="100%" height="100%" role="img" aria-label="New York weekday ridership change by mode, 2024 versus 2025" data-literal>
+                <line x1="40" x2={nb.w} y1={ny(0)} y2={ny(0)} stroke="var(--muted)" />
+                {[-5, 0, 5, 10, 15].map((t) => <text x="34" y={ny(t) + 5} text-anchor="end" font-size="13" fill="var(--muted)">{t}%</text>)}
+                {modes.map(([m, name], i) => {
+                  const x0 = 50 + i * 92;
+                  return (<g>
+                    <rect x={x0} width="36" y={Math.min(ny(0), ny(yr[m].change_2024 * 100))} height={Math.abs(ny(yr[m].change_2024 * 100) - ny(0))} fill="#b8b2a7" />
+                    <rect x={x0 + 38} width="36" y={Math.min(ny(0), ny(yr[m].change_2025 * 100))} height={Math.abs(ny(yr[m].change_2025 * 100) - ny(0))} fill="var(--cordon)" />
+                    <text x={x0 + 37} y={nb.h - 30} text-anchor="middle" font-size="14" fill="var(--ink)">{name}</text>
+                  </g>);
+                })}
+                <rect x="40" y={nb.h - 16} width="12" height="12" fill="#b8b2a7" /><text x="57" y={nb.h - 6} font-size="13" fill="var(--muted)">2024 (before)</text>
+                <rect x="170" y={nb.h - 16} width="12" height="12" fill="var(--cordon)" /><text x="187" y={nb.h - 6} font-size="13" fill="var(--muted)">2025 (charge in place)</text>
+              </svg>
+            </div>
+            <h3>New York <span class="muted" data-literal>2025</span></h3>
+            <p><b>Traffic</b> <Fig id="case_nyc_traffic" class="txt" /></p>
+            <p><b>Speed</b> <Fig id="case_nyc_speed" class="txt" /></p>
+            <p><b>Money</b> <Fig id="case_nyc_money" class="txt" /></p>
+            <p class="credit" data-literal>Chart: MTA open data (data.ny.gov), system-wide weekday riders.</p>
+          </article>
+          <article class="case" data-step>
+            <div class="vis"><img src="/present/media/london-charge-zone-map.jpg" alt="Map of London's central congestion charge zone" /></div>
+            <h3>London <span class="muted" data-literal>2003</span></h3>
+            <p><b>Traffic</b> <Fig id="case_london_traffic" class="txt" /></p>
+            <p><b>Congestion</b> <Fig id="case_london_speed" class="txt" /></p>
+            <p><b>Money</b> <Fig id="case_london_money" class="txt" /></p>
+            <p class="credit">Map: user-supplied, OpenStreetMap-based; licence unverified.</p>
+          </article>
+          <article class="case" data-step>
+            <div class="vis"><img src="/present/media/stockholm-metro-front-page.jpg" alt="Metro Stockholm front page: the same road at rush hour before and after the charge, headline 'Stockholmers, where did you go?'" /></div>
+            <h3>Stockholm <span class="muted" data-literal>2006 trial</span></h3>
+            <p><b>Traffic</b> <Fig id="case_stockholm_traffic" class="txt" /></p>
+            <p><b>Queues</b> <Fig id="case_stockholm_speed" class="txt" /></p>
+            <p><b>Money</b> <Fig id="case_stockholm_money" class="txt" /></p>
+            <p class="credit" data-literal>Metro Stockholm front page, January 2006: "Stockholmers, where did you go?"</p>
+          </article>
+          <article class="case" data-step>
+            <div class="vis"><img src="/present/media/singapore-erp-gantry.jpg" alt="Electronic Road Pricing gantry over a Singapore street" /></div>
+            <h3>Singapore <span class="muted" data-literal>1998 electronic</span></h3>
+            <p><b>Traffic</b> <Fig id="case_sg-erp_traffic" class="txt" /></p>
+            <p><b>Speed</b> <Fig id="case_sg-erp_speed" class="txt" /></p>
+            <p><b>Money</b> <Fig id="case_sg-erp_money" class="txt" /></p>
+            <p class="small" style="font-size:18px">Separate earlier scheme (<span data-literal>1975</span> paper licence): <Fig id="case_sg-als_traffic" class="txt" /></p>
+            <p class="credit" data-literal>Photo: © 2023 Streetdirectory.com.</p>
+          </article>
+        </div>
+        <aside class="notes">Four cities, four designs. New York, the closest match to Toronto, cut entries about 11 percent in its first year and nets over half a billion US dollars. London cut cars by a third. Stockholm cut crossings about a fifth, and it lasted a decade. Singapore runs electronic gantries with rates tied to speed targets. Different eras and prices, so these aren't directly comparable, but the direction is the same everywhere.</aside>
+      </section>
+
+      <!-- 3 Methodology -->
+      <section class="slide" data-target="0:30">
+        <p class="kicker">Methodology</p>
+        <h2>How we applied those cities to Toronto</h2>
+        <div class="cols" style="grid-template-columns: 560px 1fr; gap:40px">
+          <div class="panel">
+            <h3>Data we used</h3>
+            <ul class="tight">
+              <li><b>Toronto Open Data:</b> turning counts at <Fig id="count_sites" class="inline" /> intersections, midblock counts, the road network, ride-hail trips, neighbourhood profiles</li>
+              <li><b>New York (MTA open data):</b> ridership, cars entering the zone, miles driven</li>
+              <li><b>London, Stockholm, Singapore:</b> official evaluations</li>
+            </ul>
+          </div>
+          <ol class="pipe">
+            <li><b>Rebuild a weekday morning.</b> An optimiser (SUMO routeSampler) picks the trips that best reproduce the City's counts.</li>
+            <li><b>How drivers respond.</b> A price-response curve anchored to New York (<Fig id="resp_base" class="inline" />), with Stockholm (<Fig id="resp_high" class="inline" />) as the upper end. Of drivers who stop driving in, <Fig id="transit_share" class="inline" /> take transit, as in London and Stockholm.</li>
+            <li><b>Where everyone else drives.</b> Equilibrium route choice (AequilibraE): each driver weighs extra minutes against the <Fig id="rate" class="inline" /> charge.</li>
+            <li><b>Money.</b> Charged trips × rate over ten years, in today's dollars, minus build and running costs.</li>
+          </ol>
+        </div>
+        <p class="foot"><b>No machine learning:</b> there is no trip-level data to train on, so every step is a calibration you can check, with its sources in the repo.</p>
+        <aside class="notes">We used the City's own counts, New York's open data, and the official reports from the other cities. Four steps: rebuild a morning from the counts, apply a response curve anchored to New York, let the remaining drivers pick routes weighing time against the charge, then add up the money. No machine learning: with no trip data, a black box would just be guessing.</aside>
+      </section>
+
+      <!-- 4 Fit -->
+      <section class="slide" data-target="0:20">
+        <p class="kicker">Methodology · does the model match reality?</p>
+        <h2>We tested it on counts it never saw</h2>
+        <div class="row" style="gap:64px; align-items:center">
+          <svg viewBox="0 0 900 220" width="900" height="220" role="img" aria-label="Share of held-out counts matched, against the usual target" data-literal>
+            <rect x="0" y="30" width="860" height="56" fill="var(--rule)" rx="8" />
+            <rect x="0" y="30" width={860 * fit} height="56" fill="var(--sim)" rx="8" />
+            <line x1={860 * target} x2={860 * target} y1="10" y2="110" stroke="var(--ink)" stroke-width="4" stroke-dasharray="8 6" />
+            <text x={860 * target} y="140" text-anchor="middle" font-size="24" fill="var(--ink)">usual target</text>
+            <text x="12" y="68" font-size="24" fill="#fff" font-weight="700">our model</text>
+          </svg>
+          <div class="mid"><Fig id="fit_holdout" /><span class="lbl">of <Fig id="holdout_sites" class="inline" /> held-out count locations matched closely, against a usual target of <Fig id="fit_target" class="inline" /></span></div>
+        </div>
+        <div class="callout" style="margin-top:36px"><b>It misses the target.</b> Good enough to compare designs side by side; not good enough to forecast street speeds. Recalibrating on the City's internal data is the pilot's first job.</div>
+        <p class="foot">Model: {method}. A vehicle-by-vehicle SUMO simulation gridlocked at expressway ramps, so we switched methods.</p>
+        <aside class="notes">We held back a fifth of the count locations and checked the model against them. It matches {d("fit_holdout")} closely; the usual target is {d("fit_target")}. So we use it to compare designs, not to promise speeds. Fixing that with City data is step one of the pilot.</aside>
+      </section>
+
+      <!-- 5 Simulation clip -->
+      <section class="slide sim" data-target="0:35">
+        <p class="kicker">Findings · the simulation</p>
+        <h2>Morning traffic, before and after a <Fig id="rate" class="inline" /> charge</h2>
+        <div class="row" style="gap:36px; flex:1; min-height:0">
+          <div class="clip" data-ms="3800">
+            <img data-frame src="/present/media/map-s0-volume.jpg" alt="Modelled morning traffic with no charge" />
+            <img data-frame src="/present/media/map-s4-volume.jpg" alt="Modelled morning traffic with the downtown charge" />
+            <img data-frame src="/present/media/map-s4-change.jpg" alt="Change in traffic: blue fewer cars, red more" />
+            <img data-frame src="/present/media/map-s2-change.jpg" alt="Change in traffic if the Gardiner and DVP were also charged" />
+            <span class="credit attrib">OpenFreeMap © OpenMapTiles · Data © OpenStreetMap contributors</span>
+          </div>
+          <div class="side">
+            <ol class="caps">
+              <li data-cap>Today: darker roads carry more cars</li>
+              <li data-cap>With the charge: downtown streets lighten</li>
+              <li data-cap><span style="color:var(--less)">Blue = fewer cars</span>, <span style="color:var(--more)">red = more</span>. The free Gardiner/DVP carries the through trips</li>
+              <li data-cap>If the Gardiner/DVP were charged too: traffic spills onto side streets</li>
+            </ol>
+            <div class="mid"><Fig id="s4_paying" /><span class="lbl">cars paying to enter downtown</span></div>
+            <div class="sm"><Fig id="s4_zone" /><span class="lbl">traffic on downtown streets</span></div>
+            <div class="sm"><Fig id="s4_boundary" /><span class="lbl">local streets just outside the zone</span></div>
+          </div>
+        </div>
+        <aside class="notes">This is the model running the morning rush. First, today's traffic. Then the same morning with a downtown charge: downtown streets get lighter. Blue means fewer cars, red more. The Gardiner and DVP stay free, so through trips stay on them. The last frame shows what happens if you also charge the expressways: red spills into neighbourhoods. That's why we copied New York and left the bypass free.</aside>
+      </section>
+
+      <!-- 6 Traffic and transit -->
+      <section class="slide" data-target="0:35">
+        <p class="kicker">Findings · traffic and transit</p>
+        <h2>Fewer cars downtown; people change how they travel</h2>
+        <div class="cols c3">
+          <div class="panel"><h3>Traffic</h3>
+            <div class="mid"><Fig id="s4_zone" /><span class="lbl">on downtown streets</span></div>
+            <div class="sm" style="margin-top:18px"><Fig id="s4_vht" /><span class="lbl">total time spent driving in the study area</span></div>
+            <div class="sm" style="margin-top:18px"><Fig id="s4_speed" /><span class="lbl">downtown speed (likely understated)</span></div>
+          </div>
+          <div class="panel"><h3>Transit</h3>
+            <div class="mid"><Fig id="t_daily_new_transit_trips" /><span class="lbl">new transit trips per weekday (range <Fig id="t_daily_new_transit_trips_range" class="inline" />)</span></div>
+            <div class="sm" style="margin-top:18px"><Fig id="t_am_new_transit_riders" /><span class="lbl">new riders heading downtown in the morning rush</span></div>
+          </div>
+          <div class="panel"><h3>Leave the bypass free</h3>
+            <div class="sm"><Fig id="s2_boundary" /><span class="lbl">local streets outside the zone if the Gardiner/DVP are charged too</span></div>
+            <div class="sm" style="margin-top:18px"><Fig id="s4_boundary" /><span class="lbl">with them free, as in New York</span></div>
+            <div class="sm" style="margin-top:18px"><Fig id="s2_vht" /><span class="lbl">time spent driving, Gardiner/DVP charged</span></div>
+          </div>
+        </div>
+        <p class="foot">Downtown streets clear, but a New York-sized response doesn't shrink total driving time: some traffic moves to the edges. This modelling understates speed gains. New York: <Fig id="case_nyc_speed" class="txt" />.</p>
+        <aside class="notes">Traffic on downtown streets: {d("s4_zone")}. Total driving time in the area barely moves, because some drivers go around. About {d("t_daily_new_transit_trips")} new transit trips a day. And the clearest lesson: charge the Gardiner and DVP too and neighbourhood streets take {d("s2_boundary")} more traffic. Keep them free.</aside>
+      </section>
+
+      <!-- 7 Money -->
+      <section class="slide" data-target="0:30">
+        <p class="kicker">Findings · cost and money</p>
+        <h2>Cheap to build compared with what it collects</h2>
+        <div class="row" style="gap:48px">
+          <figure class="chart" style="margin:0">
+            <svg viewBox={`0 0 ${cw.w} ${cw.h}`} width={cw.w} height={cw.h} role="img" aria-label="Cumulative net cash over ten years, base case inside a low-to-high band" data-literal>
+              {yticks.map((t) => <g><line x1={cw.l} x2={cw.w - cw.r} y1={cy(t)} y2={cy(t)} stroke="var(--rule)" /><text x={cw.l - 10} y={cy(t) + 7} text-anchor="end" font-size="20" fill="var(--muted)">{t === 0 ? "0" : `${(t / 1000).toFixed(1)}B`}</text></g>)}
+              <line x1={cw.l} x2={cw.w - cw.r} y1={cy(0)} y2={cy(0)} stroke="var(--ink)" />
+              <polygon points={band} fill="var(--est)" fill-opacity="0.18" />
+              <polyline points={baseLine} fill="none" stroke="var(--est)" stroke-width="5" />
+              {years.map((y: number) => <text x={cx(y)} y={cw.h - 26} text-anchor="middle" font-size="20" fill="var(--muted)">{y <= 0 ? `build ${y - years[0] + 1}` : y}</text>)}
+              <text x={cw.w - cw.r} y={cw.h - 2} text-anchor="end" font-size="20" fill="var(--muted)">year after launch · cumulative net cash, C$ (2025, real)</text>
+            </svg>
+            <figcaption class="small" style="font-size:19px">Band: weaker response with higher costs to stronger response with lower costs. Illustrative scenario ranges, not confidence intervals.</figcaption>
+          </figure>
+          <div class="side">
+            <div class="mid"><Fig id="capex" /><span class="lbl">to build (range <Fig id="capex_range" class="inline" />)</span></div>
+            <div class="mid"><Fig id="gross" /><span class="lbl">collected per year before costs (range <Fig id="gross_range" class="inline" />)</span></div>
+            <div class="sm"><Fig id="npv" /><span class="lbl">ten-year net cash, today&apos;s value at <span data-literal>7%</span></span></div>
+            <div class="sm"><Fig id="t_ttc_fares_cad_m" /> <Fig id="t_go_fares_cad_m" /><span class="lbl">extra TTC fares (City) and GO fares (Metrolinx) per year</span></div>
+          </div>
+        </div>
+        <aside class="notes">Building it costs about {d("capex")}. It would collect about {d("gross")} a year before running costs, roughly {d("npv")} over ten years in today's money. New riders add about {d("t_ttc_fares_cad_m")} in TTC fares and {d("t_go_fares_cad_m")} for GO, which is small: the real transit money is how the charge revenue gets spent. And if traffic falls more, revenue falls too.</aside>
+      </section>
+
+      <!-- 8 Limitations -->
+      <section class="slide" data-target="0:40">
+        <p class="kicker">Limitations</p>
+        <h2>Where this falls short, and where pricing disappointed</h2>
+        <div class="cols c2">
+          <div class="panel">
+            <h3>Our analysis</h3>
+            <ul class="tight">
+              <li>Model matches <Fig id="fit_holdout" class="inline" /> of held-out counts, against <Fig id="fit_target" class="inline" /></li>
+              <li>No queues in the model: speed gains understated, detours probably overstated</li>
+              <li>No trip-level data, so we can't say <em>who</em> pays by home area or income</li>
+              <li>New York's transit growth is mixed with the return to office</li>
+              <li>No open counts on the Gardiner or DVP</li>
+              <li>User feedback: <Fig id="feedback_n" class="inline" /> conversation so far</li>
+            </ul>
+          </div>
+          <div class="panel">
+            <h3>Other cities</h3>
+            <ul class="tight">
+              <li><b>London:</b> <Fig id="case_london_speed" class="txt" />. The drop in cars lasted; the congestion relief didn't.</li>
+              <li><b>Singapore <span data-literal>1975</span>:</b> <Fig id="case_sg-als_speed" class="txt" />. Drivers rushed in just before the start time.</li>
+              <li><b>New York:</b> only one year of data; traffic bunched at the rate change and speed gains are disputed.</li>
+              <li><b>Stockholm:</b> worked and lasted, but most residents opposed it until they saw the trial.</li>
+            </ul>
+          </div>
+        </div>
+        <aside class="notes">Our model misses the usual fit target, has no queues, and has no trip data, so we can't say who pays. We've logged only one user conversation. Elsewhere: London's congestion relief faded from 30 percent to 8 as road space went to buses and pedestrians, though the car cut lasted. Singapore's first scheme pushed traffic onto the ring road. New York has one year of data. Stockholm is the success, and it won by running a trial first.</aside>
+      </section>
+
+      <!-- 9 Ask -->
+      <section class="slide" data-target="0:25">
+        <p class="kicker">The ask</p>
+        <h2>Test the tool first. Price only if the evidence holds.</h2>
+        <div class="cols" style="grid-template-columns: 1.35fr 1fr; gap:36px">
+          <div class="panel ask1">
+            <h3><span data-literal>1.</span> Now: a <span data-literal>90-day</span> pilot of this open tool</h3>
+            <p><b>Owner:</b> Transportation Services, with City Planning, the TTC and Technology Services</p>
+            <p><b>Cost:</b> <Fig id="pilot_cost" class="inline" /> in staff time and hosting</p>
+            <p><b>Privacy:</b> aggregate counts only. No plates, no personal data.</p>
+            <p><b>Gates:</b> recalibrate on City data → test against held-out counts and travel times → publish, brief Council, go/no-go</p>
+          </div>
+          <div class="panel">
+            <h3><span data-literal>2.</span> Then, only if the pilot passes: a time-limited trial</h3>
+            <p>Stockholm's path: trial → vote → permanent.</p>
+            <p><b>Needs an Act of the Ontario Legislature</b> (City of Toronto Act s.<span data-literal>41</span>, amended <span data-literal>2025</span>), transit capacity in place before launch, and an agreed use for the money.</p>
+          </div>
+        </div>
+        <p class="foot">Open code and method · scroll version of this demo at <span data-literal>localhost:4321</span> · <a href="/">back to the full page</a></p>
+        <aside class="notes">Two asks. First: Transportation Services runs a 90-day pilot of this tool on its own data, for about {d("pilot_cost")}, with no personal data. Second, and only if that evidence holds: a Stockholm-style trial, which needs the Province to pass a law, plus transit capacity in place first. Thank you.</aside>
+      </section>
+
+      <!-- Appendix -->
+      <section class="slide" data-appendix>
+        <p class="kicker">Appendix · what we heard</p>
+        <h2>Feedback from <Fig id="feedback_n" class="inline" /> conversation at the event, and what it changed</h2>
+        <table class="apx">
+          <tr><th>What we heard (paraphrased)</th><th>What we changed</th></tr>
+          <tr><td>Drivers could cut through neighbourhood streets</td><td>Measured diversion onto boundary streets for every design</td></tr>
+          <tr><td>Commuters from one direction could be singled out</td><td>Inbound crossings by side of the city, with transit alternatives</td></tr>
+          <tr><td>Predict the money raised</td><td>Ten-year cash flow with ranges; more congestion relief can mean less revenue</td></tr>
+          <tr><td>Learn from the other cities' struggles</td><td>Lessons table per city, protected from scope cuts</td></tr>
+        </table>
+        <p class="foot">One conversation is a signal, not a sample. Name withheld pending consent.</p>
+        <aside class="notes">Appendix: feedback.</aside>
+      </section>
+
+      <section class="slide" data-appendix>
+        <p class="kicker">Appendix · sources</p>
+        <h2>Where the numbers come from</h2>
+        <ul class="tight apx-list" data-literal>
+          <li>Case figures: research/sources.csv IDs shown in each figure's tag tooltip; descriptive before/after, not causal.</li>
+          <li>New York transit: MTA Daily Ridership (data.ny.gov sayj-mze2), zone entries (t6yz-b64h), zone vehicle-miles (jbxx-kxff).</li>
+          <li>Toronto: City of Toronto Open Data turning-movement and midblock counts, Toronto Centreline, OpenStreetMap.</li>
+          <li>Fares: TTC Budget Update Sept 2025 (average fare); Metrolinx 2023-24 Annual Report (GO fare revenue ÷ rides).</li>
+          <li>Images: London map (OSM-based, user-supplied), Metro Stockholm front page (Jan 2006), Singapore gantry (Streetdirectory.com). Licences unverified; credited on slide.</li>
+          <li>Every modelling assumption: config/assumptions.yaml. Validation: docs/validation.md.</li>
+        </ul>
+        <aside class="notes">Appendix: sources.</aside>
+      </section>
+
+      <div class="progress"></div>
+      <div class="pageno"></div>
+    </div>
+  </div>
+
+  <div class="pv-panel">
+    <div class="pv-stage"></div>
+    <div class="pv-side">
+      <div class="pv-time">0:00 / 5:00</div>
+      <div class="pv-target"></div>
+      <button class="pv-reset">Restart timer</button>
+      <div class="pv-notes"></div>
+      <div class="pv-next"></div>
+    </div>
+  </div>
+</Base>
+
+<style is:global>
+  .cases { flex: 1; min-height: 0; }
+  .case { display: flex; flex-direction: column; font-size: 21px; line-height: 1.35; }
+  .case .vis { height: 250px; border-radius: 12px; overflow: hidden; background: var(--panel); border: 1px solid var(--rule); margin-bottom: 14px; display: grid; place-items: center; }
+  .case .vis img { width: 100%; height: 100%; object-fit: cover; }
+  .case h3 { font-size: 30px; margin-bottom: 8px; }
+  .case p { margin: 0 0 9px; }
+  .case .credit { margin-top: auto; }
+  .txt .fig { font-size: inherit; font-weight: 500; }
+  .slide .txt .tag, .slide .inline .tag { font-size: 12px; padding: 2px 7px; margin-left: 6px; vertical-align: .15em; }
+  .inline .fig { font-weight: 700; }
+  ul.tight { margin: 0; padding-left: 28px; font-size: 28px; line-height: 1.4; }
+  ul.tight li { margin-bottom: 12px; }
+  .pipe { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 18px; font-size: 26px; line-height: 1.35; }
+  .pipe li { counter-increment: s; position: relative; padding: 18px 22px 18px 84px; background: var(--panel); border: 1px solid var(--rule); border-radius: 14px; }
+  .pipe li::before { content: counter(s); position: absolute; left: 22px; top: 16px; width: 44px; height: 44px; border-radius: 50%; background: var(--ink); color: var(--bg); font-weight: 800; display: grid; place-items: center; }
+  .side { display: flex; flex-direction: column; gap: 26px; width: 560px; flex: none; }
+  .clip { position: relative; flex: 1; border-radius: 14px; overflow: hidden; border: 1px solid var(--rule); background: #eee; }
+  .clip img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s ease; }
+  .clip img.on { opacity: 1; }
+  .clip .attrib { position: absolute; right: 8px; bottom: 6px; background: rgba(255,255,255,.85); padding: 2px 8px; border-radius: 6px; color: #333; }
+  .caps { margin: 0; padding-left: 32px; font-size: 23px; line-height: 1.3; color: var(--muted); }
+  .caps li { margin-bottom: 8px; transition: color .3s; }
+  .caps li.on { color: var(--ink); font-weight: 700; }
+  .ask1 { border: 3px solid var(--cordon); }
+  .ask1 h3, .slide .panel h3 { font-size: 32px; }
+  .slide .panel p { font-size: 26px; }
+  table.apx { font-size: 26px; }
+  table.apx th, table.apx td { padding: 14px 10px; }
+  .apx-list { font-size: 24px; }
+
+  .pv-panel { display: none; }
+  body.presenter { overflow: hidden; background: #111; }
+  body.presenter .viewport { position: fixed; left: 16px; top: 16px; width: 62vw; height: calc(62vw * 9 / 16); }
+  body.presenter .pv-panel { display: block; }
+  body.presenter .pv-stage { position: fixed; left: 16px; top: 16px; width: 62vw; height: calc(62vw * 9 / 16); pointer-events: none; }
+  body.presenter .pv-side { position: fixed; right: 16px; top: 16px; bottom: 16px; width: calc(38vw - 48px); color: #eee; font: 18px/1.45 var(--font); display: flex; flex-direction: column; gap: 12px; }
+  .pv-time { font-size: 48px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .pv-time.late { color: #ff6b5e; }
+  .pv-target, .pv-next { color: #aaa; }
+  .pv-notes { font-size: 22px; flex: 1; overflow: auto; }
+  .pv-reset { align-self: flex-start; }
+</style>
+
+<script>
+  import "../scripts/present.ts";
+</script>

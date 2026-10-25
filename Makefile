@@ -4,7 +4,7 @@ SUMO_HOME := $(shell .venv/bin/python -c "import sumo;print(sumo.SUMO_HOME)")
 export SUMO_HOME
 export PATH := $(CURDIR)/.venv/bin:$(PATH)
 
-.PHONY: all data geometry coverage network demand assign sim model web check serve
+.PHONY: all data geometry coverage network demand assign sim model web check serve present present-check present-pdf
 
 all: data geometry coverage network demand assign model web
 
@@ -48,9 +48,21 @@ model:           ## behavioural ranges + 10-year finance
 web:             ## export web layers and metrics
 	$(PY) -m cordon.export.web
 	$(PY) -m cordon.export.nyc
+	$(PY) -m cordon.export.figures
 
 serve:           ## run the demo locally
 	cd web && npm install && npx astro dev
 
 check:           ## data and model sanity tests
 	$(PY) -m pytest -q tests
+
+present:         ## export deck figures and build the site (deck at /present)
+	$(PY) -m cordon.export.figures
+	cd web && npx astro build
+
+present-check: present  ## deck numbers match figures.json; slides render at 1920x1080 and 1280x720
+	$(PY) scripts/present/check_figures.py
+	$(PY) scripts/present/render_check.py
+
+present-pdf:     ## PDF backup of the deck (needs the dev server: make serve)
+	$(PY) scripts/present/export_pdf.py

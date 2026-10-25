@@ -427,3 +427,13 @@ assignment:
     notes: Fixed free-flow delay added to links ending at a signalised junction (~15 s average).
   rgap_target: {value: 0.001, label: ASSUMPTION, source_id: null, notes: "Convergence: relative gap"}
   max_iter: {value: 100, label: ASSUMPTION, source_id: null, notes: "Iteration cap"}
+
+pilot:
+  cost_cad:
+    value: 66750
+    low: 52000
+    high: 81500
+    units: CAD, 90-day pilot, staff time + hosting
+    label: ASSUMPTION
+    source_id: adoption/cost.md
+    notes: Sum of the line items in adoption/cost.md (each an ASSUMPTION); shown rounded as about C$50k-80k.

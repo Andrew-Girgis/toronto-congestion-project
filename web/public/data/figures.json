@@ -1,0 +1,453 @@
+{
+ "roads_counted": {
+  "value": 48,
+  "display": "48 of 66",
+  "label": "OBSERVED",
+  "src": "crossings.geojson coverage",
+  "note": "roads into downtown with a City count since 2023"
+ },
+ "count_sites": {
+  "value": 555,
+  "display": "555",
+  "label": "OBSERVED",
+  "src": "counts.geojson",
+  "note": "intersections with City turning counts"
+ },
+ "holdout_sites": {
+  "value": 111,
+  "display": "111",
+  "label": "OBSERVED",
+  "src": "counts.geojson split=holdout",
+  "note": "held back to test the model"
+ },
+ "rate": {
+  "value": 12.58,
+  "display": "C$12.58",
+  "label": "ESTIMATED",
+  "src": "scenarios.yaml S4.rate_by_hour",
+  "note": "NYC US$9 in 2025 Canadian dollars"
+ },
+ "case_nyc_traffic": {
+  "value": null,
+  "display": "Vehicle entries about −11% (Jan–Oct 2025)",
+  "label": "UNVERIFIED (MTA PDF blocked); −8% to −14% per CBC",
+  "src": "cases.json nyc.traffic [B-NYC-008, B-NYC-007]",
+  "note": ""
+ },
+ "case_nyc_speed": {
+  "value": null,
+  "display": "Speeds in the zone about +11%",
+  "label": "ESTIMATED (NBER synthetic control)",
+  "src": "cases.json nyc.speed [B-NYC-009]",
+  "note": ""
+ },
+ "case_nyc_money": {
+  "value": null,
+  "display": "US$700.5M tolls, US$139.2M costs, US$562.0M net (2025, preliminary)",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc.money [B-NYC-003, B-NYC-004]",
+  "note": ""
+ },
+ "case_london_traffic": {
+  "value": null,
+  "display": "Cars entering −33%; all 4+ wheel vehicles −18% (2003 vs 2002)",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json london.traffic [B-LON-001]",
+  "note": ""
+ },
+ "case_london_speed": {
+  "value": null,
+  "display": "Congestion −30% in 2003, eroding to −8% by 2006 as road space was reallocated",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json london.speed [B-LON-002, B-LON-008]",
+  "note": ""
+ },
+ "case_london_money": {
+  "value": null,
+  "display": "Operating cost 76% of revenue in year one; net £137M in 2007/08, 27% of revenue from penalties",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json london.money [B-LON-010, B-LON-012]",
+  "note": ""
+ },
+ "case_stockholm_traffic": {
+  "value": null,
+  "display": "Cordon crossings −22% in the trial; about −20% sustained for a decade",
+  "label": "OBSERVED (REPORT) / ESTIMATED",
+  "src": "cases.json stockholm.traffic [B-STO-001, B-STO-010]",
+  "note": ""
+ },
+ "case_stockholm_speed": {
+  "value": null,
+  "display": "Queues −1/3 (morning) to −1/2 (evening)",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json stockholm.speed [B-STO-003]",
+  "note": ""
+ },
+ "case_stockholm_money": {
+  "value": null,
+  "display": "System about €200M including the first year; operating cost €22M in year two",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json stockholm.money [B-STO-006, B-STO-011]",
+  "note": ""
+ },
+ "case_sg-als_traffic": {
+  "value": null,
+  "display": "Cars entering −73%; all vehicles −44% (07:30–10:15)",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json sg-als.traffic [B-ALS-001, B-ALS-002]",
+  "note": ""
+ },
+ "case_sg-als_speed": {
+  "value": null,
+  "display": "Zone speeds up; ring road about 20% slower",
+  "label": "ESTIMATED",
+  "src": "cases.json sg-als.speed [B-ALS-005, B-ALS-006]",
+  "note": ""
+ },
+ "case_sg-als_money": {
+  "value": null,
+  "display": "Revenue was not the objective; cost data not found",
+  "label": "UNVERIFIED",
+  "src": "cases.json sg-als.money [B-ALS-011]",
+  "note": ""
+ },
+ "case_sg-erp_traffic": {
+  "value": null,
+  "display": "Expressways −15%; zone −16% (on top of the existing scheme)",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json sg-erp.traffic [B-ERP-002]",
+  "note": ""
+ },
+ "case_sg-erp_speed": {
+  "value": null,
+  "display": "Expressways 35 → 55 km/h in charging hours",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json sg-erp.speed [B-ERP-002]",
+  "note": ""
+ },
+ "case_sg-erp_money": {
+  "value": null,
+  "display": "Capital S$197M; operating about S$25M/yr; revenue about S$144M (2008–09)",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json sg-erp.money [B-ERP-001]",
+  "note": ""
+ },
+ "nyc_subway_2024": {
+  "value": 0.031,
+  "display": "+3.1%",
+  "label": "OBSERVED",
+  "src": "nyc_transit.json yearly_weekday.Subway.change_2024",
+  "note": "weekday riders 2024 vs 2023"
+ },
+ "nyc_subway_2025": {
+  "value": 0.0736,
+  "display": "+7.4%",
+  "label": "OBSERVED",
+  "src": "nyc_transit.json yearly_weekday.Subway.change_2025",
+  "note": "weekday riders 2025 vs 2024"
+ },
+ "nyc_bus_2024": {
+  "value": -0.0509,
+  "display": "−5.1%",
+  "label": "OBSERVED",
+  "src": "nyc_transit.json yearly_weekday.Bus.change_2024",
+  "note": "weekday riders 2024 vs 2023"
+ },
+ "nyc_bus_2025": {
+  "value": 0.0751,
+  "display": "+7.5%",
+  "label": "OBSERVED",
+  "src": "nyc_transit.json yearly_weekday.Bus.change_2025",
+  "note": "weekday riders 2025 vs 2024"
+ },
+ "nyc_lirr_2024": {
+  "value": 0.1422,
+  "display": "+14.2%",
+  "label": "OBSERVED",
+  "src": "nyc_transit.json yearly_weekday.LIRR.change_2024",
+  "note": "weekday riders 2024 vs 2023"
+ },
+ "nyc_lirr_2025": {
+  "value": 0.0891,
+  "display": "+8.9%",
+  "label": "OBSERVED",
+  "src": "nyc_transit.json yearly_weekday.LIRR.change_2025",
+  "note": "weekday riders 2025 vs 2024"
+ },
+ "nyc_mnr_2024": {
+  "value": 0.114,
+  "display": "+11.4%",
+  "label": "OBSERVED",
+  "src": "nyc_transit.json yearly_weekday.MNR.change_2024",
+  "note": "weekday riders 2024 vs 2023"
+ },
+ "nyc_mnr_2025": {
+  "value": 0.0682,
+  "display": "+6.8%",
+  "label": "OBSERVED",
+  "src": "nyc_transit.json yearly_weekday.MNR.change_2025",
+  "note": "weekday riders 2025 vs 2024"
+ },
+ "resp_base": {
+  "value": -0.11,
+  "display": "−11%",
+  "label": "ASSUMPTION",
+  "src": "assumptions.yaml calibration (NYC, MTA-reported)",
+  "note": "fewer charged trips at the New York price"
+ },
+ "resp_low": {
+  "value": -0.08,
+  "display": "−8%",
+  "label": "ASSUMPTION",
+  "src": "assumptions.yaml calibration low",
+  "note": ""
+ },
+ "resp_high": {
+  "value": -0.22,
+  "display": "−22%",
+  "label": "ASSUMPTION",
+  "src": "assumptions.yaml calibration high (Stockholm trial)",
+  "note": ""
+ },
+ "transit_share": {
+  "value": 0.529,
+  "display": "53%",
+  "label": "ASSUMPTION",
+  "src": "finance.json transit.share_of_removed_to_transit",
+  "note": "of drivers taken off the road switch to transit (London, Stockholm)"
+ },
+ "fit_holdout": {
+  "value": 0.428,
+  "display": "43%",
+  "label": "SIMULATED",
+  "src": "metrics.json validation.holdout.share_geh_lt5_approaches",
+  "note": "held-out counts the model matches closely (GEH < 5)"
+ },
+ "fit_target": {
+  "value": 0.85,
+  "display": "85%",
+  "label": "OBSERVED (REPORT)",
+  "src": "metrics.json validation.criterion (UK TAG/DMRB)",
+  "note": "usual target"
+ },
+ "fit_r": {
+  "value": 0.738,
+  "display": "0.74",
+  "label": "SIMULATED",
+  "src": "metrics.json validation.holdout.r_approaches",
+  "note": "correlation with held-out counts"
+ },
+ "s4_paying": {
+  "value": -0.2601429508649563,
+  "display": "−26%",
+  "label": "SIMULATED",
+  "src": "metrics.json S4 charged/baseline_chargeable",
+  "note": "cars paying to enter downtown, 6–10 a.m."
+ },
+ "s4_zone": {
+  "value": -0.062017290448447504,
+  "display": "−6.2%",
+  "label": "SIMULATED",
+  "src": "metrics.json S4.zone_vkt_am",
+  "note": "traffic on downtown streets (vehicle-km)"
+ },
+ "s4_boundary": {
+  "value": 0.01146665711111905,
+  "display": "+1.1%",
+  "label": "SIMULATED",
+  "src": "metrics.json S4.boundary_local_street_vkt_am",
+  "note": "traffic on local streets just outside the zone"
+ },
+ "s4_vht": {
+  "value": 0.006693497140436433,
+  "display": "+0.7%",
+  "label": "SIMULATED",
+  "src": "metrics.json S4.vehicle_hours",
+  "note": "total time spent driving in the study area"
+ },
+ "s4_speed": {
+  "value": 0.004524886877828038,
+  "display": "+0.5%",
+  "label": "SIMULATED",
+  "src": "metrics.json S4.zone_street_speed_kmh",
+  "note": "average speed on downtown streets"
+ },
+ "s2_zone": {
+  "value": -0.135879556429785,
+  "display": "−13.6%",
+  "label": "SIMULATED",
+  "src": "metrics.json S2.zone_vkt_am",
+  "note": "traffic on downtown streets (vehicle-km)"
+ },
+ "s2_boundary": {
+  "value": 0.2525531228723976,
+  "display": "+25.3%",
+  "label": "SIMULATED",
+  "src": "metrics.json S2.boundary_local_street_vkt_am",
+  "note": "traffic on local streets just outside the zone"
+ },
+ "s2_vht": {
+  "value": 0.027282355433170924,
+  "display": "+2.7%",
+  "label": "SIMULATED",
+  "src": "metrics.json S2.vehicle_hours",
+  "note": "total time spent driving in the study area"
+ },
+ "s2_speed": {
+  "value": 0.009049773755656076,
+  "display": "+0.9%",
+  "label": "SIMULATED",
+  "src": "metrics.json S2.zone_street_speed_kmh",
+  "note": "average speed on downtown streets"
+ },
+ "s4_rerouted": {
+  "value": 9653,
+  "display": "9,653",
+  "label": "SIMULATED",
+  "src": "metrics.json S4.rerouted_to_avoid_charge",
+  "note": "drivers who route around the zone"
+ },
+ "gross": {
+  "value": 349.7,
+  "display": "C$350M",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base gross_per_year_cad_m",
+  "note": "collected per year, before costs"
+ },
+ "gross_range": {
+  "value": [
+   263.4,
+   349.7
+  ],
+  "display": "263–350",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 all cases",
+  "note": ""
+ },
+ "capex": {
+  "value": 62.6,
+  "display": "C$62.6M",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base capex_cad_m",
+  "note": "to build 66 charging points and the back office"
+ },
+ "capex_range": {
+  "value": [
+   54.7,
+   89.0
+  ],
+  "display": "C$55–89M",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 all cases",
+  "note": ""
+ },
+ "opex_y1": {
+  "value": 94.42,
+  "display": "C$94.4M",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base cashflow year 1 opex",
+  "note": "running cost in year one"
+ },
+ "npv": {
+  "value": 1836.7,
+  "display": "C$1.8B",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base npv_net_cad_m 0.07",
+  "note": "10-year net cash, today's value at 7%"
+ },
+ "npv_range": {
+  "value": [
+   1279.9,
+   1836.7
+  ],
+  "display": "C$1.3–1.8B",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 all cases",
+  "note": ""
+ },
+ "t_daily_new_transit_trips": {
+  "value": 23894,
+  "display": "23,894",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base transit.daily_new_transit_trips",
+  "note": "new transit trips per weekday"
+ },
+ "t_daily_new_transit_trips_range": {
+  "value": [
+   13727,
+   59554
+  ],
+  "display": "13,727–59,554",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 all cases",
+  "note": ""
+ },
+ "t_am_new_transit_riders": {
+  "value": 3297,
+  "display": "3,297",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base transit.am_new_transit_riders",
+  "note": "new riders heading downtown, 6–10 a.m."
+ },
+ "t_am_new_transit_riders_range": {
+  "value": [
+   2265,
+   7474
+  ],
+  "display": "2,265–7,474",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 all cases",
+  "note": ""
+ },
+ "t_ttc_fares_cad_m": {
+  "value": 9.5,
+  "display": "C$9.5M",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base transit.ttc_fares_cad_m",
+  "note": "extra TTC fares per year (City)"
+ },
+ "t_ttc_fares_cad_m_range": {
+  "value": [
+   6.7,
+   18.2
+  ],
+  "display": "C$6.7M–C$18.2M",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 all cases",
+  "note": ""
+ },
+ "t_go_fares_cad_m": {
+  "value": 15.2,
+  "display": "C$15.2M",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base transit.go_fares_cad_m",
+  "note": "extra GO fares per year (Metrolinx, provincial)"
+ },
+ "t_go_fares_cad_m_range": {
+  "value": [
+   5.0,
+   54.1
+  ],
+  "display": "C$5.0M–C$54.1M",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 all cases",
+  "note": ""
+ },
+ "feedback_n": {
+  "value": 1,
+  "display": "1",
+  "label": "OBSERVED",
+  "src": "research/user-feedback/log.csv distinct id",
+  "note": "conversation logged at the event"
+ },
+ "pilot_cost": {
+  "value": [
+   52000,
+   81500
+  ],
+  "display": "C$50k–80k",
+  "label": "ASSUMPTION",
+  "src": "assumptions.yaml pilot.cost_cad (adoption/cost.md)",
+  "note": "staff time and hosting for 90 days"
+ }
+}
