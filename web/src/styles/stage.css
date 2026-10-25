@@ -9,7 +9,16 @@ body { margin: 0; }
   position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px;
   transform: translate(-50%, -50%); transform-origin: center center; background: var(--bg); color: var(--ink);
   font: 30px/1.4 var(--font); overflow: hidden;
+  /* Toronto white and blue (toronto.ca blue #165788). Fixed light palette: projectors, not OS theme. */
+  --toronto: #165788; --toronto-soft: #9db8d3; --toronto-deep: #0e3c60;
+  --bg: #ffffff; --panel: #f2f6fa; --ink: #0f2236; --muted: #4c5e71; --rule: #d5e0eb; --cordon: var(--toronto);
 }
+.slide::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 14px; background: var(--toronto); }
+.slide.title { background: var(--toronto); color: #fff; }
+.slide.title::before { background: #fff; height: 8px; }
+.slide.title .kicker { color: #fff; opacity: .85; }
+.slide.title .lead, .slide.title .lbl, .slide.title .src { color: rgba(255,255,255,.82); }
+.slide.title .callout { background: rgba(255,255,255,.1); border-left-color: #fff; }
 
 /* Slides switch with visibility/opacity, never display:none (a later display rule could show them all). */
 .slide {
@@ -28,6 +37,8 @@ body { margin: 0; }
 .small { font-size: 22px; color: var(--muted); }
 .credit { font-size: 16px; color: var(--muted); line-height: 1.3; }
 .foot { margin-top: auto; font-size: 20px; color: var(--muted); }
+.slide .src { margin-top: auto; margin-bottom: 0; font-size: 17px; line-height: 1.35; color: var(--muted); }
+.slide h2 { color: var(--toronto-deep); }
 .slide .tag { font-size: 15px; padding: 3px 10px; margin-left: 10px; vertical-align: .25em; }
 
 .fig { font-variant-numeric: tabular-nums; }

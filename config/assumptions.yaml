@@ -220,6 +220,25 @@ growth:
     notes: May 2024 'mostly from home'. National share falling (18.7% to 17.4%, 2024–2025).
 
 costs:
+  # Build cost = charging points x an all-in cost per point (roadside plus back office). User decision
+  # 2026-10-25: wide range, and the headline (base) uses the high end, New York.
+  all_in_per_charging_point_2025:
+    value: 4.65
+    low: 0.95
+    high: 4.65
+    units: CAD M per charging point, build only (roadside plus back office)
+    source_id: [B-NYC-021, B-NYC-020, D-001, D-008, D-002]
+    label: ESTIMATED
+    calc: true
+    notes: >
+      High/base: New York's capital spending on CRZ infrastructure, US$365.9M to 31 Oct 2025 (MTA First
+      Evaluation Report, Jan 2026, p.67; operating expenses reported separately, so no overlap with our opex)
+      / 110 detection points (MTA, 30 Jan 2025) = US$3.33M x 1.3978 CAD/USD (2025) = C$4.65M. Nominal dollars
+      spent 2020-2025, not inflation-adjusted; some of New York's points only monitor the free FDR/West Side
+      Highway. Replaces the earlier whole-contract proxy (US$507.2M DBOM, B-NYC-019), which included operation.
+      Low: Toronto EX8.14 bottom-up, roadside C$0.85M + central system C$6.5M spread over 66 points.
+      Other benchmarks (not used): London about GBP 0.6-0.8M per camera site (2003, set-up cost unverified);
+      Singapore ERP about S$3M per gantry (B-ERP-001); Stockholm about SEK 58M per entry point (B-STO-006).
   roadside_per_charging_point_2025:
     value: 0.85
     low: 0.73
@@ -400,7 +419,7 @@ design:
 finance:
   ramp_up_year1_collection_factor: {value: 0.9, label: ASSUMPTION, notes: "Enforcement and account set-up in year one"}
   opex_share_by_year: {value: [0.30, 0.22, 0.17, 0.15, 0.13, 0.12, 0.12, 0.11, 0.11, 0.11], label: ASSUMPTION, source_id: [D-006, D-020], notes: "Stockholm 31% -> 7%; 407 ETR 13-16%; start high, mature lower"}
-  implementation_years_before_launch: {value: 2, label: ASSUMPTION, notes: "Legislation, procurement, build; Stockholm ~3 yrs, NYC much longer due to litigation"}
+  implementation_years_before_launch: {value: 6, label: ASSUMPTION, source_id: [B-NYC-017, B-NYC-016], notes: "User decision 2026-10-25: mirror New York, the slowest modern case: 2019 state authorization to 5 Jan 2025 launch (about 6 yrs; federal EA, 2024 pause). Counted from the provincial Act, which is not yet passed. London: 1999 powers to Feb 2003."}
   transit_service_share_of_net: {value: 0.6, label: ASSUMPTION (policy choice), notes: "User-adjustable allocation; London/NYC/Stockholm earmarked to transport"}
   equity_mitigation_share_of_net: {value: 0.15, label: ASSUMPTION (policy choice)}
 

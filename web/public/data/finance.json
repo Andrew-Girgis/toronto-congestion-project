@@ -20,23 +20,71 @@
    "avg_charge_cad": 3.0,
    "charging_points": 17,
    "gross_per_year_cad_m": 29.2,
-   "capex_cad_m": 41.5,
+   "capex_cad_m": 79.1,
    "npv_net_cad_m": {
-    "0.07": 111.3,
-    "0.035": 146.3,
-    "0.03": 152.1
+    "0.07": 48.4,
+    "0.035": 90.3,
+    "0.03": 98.0
    },
-   "payback_year": 3,
+   "payback_year": 4,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -13.18,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -26.35,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -39.53,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -52.7,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 20.74,
-     "net": -20.74,
-     "cumulative_net": -20.74,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -65.88,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -46,9 +94,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 20.74,
-     "net": -20.74,
-     "cumulative_net": -41.49,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -79.05,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -60,7 +108,7 @@
      "opex": 8.15,
      "capex": 0.0,
      "net": 18.14,
-     "cumulative_net": -23.35,
+     "cumulative_net": -60.91,
      "transit_service": 10.89,
      "equity_mitigation": 2.72,
      "other_transport": 4.54
@@ -72,7 +120,7 @@
      "opex": 9.06,
      "capex": 0.0,
      "net": 20.16,
-     "cumulative_net": -3.19,
+     "cumulative_net": -40.75,
      "transit_service": 12.09,
      "equity_mitigation": 3.02,
      "other_transport": 5.04
@@ -84,7 +132,7 @@
      "opex": 6.21,
      "capex": 0.0,
      "net": 23.01,
-     "cumulative_net": 19.82,
+     "cumulative_net": -17.74,
      "transit_service": 13.8,
      "equity_mitigation": 3.45,
      "other_transport": 5.75
@@ -96,7 +144,7 @@
      "opex": 5.48,
      "capex": 0.0,
      "net": 23.74,
-     "cumulative_net": 43.55,
+     "cumulative_net": 5.99,
      "transit_service": 14.24,
      "equity_mitigation": 3.56,
      "other_transport": 5.93
@@ -108,7 +156,7 @@
      "opex": 4.75,
      "capex": 0.0,
      "net": 24.47,
-     "cumulative_net": 68.02,
+     "cumulative_net": 30.46,
      "transit_service": 14.68,
      "equity_mitigation": 3.67,
      "other_transport": 6.12
@@ -120,7 +168,7 @@
      "opex": 4.38,
      "capex": 0.0,
      "net": 24.83,
-     "cumulative_net": 92.85,
+     "cumulative_net": 55.29,
      "transit_service": 14.9,
      "equity_mitigation": 3.72,
      "other_transport": 6.21
@@ -132,7 +180,7 @@
      "opex": 4.38,
      "capex": 0.0,
      "net": 24.83,
-     "cumulative_net": 117.68,
+     "cumulative_net": 80.12,
      "transit_service": 14.9,
      "equity_mitigation": 3.72,
      "other_transport": 6.21
@@ -144,7 +192,7 @@
      "opex": 4.02,
      "capex": 0.0,
      "net": 25.2,
-     "cumulative_net": 142.88,
+     "cumulative_net": 105.32,
      "transit_service": 15.12,
      "equity_mitigation": 3.78,
      "other_transport": 6.3
@@ -156,7 +204,7 @@
      "opex": 4.02,
      "capex": 0.0,
      "net": 25.2,
-     "cumulative_net": 168.08,
+     "cumulative_net": 130.52,
      "transit_service": 15.12,
      "equity_mitigation": 3.78,
      "other_transport": 6.3
@@ -168,7 +216,7 @@
      "opex": 4.02,
      "capex": 0.0,
      "net": 25.2,
-     "cumulative_net": 193.27,
+     "cumulative_net": 155.71,
      "transit_service": 15.12,
      "equity_mitigation": 3.78,
      "other_transport": 6.3
@@ -193,23 +241,71 @@
    "avg_charge_cad": 3.0,
    "charging_points": 17,
    "gross_per_year_cad_m": 24.1,
-   "capex_cad_m": 20.9,
+   "capex_cad_m": 79.1,
    "npv_net_cad_m": {
-    "0.07": 110.4,
-    "0.035": 140.6,
-    "0.03": 145.6
+    "0.07": 32.5,
+    "0.035": 67.8,
+    "0.03": 74.2
    },
-   "payback_year": 2,
+   "payback_year": 5,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -13.18,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -26.35,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -39.53,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -52.7,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 10.48,
-     "net": -10.48,
-     "cumulative_net": -10.48,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -65.88,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -219,9 +315,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 10.48,
-     "net": -10.48,
-     "cumulative_net": -20.95,
+     "capex": 13.18,
+     "net": -13.18,
+     "cumulative_net": -79.05,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -233,7 +329,7 @@
      "opex": 6.5,
      "capex": 0.0,
      "net": 15.17,
-     "cumulative_net": -5.78,
+     "cumulative_net": -63.88,
      "transit_service": 9.1,
      "equity_mitigation": 2.28,
      "other_transport": 3.79
@@ -245,7 +341,7 @@
      "opex": 5.3,
      "capex": 0.0,
      "net": 18.79,
-     "cumulative_net": 13.01,
+     "cumulative_net": -45.09,
      "transit_service": 11.27,
      "equity_mitigation": 2.82,
      "other_transport": 4.7
@@ -257,7 +353,7 @@
      "opex": 4.09,
      "capex": 0.0,
      "net": 19.99,
-     "cumulative_net": 33.0,
+     "cumulative_net": -25.1,
      "transit_service": 11.99,
      "equity_mitigation": 3.0,
      "other_transport": 5.0
@@ -269,7 +365,7 @@
      "opex": 3.61,
      "capex": 0.0,
      "net": 20.47,
-     "cumulative_net": 53.47,
+     "cumulative_net": -4.63,
      "transit_service": 12.28,
      "equity_mitigation": 3.07,
      "other_transport": 5.12
@@ -281,7 +377,7 @@
      "opex": 3.13,
      "capex": 0.0,
      "net": 20.95,
-     "cumulative_net": 74.43,
+     "cumulative_net": 16.33,
      "transit_service": 12.57,
      "equity_mitigation": 3.14,
      "other_transport": 5.24
@@ -293,7 +389,7 @@
      "opex": 2.89,
      "capex": 0.0,
      "net": 21.19,
-     "cumulative_net": 95.62,
+     "cumulative_net": 37.52,
      "transit_service": 12.72,
      "equity_mitigation": 3.18,
      "other_transport": 5.3
@@ -305,7 +401,7 @@
      "opex": 2.89,
      "capex": 0.0,
      "net": 21.19,
-     "cumulative_net": 116.82,
+     "cumulative_net": 58.72,
      "transit_service": 12.72,
      "equity_mitigation": 3.18,
      "other_transport": 5.3
@@ -317,7 +413,7 @@
      "opex": 2.65,
      "capex": 0.0,
      "net": 21.44,
-     "cumulative_net": 138.25,
+     "cumulative_net": 80.15,
      "transit_service": 12.86,
      "equity_mitigation": 3.22,
      "other_transport": 5.36
@@ -329,7 +425,7 @@
      "opex": 2.65,
      "capex": 0.0,
      "net": 21.44,
-     "cumulative_net": 159.69,
+     "cumulative_net": 101.59,
      "transit_service": 12.86,
      "equity_mitigation": 3.22,
      "other_transport": 5.36
@@ -341,7 +437,7 @@
      "opex": 2.65,
      "capex": 0.0,
      "net": 21.44,
-     "cumulative_net": 181.12,
+     "cumulative_net": 123.02,
      "transit_service": 12.86,
      "equity_mitigation": 3.22,
      "other_transport": 5.36
@@ -366,23 +462,71 @@
    "avg_charge_cad": 3.0,
    "charging_points": 17,
    "gross_per_year_cad_m": 4.2,
-   "capex_cad_m": 18.9,
+   "capex_cad_m": 16.1,
    "npv_net_cad_m": {
-    "0.07": 5.6,
+    "0.07": 4.5,
     "0.035": 10.8,
-    "0.03": 11.7
+    "0.03": 11.9
    },
-   "payback_year": 6,
+   "payback_year": 5,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 2.69,
+     "net": -2.69,
+     "cumulative_net": -2.69,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 2.69,
+     "net": -2.69,
+     "cumulative_net": -5.38,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 2.69,
+     "net": -2.69,
+     "cumulative_net": -8.07,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 2.69,
+     "net": -2.69,
+     "cumulative_net": -10.77,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 9.46,
-     "net": -9.46,
-     "cumulative_net": -9.46,
+     "capex": 2.69,
+     "net": -2.69,
+     "cumulative_net": -13.46,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -392,9 +536,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 9.46,
-     "net": -9.46,
-     "cumulative_net": -18.91,
+     "capex": 2.69,
+     "net": -2.69,
+     "cumulative_net": -16.15,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -406,7 +550,7 @@
      "opex": 0.92,
      "capex": 0.0,
      "net": 2.9,
-     "cumulative_net": -16.01,
+     "cumulative_net": -13.25,
      "transit_service": 1.74,
      "equity_mitigation": 0.43,
      "other_transport": 0.72
@@ -418,7 +562,7 @@
      "opex": 0.75,
      "capex": 0.0,
      "net": 3.49,
-     "cumulative_net": -12.52,
+     "cumulative_net": -9.76,
      "transit_service": 2.09,
      "equity_mitigation": 0.52,
      "other_transport": 0.87
@@ -430,7 +574,7 @@
      "opex": 0.58,
      "capex": 0.0,
      "net": 3.66,
-     "cumulative_net": -8.86,
+     "cumulative_net": -6.1,
      "transit_service": 2.2,
      "equity_mitigation": 0.55,
      "other_transport": 0.92
@@ -442,7 +586,7 @@
      "opex": 0.51,
      "capex": 0.0,
      "net": 3.73,
-     "cumulative_net": -5.13,
+     "cumulative_net": -2.37,
      "transit_service": 2.24,
      "equity_mitigation": 0.56,
      "other_transport": 0.93
@@ -454,7 +598,7 @@
      "opex": 0.44,
      "capex": 0.0,
      "net": 3.8,
-     "cumulative_net": -1.34,
+     "cumulative_net": 1.42,
      "transit_service": 2.28,
      "equity_mitigation": 0.57,
      "other_transport": 0.95
@@ -466,7 +610,7 @@
      "opex": 0.41,
      "capex": 0.0,
      "net": 3.83,
-     "cumulative_net": 2.49,
+     "cumulative_net": 5.25,
      "transit_service": 2.3,
      "equity_mitigation": 0.57,
      "other_transport": 0.96
@@ -478,7 +622,7 @@
      "opex": 0.41,
      "capex": 0.0,
      "net": 3.83,
-     "cumulative_net": 6.32,
+     "cumulative_net": 9.08,
      "transit_service": 2.3,
      "equity_mitigation": 0.57,
      "other_transport": 0.96
@@ -490,7 +634,7 @@
      "opex": 0.37,
      "capex": 0.0,
      "net": 3.86,
-     "cumulative_net": 10.19,
+     "cumulative_net": 12.95,
      "transit_service": 2.32,
      "equity_mitigation": 0.58,
      "other_transport": 0.97
@@ -502,7 +646,7 @@
      "opex": 0.37,
      "capex": 0.0,
      "net": 3.86,
-     "cumulative_net": 14.05,
+     "cumulative_net": 16.81,
      "transit_service": 2.32,
      "equity_mitigation": 0.58,
      "other_transport": 0.97
@@ -514,7 +658,7 @@
      "opex": 0.37,
      "capex": 0.0,
      "net": 3.86,
-     "cumulative_net": 17.91,
+     "cumulative_net": 20.67,
      "transit_service": 2.32,
      "equity_mitigation": 0.58,
      "other_transport": 0.97
@@ -539,23 +683,71 @@
    "avg_charge_cad": 12.58,
    "charging_points": 83,
    "gross_per_year_cad_m": 316.7,
-   "capex_cad_m": 105.5,
+   "capex_cad_m": 386.0,
    "npv_net_cad_m": {
-    "0.07": 1540.2,
-    "0.035": 1924.0,
-    "0.03": 1988.5
+    "0.07": 924.8,
+    "0.035": 1412.3,
+    "0.03": 1500.3
    },
-   "payback_year": 1,
+   "payback_year": 2,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -64.32,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -128.65,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -192.98,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -257.3,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 52.76,
-     "net": -52.76,
-     "cumulative_net": -52.76,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -321.62,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -565,9 +757,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 52.76,
-     "net": -52.76,
-     "cumulative_net": -105.51,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -385.95,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -579,7 +771,7 @@
      "opex": 88.37,
      "capex": 0.0,
      "net": 196.68,
-     "cumulative_net": 91.17,
+     "cumulative_net": -189.27,
      "transit_service": 118.01,
      "equity_mitigation": 29.5,
      "other_transport": 49.17
@@ -591,7 +783,7 @@
      "opex": 98.18,
      "capex": 0.0,
      "net": 218.54,
-     "cumulative_net": 309.71,
+     "cumulative_net": 29.27,
      "transit_service": 131.12,
      "equity_mitigation": 32.78,
      "other_transport": 54.63
@@ -603,7 +795,7 @@
      "opex": 67.3,
      "capex": 0.0,
      "net": 249.42,
-     "cumulative_net": 559.13,
+     "cumulative_net": 278.69,
      "transit_service": 149.65,
      "equity_mitigation": 37.41,
      "other_transport": 62.35
@@ -615,7 +807,7 @@
      "opex": 59.39,
      "capex": 0.0,
      "net": 257.34,
-     "cumulative_net": 816.47,
+     "cumulative_net": 536.03,
      "transit_service": 154.4,
      "equity_mitigation": 38.6,
      "other_transport": 64.33
@@ -627,7 +819,7 @@
      "opex": 51.47,
      "capex": 0.0,
      "net": 265.25,
-     "cumulative_net": 1081.72,
+     "cumulative_net": 801.28,
      "transit_service": 159.15,
      "equity_mitigation": 39.79,
      "other_transport": 66.31
@@ -639,7 +831,7 @@
      "opex": 47.51,
      "capex": 0.0,
      "net": 269.21,
-     "cumulative_net": 1350.94,
+     "cumulative_net": 1070.5,
      "transit_service": 161.53,
      "equity_mitigation": 40.38,
      "other_transport": 67.3
@@ -651,7 +843,7 @@
      "opex": 47.51,
      "capex": 0.0,
      "net": 269.21,
-     "cumulative_net": 1620.15,
+     "cumulative_net": 1339.71,
      "transit_service": 161.53,
      "equity_mitigation": 40.38,
      "other_transport": 67.3
@@ -663,7 +855,7 @@
      "opex": 43.55,
      "capex": 0.0,
      "net": 273.17,
-     "cumulative_net": 1893.32,
+     "cumulative_net": 1612.88,
      "transit_service": 163.9,
      "equity_mitigation": 40.98,
      "other_transport": 68.29
@@ -675,7 +867,7 @@
      "opex": 43.55,
      "capex": 0.0,
      "net": 273.17,
-     "cumulative_net": 2166.5,
+     "cumulative_net": 1886.06,
      "transit_service": 163.9,
      "equity_mitigation": 40.98,
      "other_transport": 68.29
@@ -687,7 +879,7 @@
      "opex": 43.55,
      "capex": 0.0,
      "net": 273.17,
-     "cumulative_net": 2439.67,
+     "cumulative_net": 2159.23,
      "transit_service": 163.9,
      "equity_mitigation": 40.98,
      "other_transport": 68.29
@@ -712,23 +904,71 @@
    "avg_charge_cad": 12.58,
    "charging_points": 83,
    "gross_per_year_cad_m": 416.4,
-   "capex_cad_m": 77.0,
+   "capex_cad_m": 386.0,
    "npv_net_cad_m": {
-    "0.07": 2184.6,
-    "0.035": 2710.6,
-    "0.03": 2799.0
+    "0.07": 1395.4,
+    "0.035": 2073.4,
+    "0.03": 2195.4
    },
-   "payback_year": 1,
+   "payback_year": 2,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -64.32,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -128.65,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -192.98,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -257.3,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 38.52,
-     "net": -38.52,
-     "cumulative_net": -38.52,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -321.62,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -738,9 +978,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 38.52,
-     "net": -38.52,
-     "cumulative_net": -77.05,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -385.95,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -752,7 +992,7 @@
      "opex": 112.42,
      "capex": 0.0,
      "net": 262.32,
-     "cumulative_net": 185.27,
+     "cumulative_net": -123.63,
      "transit_service": 157.39,
      "equity_mitigation": 39.35,
      "other_transport": 65.58
@@ -764,7 +1004,7 @@
      "opex": 91.6,
      "capex": 0.0,
      "net": 324.78,
-     "cumulative_net": 510.05,
+     "cumulative_net": 201.15,
      "transit_service": 194.87,
      "equity_mitigation": 48.72,
      "other_transport": 81.2
@@ -776,7 +1016,7 @@
      "opex": 70.79,
      "capex": 0.0,
      "net": 345.6,
-     "cumulative_net": 855.65,
+     "cumulative_net": 546.75,
      "transit_service": 207.36,
      "equity_mitigation": 51.84,
      "other_transport": 86.4
@@ -788,7 +1028,7 @@
      "opex": 62.46,
      "capex": 0.0,
      "net": 353.93,
-     "cumulative_net": 1209.58,
+     "cumulative_net": 900.68,
      "transit_service": 212.36,
      "equity_mitigation": 53.09,
      "other_transport": 88.48
@@ -800,7 +1040,7 @@
      "opex": 54.13,
      "capex": 0.0,
      "net": 362.25,
-     "cumulative_net": 1571.83,
+     "cumulative_net": 1262.93,
      "transit_service": 217.35,
      "equity_mitigation": 54.34,
      "other_transport": 90.56
@@ -812,7 +1052,7 @@
      "opex": 49.97,
      "capex": 0.0,
      "net": 366.42,
-     "cumulative_net": 1938.25,
+     "cumulative_net": 1629.35,
      "transit_service": 219.85,
      "equity_mitigation": 54.96,
      "other_transport": 91.6
@@ -824,7 +1064,7 @@
      "opex": 49.97,
      "capex": 0.0,
      "net": 366.42,
-     "cumulative_net": 2304.67,
+     "cumulative_net": 1995.77,
      "transit_service": 219.85,
      "equity_mitigation": 54.96,
      "other_transport": 91.6
@@ -836,7 +1076,7 @@
      "opex": 45.8,
      "capex": 0.0,
      "net": 370.58,
-     "cumulative_net": 2675.25,
+     "cumulative_net": 2366.35,
      "transit_service": 222.35,
      "equity_mitigation": 55.59,
      "other_transport": 92.65
@@ -848,7 +1088,7 @@
      "opex": 45.8,
      "capex": 0.0,
      "net": 370.58,
-     "cumulative_net": 3045.84,
+     "cumulative_net": 2736.94,
      "transit_service": 222.35,
      "equity_mitigation": 55.59,
      "other_transport": 92.65
@@ -860,7 +1100,7 @@
      "opex": 45.8,
      "capex": 0.0,
      "net": 370.58,
-     "cumulative_net": 3416.42,
+     "cumulative_net": 3107.52,
      "transit_service": 222.35,
      "equity_mitigation": 55.59,
      "other_transport": 92.65
@@ -885,23 +1125,71 @@
    "avg_charge_cad": 12.58,
    "charging_points": 83,
    "gross_per_year_cad_m": 315.0,
-   "capex_cad_m": 67.1,
+   "capex_cad_m": 78.8,
    "npv_net_cad_m": {
-    "0.07": 1710.5,
-    "0.035": 2120.9,
-    "0.03": 2189.8
+    "0.07": 1287.4,
+    "0.035": 1833.3,
+    "0.03": 1931.0
    },
    "payback_year": 1,
    "first_positive_year": 1,
    "cashflow": [
     {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -13.14,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -26.28,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -39.42,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -52.57,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 33.54,
-     "net": -33.54,
-     "cumulative_net": -33.54,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -65.71,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -911,9 +1199,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 33.54,
-     "net": -33.54,
-     "cumulative_net": -67.09,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -78.85,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -925,7 +1213,7 @@
      "opex": 68.05,
      "capex": 0.0,
      "net": 215.48,
-     "cumulative_net": 148.39,
+     "cumulative_net": 136.63,
      "transit_service": 129.29,
      "equity_mitigation": 32.32,
      "other_transport": 53.87
@@ -937,7 +1225,7 @@
      "opex": 55.44,
      "capex": 0.0,
      "net": 259.58,
-     "cumulative_net": 407.97,
+     "cumulative_net": 396.21,
      "transit_service": 155.75,
      "equity_mitigation": 38.94,
      "other_transport": 64.9
@@ -949,7 +1237,7 @@
      "opex": 42.84,
      "capex": 0.0,
      "net": 272.18,
-     "cumulative_net": 680.15,
+     "cumulative_net": 668.39,
      "transit_service": 163.31,
      "equity_mitigation": 40.83,
      "other_transport": 68.05
@@ -961,7 +1249,7 @@
      "opex": 37.8,
      "capex": 0.0,
      "net": 277.22,
-     "cumulative_net": 957.38,
+     "cumulative_net": 945.62,
      "transit_service": 166.33,
      "equity_mitigation": 41.58,
      "other_transport": 69.31
@@ -973,7 +1261,7 @@
      "opex": 32.76,
      "capex": 0.0,
      "net": 282.26,
-     "cumulative_net": 1239.64,
+     "cumulative_net": 1227.88,
      "transit_service": 169.36,
      "equity_mitigation": 42.34,
      "other_transport": 70.57
@@ -985,7 +1273,7 @@
      "opex": 30.24,
      "capex": 0.0,
      "net": 284.78,
-     "cumulative_net": 1524.43,
+     "cumulative_net": 1512.67,
      "transit_service": 170.87,
      "equity_mitigation": 42.72,
      "other_transport": 71.2
@@ -997,7 +1285,7 @@
      "opex": 30.24,
      "capex": 0.0,
      "net": 284.78,
-     "cumulative_net": 1809.21,
+     "cumulative_net": 1797.45,
      "transit_service": 170.87,
      "equity_mitigation": 42.72,
      "other_transport": 71.2
@@ -1009,7 +1297,7 @@
      "opex": 27.72,
      "capex": 0.0,
      "net": 287.3,
-     "cumulative_net": 2096.51,
+     "cumulative_net": 2084.75,
      "transit_service": 172.38,
      "equity_mitigation": 43.1,
      "other_transport": 71.83
@@ -1021,7 +1309,7 @@
      "opex": 27.72,
      "capex": 0.0,
      "net": 287.3,
-     "cumulative_net": 2383.82,
+     "cumulative_net": 2372.06,
      "transit_service": 172.38,
      "equity_mitigation": 43.1,
      "other_transport": 71.83
@@ -1033,7 +1321,7 @@
      "opex": 27.72,
      "capex": 0.0,
      "net": 287.3,
-     "cumulative_net": 2671.12,
+     "cumulative_net": 2659.36,
      "transit_service": 172.38,
      "equity_mitigation": 43.1,
      "other_transport": 71.83
@@ -1058,23 +1346,71 @@
    "avg_charge_cad": 9.72,
    "charging_points": 83,
    "gross_per_year_cad_m": 251.8,
-   "capex_cad_m": 105.5,
+   "capex_cad_m": 386.0,
    "npv_net_cad_m": {
-    "0.07": 1203.8,
-    "0.035": 1508.6,
-    "0.03": 1559.8
+    "0.07": 668.1,
+    "0.035": 1050.3,
+    "0.03": 1119.4
    },
-   "payback_year": 1,
+   "payback_year": 3,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -64.32,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -128.65,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -192.98,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -257.3,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 52.76,
-     "net": -52.76,
-     "cumulative_net": -52.76,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -321.62,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1084,9 +1420,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 52.76,
-     "net": -52.76,
-     "cumulative_net": -105.51,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -385.95,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1098,7 +1434,7 @@
      "opex": 70.26,
      "capex": 0.0,
      "net": 156.39,
-     "cumulative_net": 50.88,
+     "cumulative_net": -229.56,
      "transit_service": 93.83,
      "equity_mitigation": 23.46,
      "other_transport": 39.1
@@ -1110,7 +1446,7 @@
      "opex": 78.07,
      "capex": 0.0,
      "net": 173.77,
-     "cumulative_net": 224.64,
+     "cumulative_net": -55.8,
      "transit_service": 104.26,
      "equity_mitigation": 26.06,
      "other_transport": 43.44
@@ -1122,7 +1458,7 @@
      "opex": 53.51,
      "capex": 0.0,
      "net": 198.32,
-     "cumulative_net": 422.96,
+     "cumulative_net": 142.52,
      "transit_service": 118.99,
      "equity_mitigation": 29.75,
      "other_transport": 49.58
@@ -1134,7 +1470,7 @@
      "opex": 47.22,
      "capex": 0.0,
      "net": 204.62,
-     "cumulative_net": 627.58,
+     "cumulative_net": 347.14,
      "transit_service": 122.77,
      "equity_mitigation": 30.69,
      "other_transport": 51.15
@@ -1146,7 +1482,7 @@
      "opex": 40.92,
      "capex": 0.0,
      "net": 210.91,
-     "cumulative_net": 838.49,
+     "cumulative_net": 558.05,
      "transit_service": 126.55,
      "equity_mitigation": 31.64,
      "other_transport": 52.73
@@ -1158,7 +1494,7 @@
      "opex": 37.78,
      "capex": 0.0,
      "net": 214.06,
-     "cumulative_net": 1052.55,
+     "cumulative_net": 772.11,
      "transit_service": 128.44,
      "equity_mitigation": 32.11,
      "other_transport": 53.51
@@ -1170,7 +1506,7 @@
      "opex": 37.78,
      "capex": 0.0,
      "net": 214.06,
-     "cumulative_net": 1266.61,
+     "cumulative_net": 986.17,
      "transit_service": 128.44,
      "equity_mitigation": 32.11,
      "other_transport": 53.51
@@ -1182,7 +1518,7 @@
      "opex": 34.63,
      "capex": 0.0,
      "net": 217.21,
-     "cumulative_net": 1483.81,
+     "cumulative_net": 1203.37,
      "transit_service": 130.32,
      "equity_mitigation": 32.58,
      "other_transport": 54.3
@@ -1194,7 +1530,7 @@
      "opex": 34.63,
      "capex": 0.0,
      "net": 217.21,
-     "cumulative_net": 1701.02,
+     "cumulative_net": 1420.58,
      "transit_service": 130.32,
      "equity_mitigation": 32.58,
      "other_transport": 54.3
@@ -1206,7 +1542,7 @@
      "opex": 34.63,
      "capex": 0.0,
      "net": 217.21,
-     "cumulative_net": 1918.23,
+     "cumulative_net": 1637.79,
      "transit_service": 130.32,
      "equity_mitigation": 32.58,
      "other_transport": 54.3
@@ -1231,23 +1567,71 @@
    "avg_charge_cad": 9.72,
    "charging_points": 83,
    "gross_per_year_cad_m": 332.6,
-   "capex_cad_m": 77.0,
+   "capex_cad_m": 386.0,
    "npv_net_cad_m": {
-    "0.07": 1730.2,
-    "0.035": 2150.2,
-    "0.03": 2220.7
+    "0.07": 1048.7,
+    "0.035": 1585.0,
+    "0.03": 1681.6
    },
-   "payback_year": 1,
+   "payback_year": 2,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -64.32,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -128.65,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -192.98,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -257.3,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 38.52,
-     "net": -38.52,
-     "cumulative_net": -38.52,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -321.62,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1257,9 +1641,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 38.52,
-     "net": -38.52,
-     "cumulative_net": -77.05,
+     "capex": 64.32,
+     "net": -64.32,
+     "cumulative_net": -385.95,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1271,7 +1655,7 @@
      "opex": 89.81,
      "capex": 0.0,
      "net": 209.56,
-     "cumulative_net": 132.51,
+     "cumulative_net": -176.39,
      "transit_service": 125.73,
      "equity_mitigation": 31.43,
      "other_transport": 52.39
@@ -1283,7 +1667,7 @@
      "opex": 73.18,
      "capex": 0.0,
      "net": 259.45,
-     "cumulative_net": 391.96,
+     "cumulative_net": 83.06,
      "transit_service": 155.67,
      "equity_mitigation": 38.92,
      "other_transport": 64.86
@@ -1295,7 +1679,7 @@
      "opex": 56.55,
      "capex": 0.0,
      "net": 276.08,
-     "cumulative_net": 668.04,
+     "cumulative_net": 359.14,
      "transit_service": 165.65,
      "equity_mitigation": 41.41,
      "other_transport": 69.02
@@ -1307,7 +1691,7 @@
      "opex": 49.89,
      "capex": 0.0,
      "net": 282.74,
-     "cumulative_net": 950.78,
+     "cumulative_net": 641.88,
      "transit_service": 169.64,
      "equity_mitigation": 42.41,
      "other_transport": 70.68
@@ -1319,7 +1703,7 @@
      "opex": 43.24,
      "capex": 0.0,
      "net": 289.39,
-     "cumulative_net": 1240.17,
+     "cumulative_net": 931.27,
      "transit_service": 173.63,
      "equity_mitigation": 43.41,
      "other_transport": 72.35
@@ -1331,7 +1715,7 @@
      "opex": 39.92,
      "capex": 0.0,
      "net": 292.72,
-     "cumulative_net": 1532.88,
+     "cumulative_net": 1223.98,
      "transit_service": 175.63,
      "equity_mitigation": 43.91,
      "other_transport": 73.18
@@ -1343,7 +1727,7 @@
      "opex": 39.92,
      "capex": 0.0,
      "net": 292.72,
-     "cumulative_net": 1825.6,
+     "cumulative_net": 1516.7,
      "transit_service": 175.63,
      "equity_mitigation": 43.91,
      "other_transport": 73.18
@@ -1355,7 +1739,7 @@
      "opex": 36.59,
      "capex": 0.0,
      "net": 296.04,
-     "cumulative_net": 2121.64,
+     "cumulative_net": 1812.74,
      "transit_service": 177.62,
      "equity_mitigation": 44.41,
      "other_transport": 74.01
@@ -1367,7 +1751,7 @@
      "opex": 36.59,
      "capex": 0.0,
      "net": 296.04,
-     "cumulative_net": 2417.68,
+     "cumulative_net": 2108.78,
      "transit_service": 177.62,
      "equity_mitigation": 44.41,
      "other_transport": 74.01
@@ -1379,7 +1763,7 @@
      "opex": 36.59,
      "capex": 0.0,
      "net": 296.04,
-     "cumulative_net": 2713.72,
+     "cumulative_net": 2404.82,
      "transit_service": 177.62,
      "equity_mitigation": 44.41,
      "other_transport": 74.01
@@ -1404,23 +1788,71 @@
    "avg_charge_cad": 9.72,
    "charging_points": 83,
    "gross_per_year_cad_m": 253.2,
-   "capex_cad_m": 67.1,
+   "capex_cad_m": 78.8,
    "npv_net_cad_m": {
-    "0.07": 1361.9,
-    "0.035": 1691.5,
-    "0.03": 1746.8
+    "0.07": 1021.5,
+    "0.035": 1459.1,
+    "0.03": 1537.5
    },
    "payback_year": 1,
    "first_positive_year": 1,
    "cashflow": [
     {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -13.14,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -26.28,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -39.42,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -52.57,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 33.54,
-     "net": -33.54,
-     "cumulative_net": -33.54,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -65.71,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1430,9 +1862,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 33.54,
-     "net": -33.54,
-     "cumulative_net": -67.09,
+     "capex": 13.14,
+     "net": -13.14,
+     "cumulative_net": -78.85,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1444,7 +1876,7 @@
      "opex": 54.68,
      "capex": 0.0,
      "net": 173.17,
-     "cumulative_net": 106.08,
+     "cumulative_net": 94.32,
      "transit_service": 103.9,
      "equity_mitigation": 25.98,
      "other_transport": 43.29
@@ -1456,7 +1888,7 @@
      "opex": 44.56,
      "capex": 0.0,
      "net": 208.61,
-     "cumulative_net": 314.69,
+     "cumulative_net": 302.93,
      "transit_service": 125.17,
      "equity_mitigation": 31.29,
      "other_transport": 52.15
@@ -1468,7 +1900,7 @@
      "opex": 34.43,
      "capex": 0.0,
      "net": 218.74,
-     "cumulative_net": 533.43,
+     "cumulative_net": 521.67,
      "transit_service": 131.24,
      "equity_mitigation": 32.81,
      "other_transport": 54.68
@@ -1480,7 +1912,7 @@
      "opex": 30.38,
      "capex": 0.0,
      "net": 222.79,
-     "cumulative_net": 756.22,
+     "cumulative_net": 744.46,
      "transit_service": 133.67,
      "equity_mitigation": 33.42,
      "other_transport": 55.7
@@ -1492,7 +1924,7 @@
      "opex": 26.33,
      "capex": 0.0,
      "net": 226.84,
-     "cumulative_net": 983.06,
+     "cumulative_net": 971.3,
      "transit_service": 136.1,
      "equity_mitigation": 34.03,
      "other_transport": 56.71
@@ -1504,7 +1936,7 @@
      "opex": 24.3,
      "capex": 0.0,
      "net": 228.87,
-     "cumulative_net": 1211.93,
+     "cumulative_net": 1200.17,
      "transit_service": 137.32,
      "equity_mitigation": 34.33,
      "other_transport": 57.22
@@ -1516,7 +1948,7 @@
      "opex": 24.3,
      "capex": 0.0,
      "net": 228.87,
-     "cumulative_net": 1440.79,
+     "cumulative_net": 1429.03,
      "transit_service": 137.32,
      "equity_mitigation": 34.33,
      "other_transport": 57.22
@@ -1528,7 +1960,7 @@
      "opex": 22.28,
      "capex": 0.0,
      "net": 230.89,
-     "cumulative_net": 1671.68,
+     "cumulative_net": 1659.92,
      "transit_service": 138.53,
      "equity_mitigation": 34.63,
      "other_transport": 57.72
@@ -1540,7 +1972,7 @@
      "opex": 22.28,
      "capex": 0.0,
      "net": 230.89,
-     "cumulative_net": 1902.57,
+     "cumulative_net": 1890.81,
      "transit_service": 138.53,
      "equity_mitigation": 34.63,
      "other_transport": 57.72
@@ -1552,7 +1984,7 @@
      "opex": 22.28,
      "capex": 0.0,
      "net": 230.89,
-     "cumulative_net": 2133.47,
+     "cumulative_net": 2121.71,
      "transit_service": 138.53,
      "equity_mitigation": 34.63,
      "other_transport": 57.72
@@ -1577,23 +2009,71 @@
    "avg_charge_cad": 12.58,
    "charging_points": 66,
    "gross_per_year_cad_m": 263.4,
-   "capex_cad_m": 89.0,
+   "capex_cad_m": 306.9,
    "npv_net_cad_m": {
-    "0.07": 1279.9,
-    "0.035": 1599.1,
-    "0.03": 1652.8
+    "0.07": 781.2,
+    "0.035": 1187.7,
+    "0.03": 1261.0
    },
-   "payback_year": 1,
+   "payback_year": 2,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -51.15,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -102.3,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -153.45,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -204.6,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 44.51,
-     "net": -44.51,
-     "cumulative_net": -44.51,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -255.75,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1603,9 +2083,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 44.51,
-     "net": -44.51,
-     "cumulative_net": -89.02,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -306.9,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1617,7 +2097,7 @@
      "opex": 73.5,
      "capex": 0.0,
      "net": 163.6,
-     "cumulative_net": 74.58,
+     "cumulative_net": -143.3,
      "transit_service": 98.16,
      "equity_mitigation": 24.54,
      "other_transport": 40.9
@@ -1629,7 +2109,7 @@
      "opex": 81.67,
      "capex": 0.0,
      "net": 181.77,
-     "cumulative_net": 256.35,
+     "cumulative_net": 38.47,
      "transit_service": 109.06,
      "equity_mitigation": 27.27,
      "other_transport": 45.44
@@ -1641,7 +2121,7 @@
      "opex": 55.98,
      "capex": 0.0,
      "net": 207.46,
-     "cumulative_net": 463.81,
+     "cumulative_net": 245.93,
      "transit_service": 124.47,
      "equity_mitigation": 31.12,
      "other_transport": 51.86
@@ -1653,7 +2133,7 @@
      "opex": 49.39,
      "capex": 0.0,
      "net": 214.04,
-     "cumulative_net": 677.85,
+     "cumulative_net": 459.97,
      "transit_service": 128.43,
      "equity_mitigation": 32.11,
      "other_transport": 53.51
@@ -1665,7 +2145,7 @@
      "opex": 42.81,
      "capex": 0.0,
      "net": 220.63,
-     "cumulative_net": 898.48,
+     "cumulative_net": 680.6,
      "transit_service": 132.38,
      "equity_mitigation": 33.09,
      "other_transport": 55.16
@@ -1677,7 +2157,7 @@
      "opex": 39.52,
      "capex": 0.0,
      "net": 223.92,
-     "cumulative_net": 1122.4,
+     "cumulative_net": 904.52,
      "transit_service": 134.35,
      "equity_mitigation": 33.59,
      "other_transport": 55.98
@@ -1689,7 +2169,7 @@
      "opex": 39.52,
      "capex": 0.0,
      "net": 223.92,
-     "cumulative_net": 1346.33,
+     "cumulative_net": 1128.45,
      "transit_service": 134.35,
      "equity_mitigation": 33.59,
      "other_transport": 55.98
@@ -1701,7 +2181,7 @@
      "opex": 36.22,
      "capex": 0.0,
      "net": 227.22,
-     "cumulative_net": 1573.54,
+     "cumulative_net": 1355.66,
      "transit_service": 136.33,
      "equity_mitigation": 34.08,
      "other_transport": 56.8
@@ -1713,7 +2193,7 @@
      "opex": 36.22,
      "capex": 0.0,
      "net": 227.22,
-     "cumulative_net": 1800.76,
+     "cumulative_net": 1582.88,
      "transit_service": 136.33,
      "equity_mitigation": 34.08,
      "other_transport": 56.8
@@ -1725,7 +2205,7 @@
      "opex": 36.22,
      "capex": 0.0,
      "net": 227.22,
-     "cumulative_net": 2027.98,
+     "cumulative_net": 1810.1,
      "transit_service": 136.33,
      "equity_mitigation": 34.08,
      "other_transport": 56.8
@@ -1750,23 +2230,71 @@
    "avg_charge_cad": 12.58,
    "charging_points": 66,
    "gross_per_year_cad_m": 349.7,
-   "capex_cad_m": 62.6,
+   "capex_cad_m": 306.9,
    "npv_net_cad_m": {
-    "0.07": 1836.7,
-    "0.035": 2278.5,
-    "0.03": 2352.7
+    "0.07": 1186.5,
+    "0.035": 1757.1,
+    "0.03": 1859.7
    },
-   "payback_year": 1,
+   "payback_year": 2,
    "first_positive_year": 1,
    "cashflow": [
+    {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -51.15,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -102.3,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -153.45,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -204.6,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
     {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 31.3,
-     "net": -31.3,
-     "cumulative_net": -31.3,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -255.75,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1776,9 +2304,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 31.3,
-     "net": -31.3,
-     "cumulative_net": -62.6,
+     "capex": 51.15,
+     "net": -51.15,
+     "cumulative_net": -306.9,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1790,7 +2318,7 @@
      "opex": 94.42,
      "capex": 0.0,
      "net": 220.3,
-     "cumulative_net": 157.7,
+     "cumulative_net": -86.6,
      "transit_service": 132.18,
      "equity_mitigation": 33.05,
      "other_transport": 55.08
@@ -1802,7 +2330,7 @@
      "opex": 76.93,
      "capex": 0.0,
      "net": 272.76,
-     "cumulative_net": 430.46,
+     "cumulative_net": 186.16,
      "transit_service": 163.65,
      "equity_mitigation": 40.91,
      "other_transport": 68.19
@@ -1814,7 +2342,7 @@
      "opex": 59.45,
      "capex": 0.0,
      "net": 290.24,
-     "cumulative_net": 720.7,
+     "cumulative_net": 476.4,
      "transit_service": 174.14,
      "equity_mitigation": 43.54,
      "other_transport": 72.56
@@ -1826,7 +2354,7 @@
      "opex": 52.45,
      "capex": 0.0,
      "net": 297.23,
-     "cumulative_net": 1017.93,
+     "cumulative_net": 773.63,
      "transit_service": 178.34,
      "equity_mitigation": 44.58,
      "other_transport": 74.31
@@ -1838,7 +2366,7 @@
      "opex": 45.46,
      "capex": 0.0,
      "net": 304.23,
-     "cumulative_net": 1322.16,
+     "cumulative_net": 1077.86,
      "transit_service": 182.54,
      "equity_mitigation": 45.63,
      "other_transport": 76.06
@@ -1850,7 +2378,7 @@
      "opex": 41.96,
      "capex": 0.0,
      "net": 307.72,
-     "cumulative_net": 1629.88,
+     "cumulative_net": 1385.58,
      "transit_service": 184.63,
      "equity_mitigation": 46.16,
      "other_transport": 76.93
@@ -1862,7 +2390,7 @@
      "opex": 41.96,
      "capex": 0.0,
      "net": 307.72,
-     "cumulative_net": 1937.6,
+     "cumulative_net": 1693.3,
      "transit_service": 184.63,
      "equity_mitigation": 46.16,
      "other_transport": 76.93
@@ -1874,7 +2402,7 @@
      "opex": 38.47,
      "capex": 0.0,
      "net": 311.22,
-     "cumulative_net": 2248.82,
+     "cumulative_net": 2004.52,
      "transit_service": 186.73,
      "equity_mitigation": 46.68,
      "other_transport": 77.81
@@ -1886,7 +2414,7 @@
      "opex": 38.47,
      "capex": 0.0,
      "net": 311.22,
-     "cumulative_net": 2560.04,
+     "cumulative_net": 2315.74,
      "transit_service": 186.73,
      "equity_mitigation": 46.68,
      "other_transport": 77.81
@@ -1898,7 +2426,7 @@
      "opex": 38.47,
      "capex": 0.0,
      "net": 311.22,
-     "cumulative_net": 2871.26,
+     "cumulative_net": 2626.96,
      "transit_service": 186.73,
      "equity_mitigation": 46.68,
      "other_transport": 77.81
@@ -1923,23 +2451,71 @@
    "avg_charge_cad": 12.58,
    "charging_points": 66,
    "gross_per_year_cad_m": 281.4,
-   "capex_cad_m": 54.7,
+   "capex_cad_m": 62.7,
    "npv_net_cad_m": {
-    "0.07": 1533.2,
-    "0.035": 1900.0,
-    "0.03": 1961.5
+    "0.07": 1156.7,
+    "0.035": 1644.9,
+    "0.03": 1732.4
    },
    "payback_year": 1,
    "first_positive_year": 1,
    "cashflow": [
     {
+     "year": -5,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 10.45,
+     "net": -10.45,
+     "cumulative_net": -10.45,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -4,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 10.45,
+     "net": -10.45,
+     "cumulative_net": -20.9,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -3,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 10.45,
+     "net": -10.45,
+     "cumulative_net": -31.35,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
+     "year": -2,
+     "phase": "implementation",
+     "gross": 0.0,
+     "opex": 0.0,
+     "capex": 10.45,
+     "net": -10.45,
+     "cumulative_net": -41.8,
+     "transit_service": 0.0,
+     "equity_mitigation": 0.0,
+     "other_transport": 0.0
+    },
+    {
      "year": -1,
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 27.34,
-     "net": -27.34,
-     "cumulative_net": -27.34,
+     "capex": 10.45,
+     "net": -10.45,
+     "cumulative_net": -52.25,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1949,9 +2525,9 @@
      "phase": "implementation",
      "gross": 0.0,
      "opex": 0.0,
-     "capex": 27.34,
-     "net": -27.34,
-     "cumulative_net": -54.68,
+     "capex": 10.45,
+     "net": -10.45,
+     "cumulative_net": -62.7,
      "transit_service": 0.0,
      "equity_mitigation": 0.0,
      "other_transport": 0.0
@@ -1963,7 +2539,7 @@
      "opex": 60.79,
      "capex": 0.0,
      "net": 192.51,
-     "cumulative_net": 137.83,
+     "cumulative_net": 129.81,
      "transit_service": 115.5,
      "equity_mitigation": 28.88,
      "other_transport": 48.13
@@ -1975,7 +2551,7 @@
      "opex": 49.53,
      "capex": 0.0,
      "net": 231.91,
-     "cumulative_net": 369.73,
+     "cumulative_net": 361.71,
      "transit_service": 139.14,
      "equity_mitigation": 34.79,
      "other_transport": 57.98
@@ -1987,7 +2563,7 @@
      "opex": 38.28,
      "capex": 0.0,
      "net": 243.16,
-     "cumulative_net": 612.9,
+     "cumulative_net": 604.88,
      "transit_service": 145.9,
      "equity_mitigation": 36.47,
      "other_transport": 60.79
@@ -1999,7 +2575,7 @@
      "opex": 33.77,
      "capex": 0.0,
      "net": 247.67,
-     "cumulative_net": 860.56,
+     "cumulative_net": 852.54,
      "transit_service": 148.6,
      "equity_mitigation": 37.15,
      "other_transport": 61.92
@@ -2011,7 +2587,7 @@
      "opex": 29.27,
      "capex": 0.0,
      "net": 252.17,
-     "cumulative_net": 1112.73,
+     "cumulative_net": 1104.71,
      "transit_service": 151.3,
      "equity_mitigation": 37.83,
      "other_transport": 63.04
@@ -2023,7 +2599,7 @@
      "opex": 27.02,
      "capex": 0.0,
      "net": 254.42,
-     "cumulative_net": 1367.16,
+     "cumulative_net": 1359.14,
      "transit_service": 152.65,
      "equity_mitigation": 38.16,
      "other_transport": 63.61
@@ -2035,7 +2611,7 @@
      "opex": 27.02,
      "capex": 0.0,
      "net": 254.42,
-     "cumulative_net": 1621.58,
+     "cumulative_net": 1613.56,
      "transit_service": 152.65,
      "equity_mitigation": 38.16,
      "other_transport": 63.61
@@ -2047,7 +2623,7 @@
      "opex": 24.77,
      "capex": 0.0,
      "net": 256.67,
-     "cumulative_net": 1878.25,
+     "cumulative_net": 1870.23,
      "transit_service": 154.0,
      "equity_mitigation": 38.5,
      "other_transport": 64.17
@@ -2059,7 +2635,7 @@
      "opex": 24.77,
      "capex": 0.0,
      "net": 256.67,
-     "cumulative_net": 2134.92,
+     "cumulative_net": 2126.9,
      "transit_service": 154.0,
      "equity_mitigation": 38.5,
      "other_transport": 64.17
@@ -2071,7 +2647,7 @@
      "opex": 24.77,
      "capex": 0.0,
      "net": 256.67,
-     "cumulative_net": 2391.6,
+     "cumulative_net": 2383.58,
      "transit_service": 154.0,
      "equity_mitigation": 38.5,
      "other_transport": 64.17

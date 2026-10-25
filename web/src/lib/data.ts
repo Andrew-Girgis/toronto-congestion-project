@@ -17,5 +17,8 @@ export function fig(id: string): Figure {
 export const tagKind = (l: string) =>
   /UNVERIFIED/.test(l) ? "unv" : /OBSERVED/.test(l) ? "obs" : /ESTIMATED/.test(l) ? "est" : /SIMULATED/.test(l) ? "sim" : "asm";
 
+// The deck tags only model output (SIMULATED); sourced figures carry a source line on the slide instead.
+export const showTag = (l: string) => /^SIMULATED/.test(l);
+
 // Short tag text; the full label goes in the title attribute.
 export const tagText = (l: string) => (/^OBSERVED \(REPORT\)/.test(l) ? "observed (report)" : l.split(/[ ;/(]/)[0].toLowerCase());

@@ -6,6 +6,27 @@
   "src": "crossings.geojson coverage",
   "note": "roads into downtown with a City count since 2023"
  },
+ "roads_old": {
+  "value": 11,
+  "display": "11",
+  "label": "OBSERVED",
+  "src": "crossings.geojson coverage",
+  "note": "counted before 2023 only"
+ },
+ "roads_expressway": {
+  "value": 6,
+  "display": "6",
+  "label": "OBSERVED",
+  "src": "crossings.geojson coverage",
+  "note": "expressway: no open City counts"
+ },
+ "roads_never": {
+  "value": 1,
+  "display": "1",
+  "label": "OBSERVED",
+  "src": "crossings.geojson coverage",
+  "note": "never counted (within 250 m)"
+ },
  "count_sites": {
   "value": 555,
   "display": "555",
@@ -29,16 +50,16 @@
  },
  "case_nyc_traffic": {
   "value": null,
-  "display": "Vehicle entries about −11% (Jan–Oct 2025)",
-  "label": "UNVERIFIED (MTA PDF blocked); −8% to −14% per CBC",
-  "src": "cases.json nyc.traffic [B-NYC-008, B-NYC-007]",
+  "display": "Vehicle entries about −11% (Jan–Oct 2025, vs an estimated no-toll baseline)",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc.traffic [B-NYC-008]",
   "note": ""
  },
  "case_nyc_speed": {
   "value": null,
-  "display": "Speeds in the zone about +11%",
-  "label": "ESTIMATED (NBER synthetic control)",
-  "src": "cases.json nyc.speed [B-NYC-009]",
+  "display": "Speeds in the zone +4.6%; morning speeds on bridges and tunnels in +23% (year on year)",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc.speed [B-NYC-022, B-NYC-023]",
   "note": ""
  },
  "case_nyc_money": {
@@ -131,6 +152,188 @@
   "label": "OBSERVED (REPORT)",
   "src": "cases.json sg-erp.money [B-ERP-001]",
   "note": ""
+ },
+ "nyc_eval_speed_zone": {
+  "value": 0.046,
+  "display": "+4.6%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc_mta_eval [B-NYC-022]",
+  "note": "speeds in the zone, toll hours, Jan-Oct"
+ },
+ "nyc_eval_speed_weekday": {
+  "value": 0.04,
+  "display": "+4.0%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc_mta_eval [B-NYC-022]",
+  "note": "weekday speeds in the zone, toll hours, Jan-Oct"
+ },
+ "nyc_eval_speed_crossings": {
+  "value": 0.23,
+  "display": "+23.0%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc_mta_eval [B-NYC-023]",
+  "note": "weekday 6-10 a.m. speeds on crossings into the zone"
+ },
+ "nyc_eval_vmt": {
+  "value": -0.071,
+  "display": "−7.1%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc_mta_eval [B-NYC-024]",
+  "note": "driving (vehicle-miles) in the zone, Jan-Sep"
+ },
+ "nyc_eval_bus": {
+  "value": 0.08,
+  "display": "+8.0%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc_mta_eval [B-NYC-025]",
+  "note": "riders on bus routes serving the zone, Jan-Sep"
+ },
+ "nyc_eval_subway": {
+  "value": 0.09,
+  "display": "+9.0%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json nyc_mta_eval [B-NYC-026]",
+  "note": "subway trips into the zone, Jan-Sep"
+ },
+ "today_hours_lost": {
+  "value": 100,
+  "display": "100 hours",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-TT-001]",
+  "note": "time lost per driver to rush-hour traffic, 2025 (TomTom: 10 km each way, 230 workdays)"
+ },
+ "today_avg_10km": {
+  "value": 26.67,
+  "display": "26 min 40 s",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-TT-001]",
+  "note": "average time to drive 10 km, 2025 (TomTom city area)"
+ },
+ "today_avg_10km_change": {
+  "value": 1.13,
+  "display": "1 min 8 s",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-TT-001]",
+  "note": "longer than in 2024"
+ },
+ "today_commute": {
+  "value": 34.9,
+  "display": "34.9 min",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-SC-001]",
+  "note": "average commute, Toronto CMA, May 2025"
+ },
+ "today_commute_van": {
+  "value": 31.1,
+  "display": "31.1",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-SC-001]",
+  "note": "average commute, Vancouver CMA, May 2025"
+ },
+ "today_commute_mtl": {
+  "value": 29.0,
+  "display": "29.0",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-SC-001]",
+  "note": "average commute, Montreal CMA, May 2025"
+ },
+ "today_cost_econ": {
+  "value": 10.1,
+  "display": "C$10.1B",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-CN-001]",
+  "note": "economic cost of congestion a year, GTHA, 2024"
+ },
+ "today_cost_total": {
+  "value": 44.7,
+  "display": "C$44.7B",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-CN-001]",
+  "note": "economic plus social-value cost a year, GTHA, 2024"
+ },
+ "today_king_cars": {
+  "value": 0.33,
+  "display": "33%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json toronto_today [A-KS-001]",
+  "note": "more cars on King St at the evening peak, fall 2023, after Queen St closed"
+ },
+ "chart_traffic_drop_sg_als": {
+  "value": 0.44,
+  "display": "44%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.traffic_drop [B-ALS-002]",
+  "note": "Singapore 1975 paper licence, 07:30–10:15"
+ },
+ "chart_traffic_drop_london": {
+  "value": 0.18,
+  "display": "18%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.traffic_drop [B-LON-001]",
+  "note": "London 2003 first year, 4+ wheel vehicles"
+ },
+ "chart_traffic_drop_stockholm": {
+  "value": 0.22,
+  "display": "22%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.traffic_drop [B-STO-001]",
+  "note": "Stockholm 2006 trial"
+ },
+ "chart_traffic_drop_sg_erp": {
+  "value": 0.16,
+  "display": "16%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.traffic_drop [B-ERP-002]",
+  "note": "Singapore 1998 zone, on top of 1975 scheme"
+ },
+ "chart_traffic_drop_nyc": {
+  "value": 0.11,
+  "display": "11%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.traffic_drop [B-NYC-008]",
+  "note": "New York 2025 Jan–Oct, vs estimated baseline"
+ },
+ "chart_opex_share_london_y1": {
+  "value": 0.76,
+  "display": "76%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.opex_share [B-LON-012]",
+  "note": "London 2003/04"
+ },
+ "chart_opex_share_london_mature": {
+  "value": 0.35,
+  "display": "35%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.opex_share [B-LON-012]",
+  "note": "London 2015/16"
+ },
+ "chart_opex_share_stockholm_y2": {
+  "value": 0.31,
+  "display": "31%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.opex_share [D-006]",
+  "note": "Stockholm 2008"
+ },
+ "chart_opex_share_stockholm_mature": {
+  "value": 0.07,
+  "display": "7%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.opex_share [D-006]",
+  "note": "Stockholm 2016"
+ },
+ "chart_opex_share_nyc_y1": {
+  "value": 0.1985163361317215,
+  "display": "20%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.opex_share [B-NYC-003, B-NYC-002]",
+  "note": "New York 2025"
+ },
+ "chart_opex_share_sg_erp": {
+  "value": 0.1736111111111111,
+  "display": "17%",
+  "label": "OBSERVED (REPORT)",
+  "src": "cases.json charts.opex_share [B-ERP-001]",
+  "note": "Singapore 2008–09"
  },
  "nyc_subway_2024": {
   "value": 0.031,
@@ -253,7 +456,7 @@
  },
  "s4_boundary": {
   "value": 0.01146665711111905,
-  "display": "+1.1%",
+  "display": "+1%",
   "label": "SIMULATED",
   "src": "metrics.json S4.boundary_local_street_vkt_am",
   "note": "traffic on local streets just outside the zone"
@@ -281,7 +484,7 @@
  },
  "s2_boundary": {
   "value": 0.2525531228723976,
-  "display": "+25.3%",
+  "display": "+25%",
   "label": "SIMULATED",
   "src": "metrics.json S2.boundary_local_street_vkt_am",
   "note": "traffic on local streets just outside the zone"
@@ -302,10 +505,17 @@
  },
  "s4_rerouted": {
   "value": 9653,
-  "display": "9,653",
+  "display": "9,700",
   "label": "SIMULATED",
   "src": "metrics.json S4.rerouted_to_avoid_charge",
   "note": "drivers who route around the zone"
+ },
+ "s4_stopped": {
+  "value": 5416,
+  "display": "5,400",
+  "label": "SIMULATED",
+  "src": "metrics.json S4.removed_offnetwork",
+  "note": "drivers who stop driving into downtown, 6–10 a.m. (response set from New York)"
  },
  "gross": {
   "value": 349.7,
@@ -325,21 +535,52 @@
   "note": ""
  },
  "capex": {
-  "value": 62.6,
-  "display": "C$62.6M",
+  "value": 306.9,
+  "display": "C$307M",
   "label": "ESTIMATED",
   "src": "finance.json S4 base capex_cad_m",
   "note": "to build 66 charging points and the back office"
  },
  "capex_range": {
   "value": [
-   54.7,
-   89.0
+   62.7,
+   306.9
   ],
-  "display": "C$55–89M",
+  "display": "C$63–307M",
   "label": "ESTIMATED",
   "src": "finance.json S4 all cases",
   "note": ""
+ },
+ "charging_points": {
+  "value": 66,
+  "display": "66",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base charging_points",
+  "note": "charging points on the boundary"
+ },
+ "payback": {
+  "value": 2,
+  "display": "2",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 base payback_year",
+  "note": "year after launch when cumulative net cash turns positive"
+ },
+ "payback_range": {
+  "value": [
+   1,
+   2
+  ],
+  "display": "1–2",
+  "label": "ESTIMATED",
+  "src": "finance.json S4 all cases payback_year",
+  "note": ""
+ },
+ "nyc_per_point": {
+  "value": 4.65,
+  "display": "C$4.65M",
+  "label": "ESTIMATED",
+  "src": "assumptions.yaml costs.all_in_per_charging_point_2025 (B-NYC-019, B-NYC-020)",
+  "note": "New York contract per detection point, all-in"
  },
  "opex_y1": {
   "value": 94.42,
@@ -349,25 +590,25 @@
   "note": "running cost in year one"
  },
  "npv": {
-  "value": 1836.7,
-  "display": "C$1.8B",
+  "value": 1186.5,
+  "display": "C$1.2B",
   "label": "ESTIMATED",
   "src": "finance.json S4 base npv_net_cad_m 0.07",
   "note": "10-year net cash, today's value at 7%"
  },
  "npv_range": {
   "value": [
-   1279.9,
-   1836.7
+   781.2,
+   1186.5
   ],
-  "display": "C$1.3–1.8B",
+  "display": "C$0.8–1.2B",
   "label": "ESTIMATED",
   "src": "finance.json S4 all cases",
   "note": ""
  },
  "t_daily_new_transit_trips": {
   "value": 23894,
-  "display": "23,894",
+  "display": "23,900",
   "label": "ESTIMATED",
   "src": "finance.json S4 base transit.daily_new_transit_trips",
   "note": "new transit trips per weekday"
@@ -377,14 +618,14 @@
    13727,
    59554
   ],
-  "display": "13,727–59,554",
+  "display": "13,700–59,600",
   "label": "ESTIMATED",
   "src": "finance.json S4 all cases",
   "note": ""
  },
  "t_am_new_transit_riders": {
   "value": 3297,
-  "display": "3,297",
+  "display": "3,300",
   "label": "ESTIMATED",
   "src": "finance.json S4 base transit.am_new_transit_riders",
   "note": "new riders heading downtown, 6–10 a.m."
@@ -394,7 +635,7 @@
    2265,
    7474
   ],
-  "display": "2,265–7,474",
+  "display": "2,300–7,500",
   "label": "ESTIMATED",
   "src": "finance.json S4 all cases",
   "note": ""

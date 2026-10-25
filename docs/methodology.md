@@ -32,7 +32,7 @@ How each component works, in pipeline order. The rules behind every choice are i
 
 ## 5. Financial model
 - **Collections:** charged trips from the simulation (06:00–10:00) are expanded to the charging day (AM share 27.6%, measured from 652 City 14-hour counts, all directions; range 25–33%), then adjusted for once-per-day repeat entries, exemptions, the truck multiplier, ride-hail per-trip fees, collection loss and 250 charging days.
-- **Costs:** capital = charging points × the City's 2015 toll-point cost (CPI-adjusted) + a central system. Operating cost is a falling share of collections. Two implementation years come before launch.
+- **Costs:** capital = charging points × an all-in cost per point (roadside plus back office). The base and high cases use New York's capital spending on tolling infrastructure (US$365.9M to Oct 2025, MTA First Evaluation Report p.67, operating costs reported separately) ÷ its 110 detection points (MTA, Jan 2025), about C$4.65M per point in nominal dollars. The low case is the City's 2015 toll-point and central-system cost (EX8.14, CPI-adjusted). Operating cost is a falling share of collections. Six implementation years (New York's authorization-to-launch time) come before launch, spent evenly; NPV is valued at the start of implementation. Payback is undiscounted, in operating years after launch, before revenue allocations.
 - **Reporting:** 2025 CAD real, 10 years, NPV at 7% (Treasury Board), 3.5% (Metrolinx) and 3%. Low/base/high pair traffic response with costs. Toll revenue is a transfer and is never added to time savings.
 
 ## 6. Labels

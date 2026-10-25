@@ -53,6 +53,10 @@ def main():
     counted = sum(p["coverage"] == "counted 2023+" for p in c1)
     add("roads_counted", counted, f"{counted} of {len(c1)}", "OBSERVED", "crossings.geojson coverage",
         "roads into downtown with a City count since 2023")
+    for fid, cov in (("roads_old", "counted before 2023 only"), ("roads_expressway", "expressway: no open City counts"),
+                     ("roads_never", "never counted (within 250 m)")):
+        k = sum(p["coverage"] == cov for p in c1)
+        add(fid, k, f"{k}", "OBSERVED", "crossings.geojson coverage", cov)
     sites = counts["features"]
     hold = sum(f["properties"]["split"] == "holdout" for f in sites)
     add("count_sites", len(sites), f"{len(sites):,}", "OBSERVED", "counts.geojson", "intersections with City turning counts")
@@ -66,6 +70,19 @@ def main():
     for c in cases["cases"]:
         for k in ("traffic", "speed", "money"):
             add(f"case_{c['id']}_{k}", None, c[k]["text"], c[k]["label"], f"cases.json {c['id']}.{k} [{c[k]['src']}]")
+    # New York, MTA First Evaluation Report: measured year-over-year changes for comparison with our model
+    for x in cases["nyc_mta_eval"]["figures"]:
+        add(f"nyc_eval_{x['id']}", x["value"], signed(x["value"]), "OBSERVED (REPORT)",
+            f"cases.json nyc_mta_eval [{x['src']}]", x["note"])
+    # Toronto today: published figures for the problem slide (display text as the source reports it)
+    for x in cases["toronto_today"]["figures"]:
+        add(f"today_{x['id']}", x["value"], x["display"], "OBSERVED (REPORT)",
+            f"cases.json toronto_today [{x['src']}]", x["note"])
+    # Cross-case charts (bars drawn in the deck from these values)
+    for chart, bars in cases["charts"].items():
+        for b in bars["bars"]:
+            add(f"chart_{chart}_{b['id']}", b["value"], f"{b['value'] * 100:.0f}%", "OBSERVED (REPORT)",
+                f"cases.json charts.{chart} [{b['src']}]", f"{b['name']} {b['sub']}")
 
     # NYC transit, MTA open data
     y = {r["mode"]: r for r in nyc["yearly_weekday"]}
@@ -102,14 +119,17 @@ def main():
         k = sid.lower()
         add(f"{k}_zone", rel(sid, "zone_vkt_am"), signed(rel(sid, "zone_vkt_am")), "SIMULATED", f"metrics.json {sid}.zone_vkt_am",
             "traffic on downtown streets (vehicle-km)")
-        add(f"{k}_boundary", rel(sid, "boundary_local_street_vkt_am"), signed(rel(sid, "boundary_local_street_vkt_am")), "SIMULATED",
+        add(f"{k}_boundary", rel(sid, "boundary_local_street_vkt_am"), signed(rel(sid, "boundary_local_street_vkt_am"), 0), "SIMULATED",
             f"metrics.json {sid}.boundary_local_street_vkt_am", "traffic on local streets just outside the zone")
         add(f"{k}_vht", rel(sid, "vehicle_hours"), signed(rel(sid, "vehicle_hours")), "SIMULATED", f"metrics.json {sid}.vehicle_hours",
             "total time spent driving in the study area")
         add(f"{k}_speed", rel(sid, "zone_street_speed_kmh"), signed(rel(sid, "zone_street_speed_kmh")), "SIMULATED",
             f"metrics.json {sid}.zone_street_speed_kmh", "average speed on downtown streets")
     rer = S[HEADLINE]["rerouted_to_avoid_charge"]
-    add("s4_rerouted", rer, f"{rer:,}", "SIMULATED", f"metrics.json {HEADLINE}.rerouted_to_avoid_charge", "drivers who route around the zone")
+    add("s4_rerouted", rer, f"{round(rer, -2):,}", "SIMULATED", f"metrics.json {HEADLINE}.rerouted_to_avoid_charge", "drivers who route around the zone")
+    off = S[HEADLINE]["removed_offnetwork"]
+    add("s4_stopped", off, f"{round(off, -2):,}", "SIMULATED", f"metrics.json {HEADLINE}.removed_offnetwork",
+        "drivers who stop driving into downtown, 6–10 a.m. (response set from New York)")
 
     # Money and transit, headline scenario
     g = [bc[c]["gross_per_year_cad_m"] for c in ("low", "base", "high")]
@@ -120,6 +140,16 @@ def main():
     add("capex", bc["base"]["capex_cad_m"], money(bc["base"]["capex_cad_m"]), "ESTIMATED", f"finance.json {HEADLINE} base capex_cad_m",
         f"to build {bc['base']['charging_points']} charging points and the back office")
     add("capex_range", [min(cx), max(cx)], f"C${min(cx):,.0f}–{max(cx):,.0f}M", "ESTIMATED", f"finance.json {HEADLINE} all cases")
+    add("charging_points", bc["base"]["charging_points"], f"{bc['base']['charging_points']}", "ESTIMATED",
+        f"finance.json {HEADLINE} base charging_points", "charging points on the boundary")
+    pb = bc["base"]["payback_year"]
+    add("payback", pb, f"{pb}", "ESTIMATED", f"finance.json {HEADLINE} base payback_year",
+        "year after launch when cumulative net cash turns positive")
+    pbs = [bc[c]["payback_year"] for c in ("low", "base", "high")]
+    add("payback_range", [min(pbs), max(pbs)], f"{min(pbs)}–{max(pbs)}", "ESTIMATED", f"finance.json {HEADLINE} all cases payback_year")
+    nyc_pp = a["costs"]["all_in_per_charging_point_2025"]["high"]
+    add("nyc_per_point", nyc_pp, f"C${nyc_pp:.2f}M", "ESTIMATED", "assumptions.yaml costs.all_in_per_charging_point_2025 (B-NYC-019, B-NYC-020)",
+        "New York contract per detection point, all-in")
     yr1 = next(c for c in bc["base"]["cashflow"] if c["year"] == 1)
     add("opex_y1", yr1["opex"], money(yr1["opex"]), "ESTIMATED", f"finance.json {HEADLINE} base cashflow year 1 opex",
         "running cost in year one")
@@ -127,8 +157,9 @@ def main():
     add("npv", npv[1], f"C${npv[1] / 1000:.1f}B", "ESTIMATED", f"finance.json {HEADLINE} base npv_net_cad_m 0.07",
         "10-year net cash, today's value at 7%")
     add("npv_range", [min(npv), max(npv)], f"C${min(npv) / 1000:.1f}–{max(npv) / 1000:.1f}B", "ESTIMATED", f"finance.json {HEADLINE} all cases")
-    for k, fmt_, note in (("daily_new_transit_trips", lambda x: f"{x:,}", "new transit trips per weekday"),
-                          ("am_new_transit_riders", lambda x: f"{x:,}", "new riders heading downtown, 6–10 a.m."),
+    # Transit counts are model estimates: rounded to the nearest hundred so they don't read as measured
+    for k, fmt_, note in (("daily_new_transit_trips", lambda x: f"{round(x, -2):,}", "new transit trips per weekday"),
+                          ("am_new_transit_riders", lambda x: f"{round(x, -2):,}", "new riders heading downtown, 6–10 a.m."),
                           ("ttc_fares_cad_m", money, "extra TTC fares per year (City)"),
                           ("go_fares_cad_m", money, "extra GO fares per year (Metrolinx, provincial)")):
         vals = [bc[c]["transit"][k] for c in ("low", "base", "high")]

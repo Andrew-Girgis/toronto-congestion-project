@@ -86,8 +86,7 @@ def scenario_finance(name, sim, a, scen_cfg, case):
     gross_year = gross_daily * days * loss / 1e6  # CAD M
 
     points = charging_points(sim["cordon_id"], sim["n_expressway_points"]) if sim["cordon_id"] else sim["n_expressway_points"]
-    capex = (points * v(c["roadside_per_charging_point_2025"], cost_case)
-             + v(c["central_system_capex_2025"], cost_case))
+    capex = points * v(c["all_in_per_charging_point_2025"], cost_case)
     impl = v(f["implementation_years_before_launch"])
     opex_shares = f["opex_share_by_year"]["value"]
     rows = []

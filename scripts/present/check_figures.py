@@ -2,8 +2,8 @@
 
 Usage: uv run python scripts/present/check_figures.py   (after `npm run build` in web/)
 
-Fails on: a data-fig whose text differs from figures.json; a figure without a tag
-right after it; any numeral in slide text outside a figure, a tag, speaker notes
+Fails on: a data-fig whose text differs from figures.json; a SIMULATED figure without
+a tag right after it, or any other figure with one (sourced figures cite on the slide); any numeral in slide text outside a figure, a tag, speaker notes
 or an element marked data-literal (dates, "90-day", chart axes drawn from data).
 """
 
@@ -24,7 +24,7 @@ class Deck(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.stack = []  # (tag, skip_reason or None, opens the stage)
         self.fig = None  # [id, text]
-        self.expect_tag = None
+        self.expect_tag = self.last_fig = None
         self.errors, self.n_figs = [], 0
 
     def skipping(self):
@@ -44,6 +44,8 @@ class Deck(HTMLParser):
             self.fig = [a["data-fig"], ""]
         elif "tag" in cls:
             reason = "tag"
+            if self.expect_tag is None and self.last_fig:
+                self.errors.append(f"{self.last_fig}: only SIMULATED figures carry a tag")
             self.expect_tag = None
         if tag not in VOID:
             self.stack.append((tag, reason, "stage" in cls))
@@ -60,7 +62,9 @@ class Deck(HTMLParser):
                     self.errors.append(f"unknown figure id {fid!r}")
                 elif text.strip() != FIGS[fid]["display"]:
                     self.errors.append(f"{fid}: page shows {text.strip()!r}, figures.json has {FIGS[fid]['display']!r}")
-                self.expect_tag = fid
+                elif FIGS[fid]["label"].startswith("SIMULATED"):
+                    self.expect_tag = fid
+                self.last_fig = fid
                 self.fig = None
             if t == tag:
                 break
@@ -74,6 +78,8 @@ class Deck(HTMLParser):
             return
         if reason:
             return
+        if data.strip():
+            self.last_fig = None
         if self.expect_tag and data.strip():
             self.errors.append(f"{self.expect_tag}: figure has no tag")
             self.expect_tag = None

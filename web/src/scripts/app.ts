@@ -120,7 +120,7 @@ function buildMap(cordons: Json, counts: Json) {
     map.addLayer({ id: "cordon-alt", type: "line", source: "cordons", filter: ["!=", ["get", "cordon_id"], metrics.cordon_id],
       paint: { "line-color": "#555", "line-width": 1.5, "line-dasharray": [2, 2] } });
     map.addLayer({ id: "cordon", type: "line", source: "cordons", filter: ["==", ["get", "cordon_id"], metrics.cordon_id],
-      paint: { "line-color": "#c8102e", "line-width": 3 } });
+      paint: { "line-color": "#15191e", "line-width": 3.5, "line-dasharray": [3, 1.5] } });
     map.addLayer({ id: "counts", type: "circle", source: "counts",
       paint: { "circle-radius": 3, "circle-color": ["match", ["get", "split"], "holdout", "#a36400", "#1f7a4d"], "circle-opacity": 0.8 } });
     map.addLayer({ id: "crossings", type: "circle", source: "crossings", filter: ["==", ["get", "cordon_id"], metrics.cordon_id],
@@ -159,9 +159,9 @@ function refresh() {
     map.setPaintProperty("edges", "line-color", ["interpolate", ["linear"], ["-", ["get", v], ["get", "v_S0"]],
       -600, "#08306b", -200, "#2166ac", -60, "#d9dde2", 60, "#d9dde2", 200, "#d6604d", 600, "#67001f"]);
   } else {
-    // Volume uses a neutral ramp so it can't be read as the blue "fewer vehicles" of the change view.
+    // Volume uses a grey ramp so neither blue ("fewer") nor red ("more") of the change view means anything here.
     map.setPaintProperty("edges", "line-color", ["interpolate", ["linear"], ["get", v],
-      100, "#e3dccf", 1000, "#c4a77d", 3000, "#8a6a3b", 8000, "#3d2b14"]);
+      100, "#d5d9de", 1000, "#9aa3ad", 3000, "#56606b", 8000, "#15191e"]);
   }
   map.setPaintProperty("edges", "line-width", width as any);
   legend();
@@ -177,13 +177,13 @@ function legend() {
     el.innerHTML = `<b>Can we count traffic into downtown?</b><br>
       <span style="color:#1f7a4d">●</span> crossing counted since 2023<br><span style="color:#a36400">●</span> counted before 2023 only<br>
       <span style="color:#b42318">●</span> expressway: no open City counts<br><span style="color:#6b6b6b">●</span> never counted<br>
-      <span style="color:#c8102e">━</span> modelled boundary (C1) &nbsp;<span>┅</span> alternatives C2, C3<br>small dots: counted intersections (green = fit, amber = held out) ${tag("obs")}`;
+      <span style="color:#15191e">┅</span> modelled boundary (C1) &nbsp;<span>┅</span> alternatives C2, C3<br>small dots: counted intersections (green = fit, amber = held out) ${tag("obs")}`;
   } else if (mode === "change" && scenario === "S0") {
-    el.innerHTML = `<b>No charge: this is the comparison point.</b><br>Colours show traffic volume (darker = more). Pick a charge scenario to see what changes. ${tag("sim")}`;
+    el.innerHTML = `<b>No charge: this is the comparison point.</b><br>Grey shows traffic volume (darker = more). Pick a charge scenario to see what changes. ${tag("sim")}`;
   } else if (mode === "change" && scenario !== "S0") {
     el.innerHTML = `<b>Change in vehicles, 6–10 a.m.</b><br><span style="color:#2166ac">━</span> fewer &nbsp; <span style="color:#d6604d">━</span> more &nbsp; grey: within ±60 &nbsp; line width = traffic<br>${short(scenario)} vs no charge ${tag("sim")}`;
   } else {
-    el.innerHTML = `<b>Vehicles, 6–10 a.m.</b><br>darker and wider = more traffic ${tag("sim")}`;
+    el.innerHTML = `<b>Vehicles, 6–10 a.m.</b><br>darker grey and wider = more traffic ${tag("sim")}`;
   }
 }
 

@@ -17,6 +17,6 @@ Rounded: **about C$50k–80k.**
 ## Not in the pilot: implementing an actual charge
 
 These come from the scenario model (`web/public/data/finance.json`), with ranges:
-- **Capital:** charging points × C$0.73–0.97M each (City EX8.14 2015 toll-point cost, CPI-adjusted; expressway gantries, so arterial cameras may be cheaper, UNVERIFIED), plus a central system of C$6.5–25M.
+- **Capital:** charging points × an all-in cost per point (roadside plus back office), C$0.95M–4.65M. The headline uses the high end: New York's capital spending on tolling infrastructure (US$365.9M to Oct 2025, MTA First Evaluation Report p.67; operating costs reported separately) ÷ 110 detection points (MTA, Jan 2025). The low end is the City's EX8.14 (2015) toll-point and central-system cost, CPI-adjusted. Build time is six years after provincial legislation, as in New York.
 - **Operating:** 30% of collections in year one, falling to 11% (Stockholm 31% → 7%; London 76% in year one; 407 ETR 13–16%).
-- **Benchmarks:** Stockholm about €200M including year one; Singapore ERP S$197M capital; NYC's operations contract about US$507M (UNVERIFIED).
+- **Benchmarks:** Stockholm about €200M including year one; Singapore ERP S$197M capital; New York's capital spending US$365.9M to Oct 2025 (MTA, 2026), within a US$507.2M design-build-operate-maintain contract (MTA board, 14 Nov 2019).
