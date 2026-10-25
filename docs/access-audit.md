@@ -103,6 +103,7 @@ CKAN reports the licence as "License not specified" on most packages. The portal
 ## Claim checks (data-sources.md)
 
 **(a) NYC 2025 gross $716.5M / operating cost $138.1M: UNVERIFIED.**
+- **Resolved later:** the primary MTA CBDTP Financial Report (Dec 2025 YTD, preliminary; mta.info/document/197586 p.2) gives toll revenue $700.5M, expenses $139.2M and net $562.0M (B-NYC-003, B-NYC-004). Those figures are used; $716.5M/$138.1M remain unsupported.
 - No primary source found. The only official statement located is "over $550 million in net revenue in its first year", from the Governor/MTA first-anniversary release (mta.info press release "ICYMI: Less Traffic, Better Transit…", Jan 2026). Direct fetch returned 403, so the figure was confirmed via a search excerpt only.
 - Tollroads News headline (2026-01-29): "MTA Nets $562 Million In 2025…" (headline only).
 - Early-2025 expenses: Jan 2025 program expenses were $9.1M plus $2M mitigation (MTA press release).

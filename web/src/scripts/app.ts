@@ -58,7 +58,7 @@ function minute(counts: Json) {
     const hi = finance.results.find((r: Json) => r.scenario === HEADLINE && r.case === "high");
     // Low/high pair traffic response with cost cases, so base can sit outside them; span all three.
     const g = [f, lo, hi].map((r: Json) => r.gross_per_year_cad_m);
-    $("[data-bind=net]").innerHTML = `C$${Math.round(f.gross_per_year_cad_m)}M <small>(range ${Math.round(Math.min(...g))}–${Math.round(Math.max(...g))})</small>`;
+    $("[data-bind=net]").innerHTML = `C$${Math.round(f.gross_per_year_cad_m)}M <small>(range C$${Math.round(Math.min(...g))}–${Math.round(Math.max(...g))}M)</small>`;
   }
 }
 

@@ -1,5 +1,7 @@
 # Data sources for a Toronto congestion pricing analysis
 
+> **Note (2026-10-25):** these are the original starting notes and are kept unedited as UNVERIFIED input. Several figures below were later corrected (NYC 2025 finances, the 583k baseline comparison, London year-one results, the Singapore sources, and the City's tolling power after June 2025). See AGENTS.md §8, `docs/access-audit.md` and `research/sources.csv` for the checked values.
+
 Compiled 2026-10-23, updated 2026-10-24 (Stockholm and Singapore deep dives and a cross-case summary added as Sections 8 to 10). Every dataset below was verified against its official catalogue.
 Dataset page pattern for Toronto: https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/<id>
 Dataset page pattern for New York State: https://data.ny.gov/d/<id> (API: https://data.ny.gov/resource/<id>.json)

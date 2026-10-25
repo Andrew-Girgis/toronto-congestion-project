@@ -471,6 +471,18 @@
     },
     {
      "ids": [
+      "B-NYC-014"
+     ],
+     "author": "Siena College",
+     "title": "Siena College Research Institute polls (SNY Mar 2025)",
+     "published": "2025-03-10",
+     "url": "https://sri.siena.edu/2025/03/10/hochul-with-a-big-lead-in-a-very-early-democratic-primary-look-gets-good-grades-from-voters-on-protecting-constitutional-rights-ensuring-quality-affordable-healthcare-but-no/",
+     "where": "Release headline (NYC voters 42-35 keep vs eliminate)",
+     "status": "checked 2026-10-25",
+     "n": 37
+    },
+    {
+     "ids": [
       "N-001"
      ],
      "author": "MTA via data.ny.gov",
@@ -479,7 +491,7 @@
      "url": "https://data.ny.gov/d/sayj-mze2",
      "where": "dataset",
      "status": "checked 2026-10-24",
-     "n": 37
+     "n": 38
     },
     {
      "ids": [
@@ -491,7 +503,7 @@
      "url": "https://data.ny.gov/d/jbxx-kxff",
      "where": "dataset",
      "status": "checked 2026-10-24",
-     "n": 38
+     "n": 39
     },
     {
      "ids": [
@@ -503,7 +515,7 @@
      "url": "https://data.ny.gov/d/t6yz-b64h",
      "where": "dataset",
      "status": "checked 2026-10-24",
-     "n": 39
+     "n": 40
     },
     {
      "ids": [
@@ -515,7 +527,7 @@
      "url": "https://www.mta.info/document/12161",
      "where": "Master page 37",
      "status": "checked 2026-10-25",
-     "n": 40
+     "n": 41
     },
     {
      "ids": [
@@ -527,7 +539,7 @@
      "url": "https://www.mta.info/article/most-detailed-view-of-nyc-traffic-so-far",
      "where": "Article text",
      "status": "checked 2026-10-25",
-     "n": 41
+     "n": 42
     }
    ]
   },
@@ -553,7 +565,7 @@
      "url": "https://content.tfl.gov.uk/impacts-monitoring-report-2.pdf",
      "where": "Table 3.1, p.27 [PDF p.31]; Overview p.1-2 [PDF p.5-6]; Overview p.4 [PDF p.8]; s6.5 p.90; Overview p.3 [PDF p.7]; Table 6.1, p.91 [PDF p.95]; Overview p.5 [PDF p.9]; p.4 & p.55 (PDF p.8, p.59), p.60 (PDF p.64), Table 6.1 p.91 (PDF p.95), pp.112-116 (PDF pp.116-120)",
      "status": "checked 2026-10-24",
-     "n": 42
+     "n": 43
     },
     {
      "ids": [
@@ -569,7 +581,7 @@
      "url": "https://content.tfl.gov.uk/central-london-congestion-charging-impacts-monitoring-sixth-annual-report.pdf",
      "where": "Overview p.3 [PDF p.10]; s3 p.39 [PDF p.47], Table 3.1; Table 10.2-10.3, p.220 [PDF p.227]; Overview p.8 [PDF p.15]; Overview p.7 [PDF p.14]",
      "status": "checked 2026-10-24",
-     "n": 43
+     "n": 44
     },
     {
      "ids": [
@@ -581,7 +593,7 @@
      "url": "https://tfl.gov.uk/info-for/media/press-releases/2011/june/tfl-announces-initial-results-following-removal-of-the-western-extension-of-the-congestion-charging-zone",
      "where": "Press release text",
      "status": "checked 2026-10-24",
-     "n": 44
+     "n": 45
     },
     {
      "ids": [
@@ -593,7 +605,7 @@
      "url": "https://tfl.gov.uk/modes/driving/congestion-charge",
      "where": "Page text",
      "status": "checked 2026-10-24",
-     "n": 45
+     "n": 46
     }
    ]
   },
@@ -617,7 +629,7 @@
      "url": "https://www.transportportal.se/swopec/cts2017-2.pdf",
      "where": "p.10 (citing TfL 2004, 2016); p.7; p.9; Table 3 p.11; Table 5 p.14; p.2; p.19",
      "status": "checked 2026-10-24",
-     "n": 46
+     "n": 47
     },
     {
      "ids": [
@@ -638,7 +650,7 @@
      "url": "https://wctrs-society.com/wp-content/uploads/abstracts/berkeley/G6/1525/Stockholm%20congestion%20charges%20WCTR%20Eliasson.doc",
      "where": "Traffic section; Traffic/revenue section; Travel time section; PT section; Costs section; CBA section; Public opinion section; Referendum section; Design section",
      "status": "checked 2026-10-24",
-     "n": 47
+     "n": 48
     },
     {
      "ids": [
@@ -650,7 +662,7 @@
      "url": "https://www.transportstyrelsen.se/en/road/vehicles/taxes-and-fees/road-tolls/congestion-taxes-in-stockholm-and-gothenburg/congestion-tax-in-stockholm/hours-and-amounts-in-stockholm/",
      "where": "Rate tables",
      "status": "checked 2026-10-24",
-     "n": 48
+     "n": 49
     },
     {
      "ids": [
@@ -662,7 +674,7 @@
      "url": "https://transportportal.se/swopec/cts2014-7.pdf",
      "where": "pp.8-9 (Table 1), p.14 (Fig.7 text), pp.34-35 (Table 2, start-up cost)",
      "status": "checked 2026-10-24",
-     "n": 49
+     "n": 50
     },
     {
      "ids": [
@@ -674,7 +686,7 @@
      "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2018/10/long-term-effects-of-the-swedish-congestion-charges_41933a53/d944f94b-en.pdf",
      "where": "p.10 (elasticities, departure time), p.11-12 (costs, Table 2), pp.13-15 (Table 3), p.16-18 (Tables 5-6)",
      "status": "checked 2026-10-24",
-     "n": 50
+     "n": 51
     }
    ]
   },
@@ -703,7 +715,7 @@
      "url": "https://wctrs-society.com/wp-content/uploads/abstracts/rotterdam/Segment%20050%20of%20WCTR77_Rotterdam%20(3).pdf",
      "where": "p.418-419; p.419; p.419-420; p.420; p.417-418; p.418; p.421",
      "status": "checked 2026-10-24",
-     "n": 51
+     "n": 52
     },
     {
      "ids": [
@@ -717,7 +729,7 @@
      "url": "https://urbanemissions.info/wp-content/uploads/docs/SIM-33-2010.pdf",
      "where": "p.4 [PDF p.6]; p.8 [PDF p.10]; p.7-8 [PDF p.9-10]",
      "status": "checked 2026-10-24",
-     "n": 52
+     "n": 53
     },
     {
      "ids": [
@@ -729,7 +741,19 @@
      "url": "https://www.lta.gov.sg/content/ltagov/en/newsroom/2026/3/news-releases/revised-erp-rates-23mar26.html",
      "where": "Footnote",
      "status": "checked 2026-10-24",
-     "n": 53
+     "n": 54
+    },
+    {
+     "ids": [
+      "B-ERP-006"
+     ],
+     "author": "MOT",
+     "title": "Written reply to PQ on ERP 2.0 cost",
+     "published": "2023",
+     "url": "https://www.mot.gov.sg/news-resources/newsroom/written-reply-to-parliamentary-question-on-estimated-overall-cost-and-timeframe-to-move-into-erp-2-0-system-era/",
+     "where": "Reply para 1",
+     "status": "checked 2026-10-25",
+     "n": 55
     },
     {
      "ids": [
@@ -741,7 +765,7 @@
      "url": "",
      "where": "Dataset (per docs/access-audit.md)",
      "status": "checked 2026-10-24",
-     "n": 54
+     "n": 56
     },
     {
      "ids": [
@@ -753,7 +777,7 @@
      "url": "https://eresources.nlb.gov.sg/infopedia/articles/SIP_777_2004-12-13.html",
      "where": "Infopedia article; https://ink.library.smu.edu.sg/soe_research/117/",
      "status": "checked 2026-10-24",
-     "n": 55
+     "n": 57
     },
     {
      "ids": [
@@ -765,7 +789,7 @@
      "url": "https://ideas.repec.org/a/eee/transa/v39y2005i7-9p755-772.html",
      "where": "Abstract",
      "status": "checked 2026-10-24",
-     "n": 56
+     "n": 58
     }
    ]
   },
@@ -783,7 +807,7 @@
      "url": "https://www.bankofcanada.ca/valet/observations/FXAUSDCAD/json",
      "where": "Valet API observation d=2025-01-01; also annual-average-exchange-rates page US dollar row",
      "status": "checked 2026-10-24",
-     "n": 57
+     "n": 59
     },
     {
      "ids": [
@@ -795,7 +819,7 @@
      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000501",
      "where": "Vectors v41693271 (Canada), v41694217 (Ontario), v41695186 (Toronto); full-table CSV download via WDS",
      "status": "checked 2026-10-24",
-     "n": 58
+     "n": 60
     },
     {
      "ids": [
@@ -807,7 +831,7 @@
      "url": "https://publications.gc.ca/collections/collection_2022/sct-tbs/BT58-5-2022-eng.pdf",
      "where": "PDF p.36 (section 6.1, Box 2): '7 per cent is to be used as the discount rate...'; 'social time preference rate has been estimated to be around 3 per cent'",
      "status": "checked 2026-10-24",
-     "n": 59
+     "n": 61
     },
     {
      "ids": [
@@ -819,7 +843,7 @@
      "url": "https://assets.metrolinx.com/image/upload/v1663237565/Documents/Metrolinx/Metrolinx-Business-Case-Guidance-Volume-2.pdf",
      "where": "Table 5.35 p.170 (PDF p.179); Table 5.1 p.87 (PDF p.96); pp.122-123 (PDF pp.131-132)",
      "status": "checked 2026-10-24",
-     "n": 60
+     "n": 62
     },
     {
      "ids": [
@@ -831,7 +855,7 @@
      "url": "https://assets.publishing.service.gov.uk/media/6a033d074fb0713aa63ea802/tag-m3-1-highway-assignment-modelling.pdf",
      "where": "section 3.3, PDF p.32",
      "status": "checked 2026-10-25",
-     "n": 61
+     "n": 63
     }
    ]
   },
@@ -849,7 +873,7 @@
      "url": "https://eclipse.dev/sumo/",
      "where": "",
      "status": "open source",
-     "n": 62
+     "n": 64
     },
     {
      "ids": [
@@ -861,7 +885,7 @@
      "url": "https://www.aequilibrae.com/",
      "where": "",
      "status": "open source",
-     "n": 63
+     "n": 65
     },
     {
      "ids": [
@@ -873,7 +897,7 @@
      "url": "https://duckdb.org/",
      "where": "",
      "status": "open source",
-     "n": 64
+     "n": 66
     },
     {
      "ids": [
@@ -885,7 +909,7 @@
      "url": "https://maplibre.org/",
      "where": "",
      "status": "open source",
-     "n": 65
+     "n": 67
     },
     {
      "ids": [
@@ -897,7 +921,7 @@
      "url": "https://openfreemap.org/",
      "where": "",
      "status": "open source",
-     "n": 66
+     "n": 68
     },
     {
      "ids": [
@@ -909,7 +933,7 @@
      "url": "https://astro.build/",
      "where": "",
      "status": "open source",
-     "n": 67
+     "n": 69
     }
    ]
   },
@@ -927,7 +951,7 @@
      "url": "",
      "where": "n/a",
      "status": "unverified",
-     "n": 68
+     "n": 70
     },
     {
      "ids": [
@@ -939,7 +963,7 @@
      "url": "",
      "where": "n/a",
      "status": "unverified",
-     "n": 69
+     "n": 71
     },
     {
      "ids": [
@@ -951,7 +975,7 @@
      "url": "",
      "where": "n/a",
      "status": "unverified",
-     "n": 70
+     "n": 72
     },
     {
      "ids": [
@@ -963,7 +987,7 @@
      "url": "",
      "where": "n/a",
      "status": "unverified",
-     "n": 71
+     "n": 73
     }
    ]
   },
@@ -981,7 +1005,7 @@
      "url": "https://www.mta.info/document/199581",
      "where": "CBDTP section (seen via search excerpt; direct fetch HTTP 403)",
      "status": "unverified",
-     "n": 72
+     "n": 74
     },
     {
      "ids": [
@@ -993,7 +1017,7 @@
      "url": "https://mta.info/document/131571",
      "where": "Seen via search excerpts of MTA deck",
      "status": "unverified",
-     "n": 73
+     "n": 75
     },
     {
      "ids": [
@@ -1005,19 +1029,7 @@
      "url": "https://www.amny.com/transit/congestion-pricing-mta-tolling-cameras-future/",
      "where": "Press",
      "status": "unverified",
-     "n": 74
-    },
-    {
-     "ids": [
-      "B-NYC-014"
-     ],
-     "author": "Siena College",
-     "title": "Siena College Research Institute polls (SNY Mar 2025)",
-     "published": "2025-03-10",
-     "url": "https://scri.siena.edu/wp-content/uploads/2025/03/SNY-March-2025-Poll-Release-FINAL.pdf",
-     "where": "Via search excerpts; PDF not opened",
-     "status": "unverified",
-     "n": 75
+     "n": 76
     },
     {
      "ids": [
@@ -1029,7 +1041,7 @@
      "url": "https://www.amny.com/news/congestion-pricing-judge-rules-trump-unlawful",
      "where": "Press",
      "status": "unverified",
-     "n": 76
+     "n": 77
     },
     {
      "ids": [
@@ -1041,7 +1053,7 @@
      "url": "https://cbsnews.com/amp/newyork/news/nyc-congestion-pricing-timeline",
      "where": "Press",
      "status": "unverified",
-     "n": 77
+     "n": 78
     },
     {
      "ids": [
@@ -1053,7 +1065,7 @@
      "url": "https://blogs.ubc.ca/jessy/",
      "where": "",
      "status": "unverified",
-     "n": 78
+     "n": 79
     },
     {
      "ids": [
@@ -1065,7 +1077,7 @@
      "url": "https://www.cinch.co.uk/news/increased-congestion-charge-earnings",
      "where": "",
      "status": "unverified",
-     "n": 79
+     "n": 80
     },
     {
      "ids": [
@@ -1078,7 +1090,7 @@
      "url": "https://en.wikipedia.org/wiki/Area_Licensing_Scheme",
      "where": "Impact section",
      "status": "unverified",
-     "n": 80
+     "n": 81
     },
     {
      "ids": [
@@ -1089,18 +1101,6 @@
      "published": "2008/2012",
      "url": "https://www.nas.gov.sg/archivesonline/data/pdfdoc/20080306983.htm",
      "where": "",
-     "status": "unverified",
-     "n": 81
-    },
-    {
-     "ids": [
-      "B-ERP-006"
-     ],
-     "author": "MOT",
-     "title": "Written reply to PQ on ERP 2.0 cost",
-     "published": "2023",
-     "url": "https://mot.gov.sg/news/details/written-reply-to-parliamentary-question-on-estimated-overall-cost-and-timeframe-to-move-into-erp-2.0-system-era",
-     "where": "Via search excerpt",
      "status": "unverified",
      "n": 82
     },
@@ -1170,93 +1170,93 @@
   "B-NYC-010": 35,
   "B-NYC-011": 36,
   "D-019": 36,
-  "N-001": 37,
-  "N-002": 38,
-  "N-003": 39,
-  "B-NYC-019": 40,
-  "B-NYC-020": 41,
-  "B-LON-001": 42,
-  "B-LON-002": 42,
-  "B-LON-003": 42,
-  "B-LON-004": 42,
-  "B-LON-005": 42,
-  "B-LON-006": 42,
-  "B-LON-007": 42,
-  "B-LON-016": 42,
-  "D-007": 42,
-  "B-LON-008": 43,
-  "B-LON-009": 43,
-  "B-LON-010": 43,
-  "B-LON-011": 43,
-  "B-LON-017": 43,
-  "B-LON-014": 44,
-  "B-LON-015": 45,
-  "B-LON-012": 46,
-  "B-STO-010": 46,
-  "B-STO-011": 46,
-  "B-STO-012": 46,
-  "B-STO-013": 46,
-  "B-STO-014": 46,
-  "B-STO-015": 46,
-  "B-STO-001": 47,
-  "B-STO-002": 47,
-  "B-STO-003": 47,
-  "B-STO-004": 47,
-  "B-STO-005": 47,
-  "B-STO-006": 47,
-  "B-STO-007": 47,
-  "B-STO-008": 47,
-  "B-STO-009": 47,
-  "B-STO-018": 47,
-  "B-STO-016": 48,
-  "D-005": 49,
-  "D-006": 50,
-  "B-ALS-001": 51,
-  "B-ALS-002": 51,
-  "B-ALS-003": 51,
-  "B-ALS-004": 51,
-  "B-ALS-005": 51,
-  "B-ALS-006": 51,
-  "B-ALS-007": 51,
-  "B-ALS-008": 51,
-  "B-ALS-009": 51,
-  "B-ALS-010": 51,
-  "B-ALS-011": 51,
-  "B-ALS-012": 51,
-  "B-ERP-001": 52,
-  "B-ERP-002": 52,
-  "B-ERP-004": 52,
-  "B-ERP-003": 53,
-  "B-ERP-008": 54,
-  "D-023": 55,
-  "D-024": 56,
-  "D-001": 57,
-  "D-002": 58,
-  "D-003": 59,
-  "D-004": 60,
-  "D-028": 61,
-  "sw-sumo": 62,
-  "sw-aequilibrae": 63,
-  "sw-duckdb": 64,
-  "sw-maplibre": 65,
-  "sw-openfreemap": 66,
-  "sw-astro": 67,
-  "IMG-001": 68,
-  "IMG-002": 69,
-  "IMG-003": 70,
-  "IMG-004": 71,
-  "B-NYC-005": 72,
-  "B-NYC-012": 73,
-  "B-NYC-013": 74,
-  "B-NYC-014": 75,
-  "B-NYC-015": 76,
-  "B-NYC-016": 77,
-  "B-LON-013": 78,
-  "B-LON-019": 79,
-  "B-ALS-014": 80,
-  "B-ALS-015": 80,
-  "B-ERP-005": 81,
-  "B-ERP-006": 82,
+  "B-NYC-014": 37,
+  "N-001": 38,
+  "N-002": 39,
+  "N-003": 40,
+  "B-NYC-019": 41,
+  "B-NYC-020": 42,
+  "B-LON-001": 43,
+  "B-LON-002": 43,
+  "B-LON-003": 43,
+  "B-LON-004": 43,
+  "B-LON-005": 43,
+  "B-LON-006": 43,
+  "B-LON-007": 43,
+  "B-LON-016": 43,
+  "D-007": 43,
+  "B-LON-008": 44,
+  "B-LON-009": 44,
+  "B-LON-010": 44,
+  "B-LON-011": 44,
+  "B-LON-017": 44,
+  "B-LON-014": 45,
+  "B-LON-015": 46,
+  "B-LON-012": 47,
+  "B-STO-010": 47,
+  "B-STO-011": 47,
+  "B-STO-012": 47,
+  "B-STO-013": 47,
+  "B-STO-014": 47,
+  "B-STO-015": 47,
+  "B-STO-001": 48,
+  "B-STO-002": 48,
+  "B-STO-003": 48,
+  "B-STO-004": 48,
+  "B-STO-005": 48,
+  "B-STO-006": 48,
+  "B-STO-007": 48,
+  "B-STO-008": 48,
+  "B-STO-009": 48,
+  "B-STO-018": 48,
+  "B-STO-016": 49,
+  "D-005": 50,
+  "D-006": 51,
+  "B-ALS-001": 52,
+  "B-ALS-002": 52,
+  "B-ALS-003": 52,
+  "B-ALS-004": 52,
+  "B-ALS-005": 52,
+  "B-ALS-006": 52,
+  "B-ALS-007": 52,
+  "B-ALS-008": 52,
+  "B-ALS-009": 52,
+  "B-ALS-010": 52,
+  "B-ALS-011": 52,
+  "B-ALS-012": 52,
+  "B-ERP-001": 53,
+  "B-ERP-002": 53,
+  "B-ERP-004": 53,
+  "B-ERP-003": 54,
+  "B-ERP-006": 55,
+  "B-ERP-008": 56,
+  "D-023": 57,
+  "D-024": 58,
+  "D-001": 59,
+  "D-002": 60,
+  "D-003": 61,
+  "D-004": 62,
+  "D-028": 63,
+  "sw-sumo": 64,
+  "sw-aequilibrae": 65,
+  "sw-duckdb": 66,
+  "sw-maplibre": 67,
+  "sw-openfreemap": 68,
+  "sw-astro": 69,
+  "IMG-001": 70,
+  "IMG-002": 71,
+  "IMG-003": 72,
+  "IMG-004": 73,
+  "B-NYC-005": 74,
+  "B-NYC-012": 75,
+  "B-NYC-013": 76,
+  "B-NYC-015": 77,
+  "B-NYC-016": 78,
+  "B-LON-013": 79,
+  "B-LON-019": 80,
+  "B-ALS-014": 81,
+  "B-ALS-015": 81,
+  "B-ERP-005": 82,
   "D-026": 83
  }
 }

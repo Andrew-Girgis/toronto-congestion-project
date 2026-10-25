@@ -55,7 +55,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
     <div class="wrap">
       <h2>Where to draw the line?</h2>
       <p class="lede">Every road crossing the boundary needs a camera and is a place traffic can leak around. Boundaries along natural barriers (the lake, the Don Valley, rail corridors) cover more area with fewer crossings. A boundary is only as measurable as its count coverage.</p>
-      <div class="card"><table id="cordon-table"></table>
+      <div class="card"><div style="overflow-x:auto"><table id="cordon-table"></table></div>
         <p class="src">Crossings: drivable City Centreline segments crossing each boundary (laneways excluded). Counted = a City intersection or midblock count on the same street within 250 m since 2023 <span class="tag obs">observed</span>. Boundaries are candidates we drew <span class="tag asm">assumption</span>. The traffic model uses C1, the boundary most often floated for Toronto; C2 and C3 have similar count coverage and are next in line for the pilot.</p></div>
     </div>
   </section>
@@ -63,7 +63,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
   <section id="diversion">
     <div class="wrap">
       <h2>Would drivers cut through neighbourhoods?</h2>
-      <p class="lede">A participant at this event expected drivers to face a choice: "pay a small fee and get there quickly, or take much longer and save the money." Toronto's open grid has fewer choke points than Manhattan or Stockholm, so we tested the claim instead of assuming it.</p>
+      <p class="lede">A participant at this event expected drivers to weigh paying a small fee to get there quickly against taking much longer to save the money (paraphrased from our notes). Toronto's open grid has fewer choke points than Manhattan or Stockholm, so we tested the claim instead of assuming it.</p>
       <div class="grid g3" id="diversion-cards"></div>
       <p class="src">Rerouting uses a value of time of C$24.99 per vehicle-hour (Metrolinx Business Case Manual VOT, CPI-adjusted, × assumed occupancy 1.15) <span class="tag asm">assumption</span>. At that value, C$12.58 equals about 30 minutes of extra driving. Every driver picks the quickest route given traffic and any charge (a user-equilibrium assignment), so other drivers also adjust to the freed-up roads.</p>
     </div>
@@ -96,7 +96,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
       <div class="controls"><div class="seg" id="fin-buttons" role="group" aria-label="Scenario for finance"></div></div>
       <div class="grid g2">
         <div class="card"><div id="cash-chart"></div><p class="src">Cumulative net cash, 2025 CAD real <span class="tag est">estimated</span>. The band spans a weaker-response/higher-cost case and a stronger-response/lower-cost case. A stronger response cuts more traffic but collects less per vehicle-day. These are illustrative ranges, not confidence intervals.</p></div>
-        <div class="card"><table id="fin-table"></table>
+        <div class="card"><div style="overflow-x:auto"><table id="fin-table"></table></div>
           <p class="src">Capital cost uses New York's capital spending per detection point (MTA First Evaluation Report, 2026), applied to every crossing point; the City's 2015 toll-point estimate (EX8.14) is the low case. Six implementation years come before launch. Operating cost starts at 30% of collections and falls to 11%, between Stockholm (31% → 7%) and London (76% in year one). Time savings and lower emissions are benefits but are <em>not</em> added to these cash figures.</p></div>
       </div>
       <h3 style="margin-top:24px">Where could the money go? A choice, not an assumption</h3>
@@ -163,13 +163,13 @@ import "maplibre-gl/dist/maplibre-gl.css";
       <p class="lede">From a conversation at this event with a participant who has policy and technology experience (n = 1 so far; notes paraphrased; more conversations will be logged).</p>
       <table>
         <tr><th>What we heard</th><th>What we changed</th></tr>
-        <tr><td>"Population growth could be miscalculated."</td><td>Traffic growth is an explicit, adjustable assumption (base 0%/yr). Ontario projects Toronto's population roughly flat to 2035, so traffic doesn't grow one-for-one with population.</td></tr>
-        <tr><td>"Where in Toronto, and when?"</td><td>Three candidate boundaries are compared on crossings and data coverage. A time-varying scenario charges half price in the shoulder hours.</td></tr>
-        <tr><td>"Commuters from the west would feel discriminated against."</td><td>Added the who-pays-by-direction view above, with the transit alternatives on each side.</td></tr>
-        <tr><td>"Predict the money raised."</td><td>A 10-year cash-flow model with low, base and high cases.</td></tr>
-        <tr><td>"What did other cities struggle with, and what worked?"</td><td>City panels with struggles, what worked and what didn't. This section is protected from scope cuts.</td></tr>
-        <tr><td>"Toronto drivers can cut through neighbourhoods."</td><td>Treated as a hypothesis and tested in the simulation (diversion section). Boundaries are scored on natural choke points.</td></tr>
-        <tr><td>"Use the money to electrify GO and UP Express."</td><td>Added as a revenue-use option, with the jurisdiction caveat.</td></tr>
+        <tr><td>Population growth could be miscalculated.</td><td>Traffic growth is an explicit, adjustable assumption (base 0%/yr). Ontario projects Toronto's population roughly flat to 2035, so traffic doesn't grow one-for-one with population.</td></tr>
+        <tr><td>Where in Toronto, and when?</td><td>Three candidate boundaries are compared on crossings and data coverage. A time-varying scenario charges half price in the shoulder hours.</td></tr>
+        <tr><td>Commuters from the west would feel discriminated against.</td><td>Added the who-pays-by-direction view above, with the transit alternatives on each side.</td></tr>
+        <tr><td>Predict the money raised.</td><td>A 10-year cash-flow model with low, base and high cases.</td></tr>
+        <tr><td>What did other cities struggle with, and what worked?</td><td>City panels with struggles, what worked and what didn't. This section is protected from scope cuts.</td></tr>
+        <tr><td>Toronto drivers can cut through neighbourhoods.</td><td>Treated as a hypothesis and tested in the simulation (diversion section). Boundaries are scored on natural choke points.</td></tr>
+        <tr><td>Use the money to electrify GO and UP Express.</td><td>Added as a revenue-use option, with the jurisdiction caveat.</td></tr>
       </table>
     </div>
   </section>
@@ -185,7 +185,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
             <li>Counts come from different days at each intersection (most recent weekday since 2023, excluding summer and December), combined as one "typical" morning.</li>
             <li>Behavioural response is anchored to New York (about 11% fewer charged trips at the same price; range 8–22%, with Stockholm as the upper end), not estimated from Toronto data. New transit riders and fares follow from that and from London/Stockholm mode-shift shares.</li>
             <li>Street-level results come from a static equilibrium model (hourly averages, standard speed–flow curves, no signal timings), not a vehicle-by-vehicle simulation: our SUMO microsimulation of the same trips gridlocked at expressway-ramp junctions and was set aside. Queues and spill-back are not represented. Buses are not modelled.</li>
-            <li><strong>Speed gains are likely understated.</strong> The model averages traffic over each hour and has no queues, and its baseline is less congested than real mornings, so it shows almost no speed gain inside the zone (about +1%). New York's zone speeds rose about 11% (an estimated effect, in a far more congested Manhattan).</li>
+            <li><strong>Speed gains are likely understated.</strong> The model averages traffic over each hour and has no queues, and its baseline is less congested than real mornings, so it shows almost no speed gain inside the zone (under +1%). In far more congested Manhattan, zone speeds rose about 11% against a modelled no-toll comparison (NBER estimate) and 4.6% year on year (MTA).</li>
             <li><strong>Diversion is likely overstated.</strong> Every driver gets the same value of time (C$12.58 ≈ 30 minutes of detour), and drivers don't stick to habit, so more of them reroute around the zone than in reality.</li>
             <li>Modelled values are scenarios, not forecasts with confidence intervals.</li>
           </ul>
