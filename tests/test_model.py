@@ -15,7 +15,9 @@ LABELS = ("OBSERVED", "ESTIMATED", "ASSUMPTION", "UNVERIFIED", "SIMULATED", "MOD
 
 
 def test_calibration_hits_target():
-    for case, target in (("low", 0.10), ("base", 0.15), ("high", 0.22)):
+    band = load_assumptions()["calibration"]["observed_band_at_reference_price"]["crossing_reduction_at_reference"]
+    for case in ("low", "base", "high"):
+        target = band["value"] if case == "base" else band[case]
         r = response_for(case)
         assert removed_share(12.58, r.c0, r.elasticity) == pytest.approx(target, abs=1e-9)
 
@@ -37,7 +39,7 @@ def test_composition_excludes_reroute_and_sums_to_one():
 def test_revenue_congestion_tradeoff():
     """A stronger response at the same price means fewer paying trips, so less revenue."""
     revenue = []
-    for target in (0.10, 0.15, 0.22):
+    for target in (0.08, 0.11, 0.22):
         c0 = solve_c0(-0.5, target, 12.58)
         paying = 1 - removed_share(12.58, c0, -0.5)
         revenue.append(paying * 12.58)

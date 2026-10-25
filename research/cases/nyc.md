@@ -66,7 +66,18 @@ The MTA first evaluation report (mta.info/document/195631) and the MTA annual di
   - Annual ridership rose from 1.21B (2024) to about 1.30B (2025), +7.7% (B-NYC-018, advocacy presentation at a TRB webinar).
   - AM-peak subway trips to the CRZ rose by about 40,589 per day (+7%).
   - These are descriptive figures. Ridership was already recovering from the pandemic.
-- **Main-thread computation.** The year-on-year weekday comparison in `data-sources.md` §7 (from data.ny.gov `sayj-mze2`) belongs to the main thread and is not re-verified here.
+- **Our computation from MTA open data (2026-10-24 snapshot; N-001, N-002, N-003).** Weekday averages, OBSERVED; growth comparisons are ours and descriptive:
+
+  | Mode | 2024 vs 2023 | 2025 vs 2024 | 2025 above the 2024 growth rate |
+  |---|---|---|---|
+  | Subway | +3.1% | +7.4% | ~157k/day |
+  | Bus | −5.1% | +7.5% | ~160k/day (2024 trend unreliable) |
+  | LIRR | +14.2% | +8.9% | below trend |
+  | Metro-North | +11.4% | +6.8% | below trend |
+
+  - Zone vehicle-miles 2025 vs 2024: −3.8% (GPS panel) to −11.0% (connected vehicles); excluded roadways (FDR, West Side Highway) −2.4% / −7.7%. The two sources disagree on size, not direction.
+  - Weekday zone entries: 501,875 (2025), 480,806 (2026 to date).
+  - Reading: subway and bus growth accelerated after launch; commuter-rail growth slowed. Subway+bus growth above trend (~317k/day) is several times the ~62k fewer entries/day implied by −11%, so most of it is not attributable to the charge. NYC is therefore used only as an upper-bound check on the transit share (config `behaviour.response_composition_of_removed_trips.switch_to_transit`).
 
 ## Capital and operating costs
 

@@ -26,7 +26,7 @@ How each component works, in pipeline order. The rules behind every choice are i
 - **Validation:** simulated turning movements (from route exit times) are compared with held-out counts using GEH. Results are in `metrics.json` and the demo.
 
 ## 4. Behavioural response (aggregate)
-- **Calibration:** the share of chargeable crossings removed at the reference price (NYC US$9 = C$12.58) is calibrated to observed results elsewhere, 15% base (10–22%). It is not estimated from Toronto data. A constant-elasticity curve D1 = D0((c0+p)/c0)^e (e = −0.5) carries that response to other prices, with c0 solved per case.
+- **Calibration:** the share of chargeable crossings removed at the reference price (NYC US$9 = C$12.58) is anchored to New York, the closest analogue: 11% base (NYC, MTA-reported), 8% low, 22% high (Stockholm trial). It is not estimated from Toronto data. A constant-elasticity curve D1 = D0((c0+p)/c0)^e (e = −0.5) carries that response to other prices, with c0 solved per case.
 - **Response split:** removed trips divide into mode switch, destination change or cancellation, retiming and commercial trips not made, with shares from London and Stockholm. Rerouting is not taken from those shares: SUMO produces it.
 - **Rerouting:** drivers who still face the charge are re-routed by `duarouter` on baseline hourly travel times plus the toll converted to time (C$24.99 per vehicle-hour). Other drivers keep their routes. This is a one-shot response, not an equilibrium.
 

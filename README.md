@@ -49,6 +49,8 @@ flowchart LR
    - **S1:** $3 Gardiner/DVP toll, a partial check against the City's 2015 study.
    - **S2:** Downtown cordon plus Gardiner/DVP at about C$12.50 in the morning peak, matching New York's US$9.
    - **S3:** Same cordon with a time-varying rate: full price 7–9 a.m., half price in the shoulder hours.
+   - **S4 (headline):** Downtown cordon only, New York-style. Through traffic uses the Gardiner/DVP free; exiting into downtown or crossing in on any street is charged. Added after user review, when charging the expressways (S2) pushed traffic onto neighbourhood streets.
+   - The traffic response is anchored to New York (about −11% of entries), with Stockholm's −22% as the upper end. New transit trips and fares (TTC and GO) are estimated from the drivers the charge takes off the road.
 5. **Money.** Gross collections are estimated from chargeable trips *after* people respond, times the rates, with exemptions, ride-hail treatment and collection losses applied. Startup costs, operating costs, transit service and fairness measures are shown separately over 10 years, in 2025 dollars. Toll revenue is never counted as a social benefit. The model shows that the more a charge cuts traffic, the less it may collect.
 6. **Fairness.** Neighbourhood income and transit access around the zone, plus where the model says diverted traffic would go. Without trip-level data we can't say who would pay, and the tool says so.
 7. **Other cities.** City-level panels of what was observed before and after, taken from official evaluations, plus New York charts from its open data. No case has open street-level data from before its launch, so we don't invent street-level history.

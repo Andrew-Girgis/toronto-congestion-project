@@ -110,6 +110,7 @@ def scenario_finance(name, sim, a, scen_cfg, case):
     df["equity_mitigation"] = (df.net.clip(lower=0) * v(f["equity_mitigation_share_of_net"]))
     df["other_transport"] = df.net.clip(lower=0) - df.transit_service - df.equity_mitigation
     flows = df.net.tolist()
+    transit = transit_shift(sim, a, case, scale, am_share)
     return {
         "scenario": name, "case": case,
         "label": "ESTIMATED (scenario model; inputs labelled in config/assumptions.yaml)",
@@ -121,7 +122,30 @@ def scenario_finance(name, sim, a, scen_cfg, case):
         "payback_year": int(df[df.cumulative_net > 0].year.min()) if (df.cumulative_net > 0).any() else None,
         "first_positive_year": int(pos.year.min()) if len(pos) else None,
         "cashflow": df.round(2).to_dict(orient="records"),
+        "transit": transit,
     }
+
+
+def transit_shift(sim, a, case, scale, am_share):
+    """New transit trips from drivers the charge takes off the road, and the fares they pay.
+
+    Removed vehicles (off-network, not rerouted) x transit share of non-reroute responses
+    x occupancy x trips per entry. Fares split between TTC (City) and GO (Metrolinx, provincial).
+    """
+    t, comp = a["transit_response"], a["behaviour"]["response_composition_of_removed_trips"]
+    others = {k: v(n) for k, n in comp.items() if isinstance(n, dict) and k != "reroute_around_zone"}
+    others["switch_to_transit"] = v(comp["switch_to_transit"], case)
+    to_transit = others["switch_to_transit"] / sum(others.values())
+    removed_am = (sim.get("removed_offnetwork", 0) + sim.get("retimed_to_shoulder", 0)) * scale
+    people_am = removed_am * to_transit * v(a["value_of_time"]["vehicle_occupancy_auto"])
+    daily_trips = people_am / am_share * v(t["one_way_trips_per_removed_entry"])
+    go = v(t["go_share_of_new_transit_trips"], case)
+    days = v(a["design"]["charging_days_per_year"])
+    ttc_fares = daily_trips * (1 - go) * v(t["ttc_average_fare_cad"]) * days / 1e6
+    go_fares = daily_trips * go * v(t["go_average_fare_cad"]) * days / 1e6
+    return {"label": "ESTIMATED", "share_of_removed_to_transit": round(to_transit, 3),
+            "am_new_transit_riders": round(people_am), "daily_new_transit_trips": round(daily_trips),
+            "ttc_fares_cad_m": round(ttc_fares, 1), "go_fares_cad_m": round(go_fares, 1)}
 
 
 def main():
@@ -145,7 +169,8 @@ def main():
     for r in out["results"]:
         print(f"{r['scenario']} {r['case']:5} charged_am={r['charged_am_vehicles']:>7,} "
               f"gross=${r['gross_per_year_cad_m']:>6.1f}M/yr capex=${r['capex_cad_m']:>5.1f}M "
-              f"NPV7=${r['npv_net_cad_m'][0.07]:>7.1f}M payback={r['payback_year']}")
+              f"NPV7=${r['npv_net_cad_m'][0.07]:>7.1f}M payback={r['payback_year']} "
+              f"transit/day={r['transit']['daily_new_transit_trips']:,} fares TTC ${r['transit']['ttc_fares_cad_m']}M GO ${r['transit']['go_fares_cad_m']}M")
 
 
 if __name__ == "__main__":

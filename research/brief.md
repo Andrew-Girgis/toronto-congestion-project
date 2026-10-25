@@ -21,7 +21,7 @@
 
 ## Lessons for Toronto (what we carry into the model and the pitch)
 - **Boundary:** Stockholm and Manhattan have water choke points. Downtown Toronto has the lake and the Don Valley, but open north and west edges. We compare three candidate boundaries on crossing count and count coverage, and test diversion in the simulation.
-- **Response:** calibrated to the observed 10–22% band at the NYC-equivalent price rather than borrowing an elasticity from another context.
+- **Response:** anchored to New York (−11% base, 8–22% range with Stockholm as the upper end) at the same price, rather than borrowing an elasticity from another context.
 - **Money:** collections are built bottom-up from Toronto's simulated charged trips. Foreign net revenue per entry is **not** transferred. International opex ratios serve only as reasonableness checks.
 - **Sequencing:** tool pilot → transit capacity → time-limited trial → evaluation → decision (Stockholm model). This requires provincial legislation.
 - **Equity:** Pembina Institute (2018), using TTS, found that most commuters affected by the proposed Gardiner/DVP toll had above-median household incomes, but the toll weighed more heavily on affected lower-income households. Our open-data work cannot identify payers by income (ecological fallacy); the pilot would use TTS tabulations.

@@ -167,7 +167,7 @@ behaviour:
     notes: >
       Shares of trips that STOP crossing the cordon. 'continue and pay' is the remainder (D1).
       Reroute is simulated in SUMO, not taken from these shares, when the network covers the alternative.
-    switch_to_transit:   {value: 0.45, low: 0.40, high: 0.60, source_id: [D-007, D-005], label: OBSERVED (REPORT) range, notes: "London 50–60%; Stockholm ~43% (work trips to transit)"}
+    switch_to_transit:   {value: 0.45, low: 0.40, high: 0.60, source_id: [D-007, D-005], label: OBSERVED (REPORT) range, notes: "London 50–60%; Stockholm ~43% (work trips to transit). New York cross-check (N-001, N-003): weekday subway+bus grew ~317k/day above their 2024 trend in 2025 against ~62k fewer zone entries/day; return-to-office growth is mixed in, so NYC is consistent with the high end but cannot pin the share."}
     reroute_around_zone: {value: 0.15, low: 0.09, high: 0.30, source_id: [D-007, D-005], label: OBSERVED (REPORT) range, notes: "London 20–30% (through trips); Stockholm ~9%. Toronto has a grid with many alternatives (UF-001): test in SUMO."}
     change_destination_or_cancel_combine: {value: 0.25, low: 0.15, high: 0.26, source_id: [D-005, D-007], label: OBSERVED (REPORT) range}
     retime_outside_charged_hours: {value: 0.05, low: 0.0, high: 0.15, source_id: [D-006, D-023], label: ASSUMPTION, notes: "Stockholm: no aggregate sign of retiming; Singapore ALS: strong shoulder surge. Depends on design (S3 tests this)."}
@@ -323,18 +323,38 @@ calibration:
       modern scheme has observed (research/parameters.md).
     reference_price_cad: {value: 12.58, source_id: [D-001, D-019], label: ESTIMATED}
     crossing_reduction_at_reference:
-      value: 0.15
-      low: 0.10
+      value: 0.11
+      low: 0.08
       high: 0.22
       units: share of chargeable crossings, first year
-      source_id: [B-NYC, B-LON, B-STO]
-      label: ASSUMPTION (bounded by OBSERVED (REPORT))
-      notes: NYC entries -11% (US$9, MTA; UNVERIFIED PDF); London 4+-wheel vehicles -18%, cars -33% (GBP 5, 2003; TfL 2nd report Table 3.1); Stockholm -22% (trial). Base 15% sits between NYC and London all-vehicle results.
+      source_id: [B-NYC-007, B-NYC-008, N-002, B-STO-001]
+      label: ASSUMPTION (anchored to OBSERVED (REPORT))
+      notes: >
+        New York is the primary analogue (user decision 2026-10-24): same charge level (US$9 =
+        C$12.58), same era and technology, North American commuting. Base = NYC entries about -11%
+        (MTA-reported; UNVERIFIED primary PDF); low = -8% (lower end of reported NYC range, CBC);
+        high = Stockholm trial -22% as the cross-check. MTA open data on zone vehicle-miles,
+        2025 vs 2024: -3.8% (GPS) to -11.0% (connected vehicles) (N-002), consistent with the band.
     elasticity_for_price_curve:
       value: -0.5
       source_id: [D-006]
       label: ASSUMPTION
       notes: Shape parameter only; level comes from the calibration target.
+
+transit_response:
+  notes: New transit trips = removed vehicles x behaviour.response_composition_of_removed_trips.switch_to_transit (normalised) x vehicle_occupancy_auto x trips per entry.
+  go_share_of_new_transit_trips:
+    value: 0.35
+    low: 0.20
+    high: 0.50
+    source_id: [D-008]
+    label: ASSUMPTION
+    notes: >
+      Drivers from outside Toronto most likely shift to GO. EX8.14 assumed Toronto residents are
+      about 65% of Gardiner/DVP traffic (Table 6), so ~35% non-residents. Not cordon-specific.
+  ttc_average_fare_cad: {value: 2.44, label: OBSERVED (REPORT), source_id: T-001, notes: "TTC average fare per revenue ride (Budget Update, Sept 2025, p.17)"}
+  go_average_fare_cad: {value: 7.27, label: ESTIMATED, source_id: M-001, notes: "Metrolinx 2023-24 fare revenue $429.2M / 59.0M rides (p.47); fares go to Metrolinx (provincial), not the City"}
+  one_way_trips_per_removed_entry: {value: 2, label: ASSUMPTION, notes: "Inbound trip plus the return journey"}
 
 design:
   charging_days_per_year: {value: 250, label: ASSUMPTION, notes: "Weekdays excluding statutory holidays"}

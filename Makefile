@@ -10,6 +10,7 @@ all: data geometry coverage network demand assign model web
 
 data:            ## dated snapshots of City open data + manifest
 	$(PY) -m cordon.ingest
+	$(PY) -m cordon.ingest.nyc
 
 geometry:        ## candidate boundaries and their road crossings
 	$(PY) -m cordon.geometry.cordons
@@ -46,6 +47,7 @@ model:           ## behavioural ranges + 10-year finance
 
 web:             ## export web layers and metrics
 	$(PY) -m cordon.export.web
+	$(PY) -m cordon.export.nyc
 
 serve:           ## run the demo locally
 	cd web && npm install && npx astro dev

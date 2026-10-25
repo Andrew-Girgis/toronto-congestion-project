@@ -1,0 +1,961 @@
+{
+ "label": "OBSERVED",
+ "source_ids": [
+  "N-001",
+  "N-003"
+ ],
+ "launch": "2025-01-05",
+ "monthly_weekday": [
+  {
+   "month": "2023-01",
+   "mode": "Bus",
+   "riders": 1316502.0
+  },
+  {
+   "month": "2023-01",
+   "mode": "LIRR",
+   "riders": 173814.0
+  },
+  {
+   "month": "2023-01",
+   "mode": "MNR",
+   "riders": 158395.0
+  },
+  {
+   "month": "2023-01",
+   "mode": "Subway",
+   "riders": 3281938.0
+  },
+  {
+   "month": "2023-02",
+   "mode": "Bus",
+   "riders": 1375084.0
+  },
+  {
+   "month": "2023-02",
+   "mode": "LIRR",
+   "riders": 181412.0
+  },
+  {
+   "month": "2023-02",
+   "mode": "MNR",
+   "riders": 160710.0
+  },
+  {
+   "month": "2023-02",
+   "mode": "Subway",
+   "riders": 3454393.0
+  },
+  {
+   "month": "2023-03",
+   "mode": "Bus",
+   "riders": 1464192.0
+  },
+  {
+   "month": "2023-03",
+   "mode": "LIRR",
+   "riders": 196219.0
+  },
+  {
+   "month": "2023-03",
+   "mode": "MNR",
+   "riders": 174721.0
+  },
+  {
+   "month": "2023-03",
+   "mode": "Subway",
+   "riders": 3681537.0
+  },
+  {
+   "month": "2023-04",
+   "mode": "Bus",
+   "riders": 1404826.0
+  },
+  {
+   "month": "2023-04",
+   "mode": "LIRR",
+   "riders": 200915.0
+  },
+  {
+   "month": "2023-04",
+   "mode": "MNR",
+   "riders": 180174.0
+  },
+  {
+   "month": "2023-04",
+   "mode": "Subway",
+   "riders": 3656644.0
+  },
+  {
+   "month": "2023-05",
+   "mode": "Bus",
+   "riders": 1447343.0
+  },
+  {
+   "month": "2023-05",
+   "mode": "LIRR",
+   "riders": 207433.0
+  },
+  {
+   "month": "2023-05",
+   "mode": "MNR",
+   "riders": 190250.0
+  },
+  {
+   "month": "2023-05",
+   "mode": "Subway",
+   "riders": 3763995.0
+  },
+  {
+   "month": "2023-06",
+   "mode": "Bus",
+   "riders": 1358762.0
+  },
+  {
+   "month": "2023-06",
+   "mode": "LIRR",
+   "riders": 219582.0
+  },
+  {
+   "month": "2023-06",
+   "mode": "MNR",
+   "riders": 195710.0
+  },
+  {
+   "month": "2023-06",
+   "mode": "Subway",
+   "riders": 3604762.0
+  },
+  {
+   "month": "2023-07",
+   "mode": "Bus",
+   "riders": 1269840.0
+  },
+  {
+   "month": "2023-07",
+   "mode": "LIRR",
+   "riders": 204230.0
+  },
+  {
+   "month": "2023-07",
+   "mode": "MNR",
+   "riders": 180750.0
+  },
+  {
+   "month": "2023-07",
+   "mode": "Subway",
+   "riders": 3338807.0
+  },
+  {
+   "month": "2023-08",
+   "mode": "Bus",
+   "riders": 1271991.0
+  },
+  {
+   "month": "2023-08",
+   "mode": "LIRR",
+   "riders": 212675.0
+  },
+  {
+   "month": "2023-08",
+   "mode": "MNR",
+   "riders": 181497.0
+  },
+  {
+   "month": "2023-08",
+   "mode": "Subway",
+   "riders": 3346977.0
+  },
+  {
+   "month": "2023-09",
+   "mode": "Bus",
+   "riders": 1347501.0
+  },
+  {
+   "month": "2023-09",
+   "mode": "LIRR",
+   "riders": 220123.0
+  },
+  {
+   "month": "2023-09",
+   "mode": "MNR",
+   "riders": 193230.0
+  },
+  {
+   "month": "2023-09",
+   "mode": "Subway",
+   "riders": 3633526.0
+  },
+  {
+   "month": "2023-10",
+   "mode": "Bus",
+   "riders": 1381061.0
+  },
+  {
+   "month": "2023-10",
+   "mode": "LIRR",
+   "riders": 230948.0
+  },
+  {
+   "month": "2023-10",
+   "mode": "MNR",
+   "riders": 206400.0
+  },
+  {
+   "month": "2023-10",
+   "mode": "Subway",
+   "riders": 3855638.0
+  },
+  {
+   "month": "2023-11",
+   "mode": "Bus",
+   "riders": 1255960.0
+  },
+  {
+   "month": "2023-11",
+   "mode": "LIRR",
+   "riders": 226605.0
+  },
+  {
+   "month": "2023-11",
+   "mode": "MNR",
+   "riders": 202770.0
+  },
+  {
+   "month": "2023-11",
+   "mode": "Subway",
+   "riders": 3673695.0
+  },
+  {
+   "month": "2023-12",
+   "mode": "Bus",
+   "riders": 1158528.0
+  },
+  {
+   "month": "2023-12",
+   "mode": "LIRR",
+   "riders": 220136.0
+  },
+  {
+   "month": "2023-12",
+   "mode": "MNR",
+   "riders": 195280.0
+  },
+  {
+   "month": "2023-12",
+   "mode": "Subway",
+   "riders": 3545429.0
+  },
+  {
+   "month": "2024-01",
+   "mode": "Bus",
+   "riders": 1161559.0
+  },
+  {
+   "month": "2024-01",
+   "mode": "LIRR",
+   "riders": 204397.0
+  },
+  {
+   "month": "2024-01",
+   "mode": "MNR",
+   "riders": 181234.0
+  },
+  {
+   "month": "2024-01",
+   "mode": "Subway",
+   "riders": 3345791.0
+  },
+  {
+   "month": "2024-02",
+   "mode": "Bus",
+   "riders": 1229262.0
+  },
+  {
+   "month": "2024-02",
+   "mode": "LIRR",
+   "riders": 214407.0
+  },
+  {
+   "month": "2024-02",
+   "mode": "MNR",
+   "riders": 187179.0
+  },
+  {
+   "month": "2024-02",
+   "mode": "Subway",
+   "riders": 3524814.0
+  },
+  {
+   "month": "2024-03",
+   "mode": "Bus",
+   "riders": 1297925.0
+  },
+  {
+   "month": "2024-03",
+   "mode": "LIRR",
+   "riders": 229463.0
+  },
+  {
+   "month": "2024-03",
+   "mode": "MNR",
+   "riders": 198578.0
+  },
+  {
+   "month": "2024-03",
+   "mode": "Subway",
+   "riders": 3767293.0
+  },
+  {
+   "month": "2024-04",
+   "mode": "Bus",
+   "riders": 1246449.0
+  },
+  {
+   "month": "2024-04",
+   "mode": "LIRR",
+   "riders": 232355.0
+  },
+  {
+   "month": "2024-04",
+   "mode": "MNR",
+   "riders": 206797.0
+  },
+  {
+   "month": "2024-04",
+   "mode": "Subway",
+   "riders": 3723781.0
+  },
+  {
+   "month": "2024-05",
+   "mode": "Bus",
+   "riders": 1275149.0
+  },
+  {
+   "month": "2024-05",
+   "mode": "LIRR",
+   "riders": 238827.0
+  },
+  {
+   "month": "2024-05",
+   "mode": "MNR",
+   "riders": 210662.0
+  },
+  {
+   "month": "2024-05",
+   "mode": "Subway",
+   "riders": 3815822.0
+  },
+  {
+   "month": "2024-06",
+   "mode": "Bus",
+   "riders": 1259530.0
+  },
+  {
+   "month": "2024-06",
+   "mode": "LIRR",
+   "riders": 251446.0
+  },
+  {
+   "month": "2024-06",
+   "mode": "MNR",
+   "riders": 220132.0
+  },
+  {
+   "month": "2024-06",
+   "mode": "Subway",
+   "riders": 3722486.0
+  },
+  {
+   "month": "2024-07",
+   "mode": "Bus",
+   "riders": 1165528.0
+  },
+  {
+   "month": "2024-07",
+   "mode": "LIRR",
+   "riders": 234715.0
+  },
+  {
+   "month": "2024-07",
+   "mode": "MNR",
+   "riders": 203908.0
+  },
+  {
+   "month": "2024-07",
+   "mode": "Subway",
+   "riders": 3378420.0
+  },
+  {
+   "month": "2024-08",
+   "mode": "Bus",
+   "riders": 1140737.0
+  },
+  {
+   "month": "2024-08",
+   "mode": "LIRR",
+   "riders": 239813.0
+  },
+  {
+   "month": "2024-08",
+   "mode": "MNR",
+   "riders": 195170.0
+  },
+  {
+   "month": "2024-08",
+   "mode": "Subway",
+   "riders": 3350607.0
+  },
+  {
+   "month": "2024-09",
+   "mode": "Bus",
+   "riders": 1427666.0
+  },
+  {
+   "month": "2024-09",
+   "mode": "LIRR",
+   "riders": 257056.0
+  },
+  {
+   "month": "2024-09",
+   "mode": "MNR",
+   "riders": 217776.0
+  },
+  {
+   "month": "2024-09",
+   "mode": "Subway",
+   "riders": 3941268.0
+  },
+  {
+   "month": "2024-10",
+   "mode": "Bus",
+   "riders": 1460839.0
+  },
+  {
+   "month": "2024-10",
+   "mode": "LIRR",
+   "riders": 261914.0
+  },
+  {
+   "month": "2024-10",
+   "mode": "MNR",
+   "riders": 230449.0
+  },
+  {
+   "month": "2024-10",
+   "mode": "Subway",
+   "riders": 4079504.0
+  },
+  {
+   "month": "2024-11",
+   "mode": "Bus",
+   "riders": 1343371.0
+  },
+  {
+   "month": "2024-11",
+   "mode": "LIRR",
+   "riders": 244920.0
+  },
+  {
+   "month": "2024-11",
+   "mode": "MNR",
+   "riders": 214491.0
+  },
+  {
+   "month": "2024-11",
+   "mode": "Subway",
+   "riders": 3820918.0
+  },
+  {
+   "month": "2024-12",
+   "mode": "Bus",
+   "riders": 1245633.0
+  },
+  {
+   "month": "2024-12",
+   "mode": "LIRR",
+   "riders": 242940.0
+  },
+  {
+   "month": "2024-12",
+   "mode": "MNR",
+   "riders": 209222.0
+  },
+  {
+   "month": "2024-12",
+   "mode": "Subway",
+   "riders": 3733049.0
+  },
+  {
+   "month": "2025-01",
+   "mode": "Bus",
+   "riders": 1278393.0
+  },
+  {
+   "month": "2025-01",
+   "mode": "LIRR",
+   "riders": 223635.0
+  },
+  {
+   "month": "2025-01",
+   "mode": "MNR",
+   "riders": 191537.0
+  },
+  {
+   "month": "2025-01",
+   "mode": "Subway",
+   "riders": 3566193.0
+  },
+  {
+   "month": "2025-02",
+   "mode": "Bus",
+   "riders": 1396335.0
+  },
+  {
+   "month": "2025-02",
+   "mode": "LIRR",
+   "riders": 234539.0
+  },
+  {
+   "month": "2025-02",
+   "mode": "MNR",
+   "riders": 198692.0
+  },
+  {
+   "month": "2025-02",
+   "mode": "Subway",
+   "riders": 3841414.0
+  },
+  {
+   "month": "2025-03",
+   "mode": "Bus",
+   "riders": 1479976.0
+  },
+  {
+   "month": "2025-03",
+   "mode": "LIRR",
+   "riders": 253432.0
+  },
+  {
+   "month": "2025-03",
+   "mode": "MNR",
+   "riders": 216540.0
+  },
+  {
+   "month": "2025-03",
+   "mode": "Subway",
+   "riders": 4032134.0
+  },
+  {
+   "month": "2025-04",
+   "mode": "Bus",
+   "riders": 1466218.0
+  },
+  {
+   "month": "2025-04",
+   "mode": "LIRR",
+   "riders": 261884.0
+  },
+  {
+   "month": "2025-04",
+   "mode": "MNR",
+   "riders": 226711.0
+  },
+  {
+   "month": "2025-04",
+   "mode": "Subway",
+   "riders": 4117066.0
+  },
+  {
+   "month": "2025-05",
+   "mode": "Bus",
+   "riders": 1410352.0
+  },
+  {
+   "month": "2025-05",
+   "mode": "LIRR",
+   "riders": 260363.0
+  },
+  {
+   "month": "2025-05",
+   "mode": "MNR",
+   "riders": 223547.0
+  },
+  {
+   "month": "2025-05",
+   "mode": "Subway",
+   "riders": 4071999.0
+  },
+  {
+   "month": "2025-06",
+   "mode": "Bus",
+   "riders": 1416699.0
+  },
+  {
+   "month": "2025-06",
+   "mode": "LIRR",
+   "riders": 266047.0
+  },
+  {
+   "month": "2025-06",
+   "mode": "MNR",
+   "riders": 230365.0
+  },
+  {
+   "month": "2025-06",
+   "mode": "Subway",
+   "riders": 4021291.0
+  },
+  {
+   "month": "2025-07",
+   "mode": "Bus",
+   "riders": 1354549.0
+  },
+  {
+   "month": "2025-07",
+   "mode": "LIRR",
+   "riders": 263671.0
+  },
+  {
+   "month": "2025-07",
+   "mode": "MNR",
+   "riders": 223804.0
+  },
+  {
+   "month": "2025-07",
+   "mode": "Subway",
+   "riders": 3797021.0
+  },
+  {
+   "month": "2025-08",
+   "mode": "Bus",
+   "riders": 1341731.0
+  },
+  {
+   "month": "2025-08",
+   "mode": "LIRR",
+   "riders": 267340.0
+  },
+  {
+   "month": "2025-08",
+   "mode": "MNR",
+   "riders": 212413.0
+  },
+  {
+   "month": "2025-08",
+   "mode": "Subway",
+   "riders": 3741947.0
+  },
+  {
+   "month": "2025-09",
+   "mode": "Bus",
+   "riders": 1432640.0
+  },
+  {
+   "month": "2025-09",
+   "mode": "LIRR",
+   "riders": 278314.0
+  },
+  {
+   "month": "2025-09",
+   "mode": "MNR",
+   "riders": 232391.0
+  },
+  {
+   "month": "2025-09",
+   "mode": "Subway",
+   "riders": 4116085.0
+  },
+  {
+   "month": "2025-10",
+   "mode": "Bus",
+   "riders": 1375163.0
+  },
+  {
+   "month": "2025-10",
+   "mode": "LIRR",
+   "riders": 273084.0
+  },
+  {
+   "month": "2025-10",
+   "mode": "MNR",
+   "riders": 241167.0
+  },
+  {
+   "month": "2025-10",
+   "mode": "Subway",
+   "riders": 4192110.0
+  },
+  {
+   "month": "2025-11",
+   "mode": "Bus",
+   "riders": 1271489.0
+  },
+  {
+   "month": "2025-11",
+   "mode": "LIRR",
+   "riders": 261996.0
+  },
+  {
+   "month": "2025-11",
+   "mode": "MNR",
+   "riders": 225296.0
+  },
+  {
+   "month": "2025-11",
+   "mode": "Subway",
+   "riders": 4043965.0
+  },
+  {
+   "month": "2025-12",
+   "mode": "Bus",
+   "riders": 1178246.0
+  },
+  {
+   "month": "2025-12",
+   "mode": "LIRR",
+   "riders": 259634.0
+  },
+  {
+   "month": "2025-12",
+   "mode": "MNR",
+   "riders": 219762.0
+  },
+  {
+   "month": "2025-12",
+   "mode": "Subway",
+   "riders": 3901124.0
+  },
+  {
+   "month": "2026-01",
+   "mode": "Bus",
+   "riders": 1181308.0
+  },
+  {
+   "month": "2026-01",
+   "mode": "LIRR",
+   "riders": 225844.0
+  },
+  {
+   "month": "2026-01",
+   "mode": "MNR",
+   "riders": 190136.0
+  },
+  {
+   "month": "2026-01",
+   "mode": "Subway",
+   "riders": 3697956.0
+  },
+  {
+   "month": "2026-02",
+   "mode": "Bus",
+   "riders": 1169491.0
+  },
+  {
+   "month": "2026-02",
+   "mode": "LIRR",
+   "riders": 229366.0
+  },
+  {
+   "month": "2026-02",
+   "mode": "MNR",
+   "riders": 195652.0
+  },
+  {
+   "month": "2026-02",
+   "mode": "Subway",
+   "riders": 3844106.0
+  },
+  {
+   "month": "2026-03",
+   "mode": "Bus",
+   "riders": 1332753.0
+  },
+  {
+   "month": "2026-03",
+   "mode": "LIRR",
+   "riders": 270349.0
+  },
+  {
+   "month": "2026-03",
+   "mode": "MNR",
+   "riders": 228522.0
+  },
+  {
+   "month": "2026-03",
+   "mode": "Subway",
+   "riders": 4216642.0
+  },
+  {
+   "month": "2026-04",
+   "mode": "Bus",
+   "riders": 1331258.0
+  },
+  {
+   "month": "2026-04",
+   "mode": "LIRR",
+   "riders": 272835.0
+  },
+  {
+   "month": "2026-04",
+   "mode": "MNR",
+   "riders": 237448.0
+  },
+  {
+   "month": "2026-04",
+   "mode": "Subway",
+   "riders": 4205274.0
+  },
+  {
+   "month": "2026-05",
+   "mode": "Bus",
+   "riders": 1345860.0
+  },
+  {
+   "month": "2026-05",
+   "mode": "LIRR",
+   "riders": 246839.0
+  },
+  {
+   "month": "2026-05",
+   "mode": "MNR",
+   "riders": 236964.0
+  },
+  {
+   "month": "2026-05",
+   "mode": "Subway",
+   "riders": 4218255.0
+  },
+  {
+   "month": "2026-06",
+   "mode": "Bus",
+   "riders": 1316866.0
+  },
+  {
+   "month": "2026-06",
+   "mode": "LIRR",
+   "riders": 293393.0
+  },
+  {
+   "month": "2026-06",
+   "mode": "MNR",
+   "riders": 252479.0
+  },
+  {
+   "month": "2026-06",
+   "mode": "Subway",
+   "riders": 4176341.0
+  },
+  {
+   "month": "2026-07",
+   "mode": "Bus",
+   "riders": 1254897.0
+  },
+  {
+   "month": "2026-07",
+   "mode": "LIRR",
+   "riders": 278055.0
+  },
+  {
+   "month": "2026-07",
+   "mode": "MNR",
+   "riders": 234138.0
+  },
+  {
+   "month": "2026-07",
+   "mode": "Subway",
+   "riders": 3865019.0
+  },
+  {
+   "month": "2026-08",
+   "mode": "Bus",
+   "riders": 1248766.0
+  },
+  {
+   "month": "2026-08",
+   "mode": "LIRR",
+   "riders": 278540.0
+  },
+  {
+   "month": "2026-08",
+   "mode": "MNR",
+   "riders": 226414.0
+  },
+  {
+   "month": "2026-08",
+   "mode": "Subway",
+   "riders": 3760948.0
+  },
+  {
+   "month": "2026-09",
+   "mode": "Bus",
+   "riders": 1376134.0
+  },
+  {
+   "month": "2026-09",
+   "mode": "LIRR",
+   "riders": 292972.0
+  },
+  {
+   "month": "2026-09",
+   "mode": "MNR",
+   "riders": 242229.0
+  },
+  {
+   "month": "2026-09",
+   "mode": "Subway",
+   "riders": 4149248.0
+  }
+ ],
+ "yearly_weekday": [
+  {
+   "mode": "Bus",
+   "y2023": 1338395.0,
+   "y2024": 1270328.0,
+   "y2025": 1365715.0,
+   "change_2024": -0.0509,
+   "change_2025": 0.0751,
+   "above_2024_trend": 159992.0
+  },
+  {
+   "mode": "LIRR",
+   "y2023": 207989.0,
+   "y2024": 237560.0,
+   "y2025": 258723.0,
+   "change_2024": 0.1422,
+   "change_2025": 0.0891,
+   "above_2024_trend": -12611.0
+  },
+  {
+   "mode": "MNR",
+   "y2023": 185127.0,
+   "y2024": 206226.0,
+   "y2025": 220299.0,
+   "change_2024": 0.114,
+   "change_2025": 0.0682,
+   "above_2024_trend": -9431.0
+  },
+  {
+   "mode": "Subway",
+   "y2023": 3571055.0,
+   "y2024": 3681690.0,
+   "y2025": 3952575.0,
+   "change_2024": 0.031,
+   "change_2025": 0.0736,
+   "above_2024_trend": 156821.0
+  }
+ ],
+ "zone_entries_weekday": [
+  {
+   "year": 2025,
+   "entries": 501875.0,
+   "days": 258
+  },
+  {
+   "year": 2026,
+   "entries": 480806.0,
+   "days": 207
+  }
+ ],
+ "caveat": "System-wide ridership, not trips to the zone. Return-to-office and pandemic recovery were also raising ridership, so growth above trend is not all due to pricing."
+}

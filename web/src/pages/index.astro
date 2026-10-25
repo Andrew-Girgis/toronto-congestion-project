@@ -109,6 +109,20 @@ import "maplibre-gl/dist/maplibre-gl.css";
     </div>
   </section>
 
+  <section id="transit">
+    <div class="wrap">
+      <h2>If fewer people drive in, how do they get there?</h2>
+      <p class="lede">Most people still go downtown. A charge mainly changes <em>how</em> they get there. New York, the closest match to Toronto, started charging in January 2025.</p>
+      <div class="grid g2">
+        <div class="card"><h3>What happened in New York</h3><div id="nyc-chart"></div>
+          <ul id="nyc-facts"></ul>
+          <p class="src">MTA open data (data.ny.gov, ridership <code>sayj-mze2</code>, zone entries <code>t6yz-b64h</code>), weekday averages. System-wide ridership, not just trips into the zone. Return to office and pandemic recovery were also raising ridership, so not all of the growth is due to the charge.</p></div>
+        <div class="card"><h3>What it could mean for Toronto (charge on downtown streets, S4)</h3><div class="grid g2" id="transit-cards"></div></div>
+      </div>
+      <p class="callout warn"><b>Can transit carry them?</b> London ran 23% more bus service into the zone at launch, and Stockholm added 197 buses and new lines <em>before</em> its trial. Whether Line 1 and GO trains have room at 8 a.m. is a question for the pilot, using TTC and Metrolinx load data. Raising fares or cutting service at the same time would work against the charge.</p>
+    </div>
+  </section>
+
   <section id="cities">
     <div class="wrap">
       <h2>What happened elsewhere</h2>
@@ -169,7 +183,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
           <ul>
             <li><strong>Expressway volumes</strong> (Gardiner, DVP) are not in the City's open counts, so they are not calibrated. The City's detector data would fix this in the pilot.</li>
             <li>Counts come from different days at each intersection (most recent weekday since 2023, excluding summer and December), combined as one "typical" morning.</li>
-            <li>Behavioural response is calibrated to what other cities observed (10–22% fewer charged trips at a NYC-equivalent price), not estimated from Toronto data.</li>
+            <li>Behavioural response is anchored to New York (about 11% fewer charged trips at the same price; range 8–22%, with Stockholm as the upper end), not estimated from Toronto data. New transit riders and fares follow from that and from London/Stockholm mode-shift shares.</li>
             <li>Street-level results come from a static equilibrium model (hourly averages, standard speed–flow curves, no signal timings), not a vehicle-by-vehicle simulation: our SUMO microsimulation of the same trips gridlocked at expressway-ramp junctions and was set aside. Queues and spill-back are not represented. Buses are not modelled.</li>
             <li><strong>Speed gains are likely understated.</strong> The model averages traffic over each hour and has no queues, and its baseline is less congested than real mornings, so it shows almost no speed gain inside the zone (about +1%). New York's zone speeds rose about 11% (an estimated effect, in a far more congested Manhattan).</li>
             <li><strong>Diversion is likely overstated.</strong> Every driver gets the same value of time (C$12.58 ≈ 30 minutes of detour), and drivers don't stick to habit, so more of them reroute around the zone than in reality.</li>

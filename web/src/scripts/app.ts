@@ -28,7 +28,7 @@ async function main() {
   [metrics, finance, edges, crossings] = await Promise.all([
     get("metrics.json"), get("finance.json"), get("edges.geojson"), get("crossings.geojson"),
   ]);
-  const [cordons, counts, cases] = await Promise.all([get("cordons.geojson"), get("counts.geojson"), get("cases.json")]);
+  const [cordons, counts, cases, nyc] = await Promise.all([get("cordons.geojson"), get("counts.geojson"), get("cases.json"), get("nyc_transit.json")]);
   minute(counts);
   cordonTable(cordons);
   scenarioButtons();
@@ -36,6 +36,7 @@ async function main() {
   diversion();
   sides();
   financeView(HEADLINE);
+  transit(nyc);
   caseCards(cases);
   validation();
 }
@@ -55,7 +56,9 @@ function minute(counts: Json) {
     const f = finance.results.find((r: Json) => r.scenario === HEADLINE && r.case === "base");
     const lo = finance.results.find((r: Json) => r.scenario === HEADLINE && r.case === "low");
     const hi = finance.results.find((r: Json) => r.scenario === HEADLINE && r.case === "high");
-    $("[data-bind=net]").innerHTML = `C$${Math.round(f.gross_per_year_cad_m)}M <small>(range ${Math.round(lo.gross_per_year_cad_m)}–${Math.round(hi.gross_per_year_cad_m)})</small>`;
+    // Low/high pair traffic response with cost cases, so base can sit outside them; span all three.
+    const g = [f, lo, hi].map((r: Json) => r.gross_per_year_cad_m);
+    $("[data-bind=net]").innerHTML = `C$${Math.round(f.gross_per_year_cad_m)}M <small>(range ${Math.round(Math.min(...g))}–${Math.round(Math.max(...g))})</small>`;
   }
 }
 
@@ -241,6 +244,34 @@ function financeView(id: string) {
     ${row("10-yr NPV of net cash @7%", (r) => `C$${fmt.format(r.npv_net_cad_m["0.07"])}M`)}
     ${row("…@3.5% (Metrolinx)", (r) => `C$${fmt.format(r.npv_net_cad_m["0.035"])}M`)}
     ${row("Cumulative cash positive", (r) => (r.payback_year ? `year ${r.payback_year}` : "not within 10 yrs"))}`;
+}
+
+function transit(nyc: Json) {
+  const modes: Record<string, string> = { Subway: "Subway", Bus: "Bus", LIRR: "Long Island Rail Road", MNR: "Metro-North" };
+  const bars = nyc.yearly_weekday.flatMap((r: Json) => [
+    { mode: modes[r.mode], period: "2024 vs 2023 (before)", change: r.change_2024 * 100 },
+    { mode: modes[r.mode], period: "2025 vs 2024 (charge in place)", change: r.change_2025 * 100 }]);
+  $("#nyc-chart").replaceChildren(Plot.plot({
+    height: 260, marginLeft: 44, x: { axis: null }, y: { label: "change in weekday riders (%)", grid: true }, fx: { label: null, domain: Object.values(modes) },
+    color: { domain: ["2024 vs 2023 (before)", "2025 vs 2024 (charge in place)"], range: ["#b8b2a7", "#c8102e"], legend: true },
+    marks: [Plot.barY(bars, { fx: "mode", x: "period", y: "change", fill: "period", tip: true }), Plot.ruleY([0])],
+  }));
+  const y = Object.fromEntries(nyc.yearly_weekday.map((r: Json) => [r.mode, r]));
+  const e = nyc.zone_entries_weekday;
+  $("#nyc-facts").innerHTML = `
+    <li>Subway: ${pct(y.Subway.change_2025)} in 2025, after ${pct(y.Subway.change_2024)} the year before ${tag("obs")}</li>
+    <li>Bus: ${pct(y.Bus.change_2025)} in 2025, after ${pct(y.Bus.change_2024)} the year before ${tag("obs")}</li>
+    <li>Commuter rail grew <em>more slowly</em> than before (Long Island Rail Road ${pct(y.LIRR.change_2025)} vs ${pct(y.LIRR.change_2024)}) ${tag("obs")}</li>
+    <li>Vehicles entering the zone: ${fmt.format(e[0].entries)} per weekday in 2025, ${fmt.format(e[e.length - 1].entries)} so far in 2026 ${tag("obs")}</li>`;
+  const res = finance.results.filter((r: Json) => r.scenario === HEADLINE);
+  const c = Object.fromEntries(res.map((r: Json) => [r.case, r]));
+  const rng = (f: (t: Json) => number, pre = "", suf = "") => `<b>${pre}${fmt.format(f(c.base.transit))}${suf}</b><small class="muted">range ${pre}${fmt.format(f(c.low.transit))}–${fmt.format(f(c.high.transit))}${suf}</small>`;
+  $("#transit-cards").innerHTML = `
+    <div class="stat">${rng((t) => t.daily_new_transit_trips)}<small>new transit trips per weekday, both directions ${tag("est")}</small></div>
+    <div class="stat">${rng((t) => t.am_new_transit_riders)}<small>new riders heading downtown, 6–10 a.m. ${tag("est")}</small></div>
+    <div class="stat">${rng((t) => t.ttc_fares_cad_m, "C$", "M")}<small>extra TTC fares per year (City) ${tag("est")}</small></div>
+    <div class="stat">${rng((t) => t.go_fares_cad_m, "C$", "M")}<small>extra GO fares per year (Metrolinx, provincial) ${tag("est")}</small></div>
+    <p class="src">About ${Math.round(c.base.transit.share_of_removed_to_transit * 100)}% of drivers the charge takes off the road switch to transit (London 50–60%, Stockholm about 43%) ${tag("asm")}. The rest change destination, combine trips, travel outside charging hours or are commercial trips. Fares are small next to the charge itself (C$${c.base.gross_per_year_cad_m}M a year gross): the transit money comes mainly from how the charge revenue is spent.</p>`;
 }
 
 function caseCards(cases: Json) {
