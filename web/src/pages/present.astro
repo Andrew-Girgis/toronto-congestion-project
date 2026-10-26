@@ -13,6 +13,9 @@ const fin = read("finance.json").results.filter((r: any) => r.scenario === "S4")
 const nyc = read("nyc_transit.json");
 const method = read("metrics.json").scenarios.S0.method;
 
+// Downtown driving as 100 squares; the share the charge removes is blue (build-time SVG)
+const zoneCut = Math.max(0, Math.round(-fig("s4_zone").value * 100));
+
 // NYC ridership change, before vs after the charge (build-time SVG)
 const modes: [string, string][] = [["Subway", "Subway"], ["Bus", "Bus"], ["LIRR", "Long Island RR"], ["MNR", "Metro-North"]];
 const yr = Object.fromEntries(nyc.yearly_weekday.map((r: any) => [r.mode, r]));
@@ -25,7 +28,7 @@ const years = byCase.base.cashflow.map((c: any) => c.year);
 const cum = (c: string) => byCase[c].cashflow.map((x: any) => x.cumulative_net);
 const lo = years.map((_: number, i: number) => Math.min(cum("low")[i], cum("high")[i], cum("base")[i]));
 const hi = years.map((_: number, i: number) => Math.max(cum("low")[i], cum("high")[i], cum("base")[i]));
-const cw = { w: 1000, h: 560, l: 90, r: 20, t: 20, b: 60 };
+const cw = { w: 1000, h: 590, l: 90, r: 20, t: 20, b: 90 };
 const ymax = Math.ceil(Math.max(...hi) / 500) * 500;
 const ymin = Math.min(0, Math.floor(Math.min(...lo) / 500) * 500);
 const cx = (y: number) => cw.l + (y - years[0]) / (years.at(-1) - years[0]) * (cw.w - cw.l - cw.r);
@@ -249,24 +252,27 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
         <p class="kicker">Findings · our traffic model</p>
         <h2>Morning traffic, before and after a <Fig id="rate" class="inline" /> charge</h2>
         <div class="row" style="gap:36px; flex:1; min-height:0">
-          <div class="clip" data-ms="6000">
+          <div class="clip">
             <img data-frame src="/present/media/map-s0-volume.jpg" alt="Modelled morning traffic with no charge" />
-            <img data-frame src="/present/media/map-s4-volume.jpg" alt="Modelled morning traffic with the downtown charge" />
             <img data-frame src="/present/media/map-s4-change.jpg" alt="Change in traffic: blue fewer cars, red more" />
             <span class="credit attrib">OpenFreeMap © OpenMapTiles · Data © OpenStreetMap contributors</span>
           </div>
           <div class="side">
             <ol class="caps">
               <li data-cap>Modelled morning, no charge: darker grey roads carry more cars</li>
-              <li data-cap>With the charge: downtown streets get lighter</li>
-              <li data-cap><span style="color:var(--less)">Blue = fewer cars</span>, <span style="color:var(--more)">red = more</span>. The free Gardiner/DVP carries the through trips</li>
+              <li data-cap data-step>With the charge: <span style="color:var(--less)">Blue = fewer cars</span>, <span style="color:var(--more)">red = more</span>. The free Gardiner/DVP carries the through trips</li>
             </ol>
-            <div class="mid"><Fig id="s4_zone" /><span class="lbl">traffic on downtown streets</span></div>
+            <div class="row" style="gap:24px; align-items:center">
+              <svg class="waffle" viewBox="0 0 218 218" width="218" height="218" style="flex:none" role="img" aria-label={`Downtown morning driving as 100 squares; the charge removes ${zoneCut}`} data-literal>
+                {Array.from({ length: 100 }, (_, i) => <rect x={(i % 10) * 22} y={Math.floor(i / 10) * 22} width="20" height="20" rx="4" class={i >= 100 - zoneCut ? "cut" : undefined} />)}
+              </svg>
+              <div class="mid"><Fig id="s4_zone" /><span class="lbl">traffic on downtown streets</span><span class="lbl" data-literal>100 squares = all the driving on downtown streets on a weekday morning. With the charge, the {zoneCut} blue ones go.</span></div>
+            </div>
             <div class="sm"><Fig id="s4_paying" /><span class="lbl">cars paying to enter downtown. <Fig id="s4_stopped" class="inline" /> stop driving in, a rate set from New York; <Fig id="s4_rerouted" class="inline" /> drive around downtown, worked out by the model.</span></div>
           </div>
         </div>
         <p class="src" style="margin-top:14px" data-literal>Sources: our traffic model, fitted to City of Toronto Open Data counts (<Ref id="tor_tmc">turning</Ref>, <Ref id="tor_svc">midblock</Ref>) on the <Ref id="osm">OpenStreetMap</Ref> road network, routes by <Ref id="sw-aequilibrae">AequilibraE</Ref>; share who stop driving in set from <Ref id="B-NYC-008">MTA First Evaluation Report (Jan 2026)</Ref>, p.8. Basemap: <Ref id="sw-openfreemap">OpenFreeMap</Ref>.</p>
-        <aside class="notes">This is the model running the morning rush. First, today's traffic. Then the same morning with a downtown charge: downtown streets get lighter. Blue means fewer cars, red more. The Gardiner and DVP stay free, so through trips move onto them. How many people stop driving in comes from New York; where everyone else goes is what the model works out.</aside>
+        <aside class="notes">This is the model running the morning rush. First, today's traffic. Click. Now the change once a downtown charge starts: blue means fewer cars, red more. On the right, the hundred squares are all the driving on downtown streets; with the charge, {zoneCut} of them turn blue and go. The Gardiner and DVP stay free, so through trips move onto them. How many people stop driving in comes from New York; where everyone else goes is what the model works out.</aside>
       </section>
 
       <!-- 7 Traffic and transit -->
@@ -310,10 +316,10 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
               <line x1={cw.l} x2={cw.w - cw.r} y1={cy(0)} y2={cy(0)} stroke="var(--ink)" />
               <polygon points={band} fill="var(--toronto)" fill-opacity="0.15" />
               <polyline points={baseLine} fill="none" stroke="var(--toronto)" stroke-width="5" />
-              {years.filter((y: number) => y > 0).map((y: number) => <text x={cx(y)} y={cw.h - 26} text-anchor="middle" font-size="20" fill="var(--muted)">{y}</text>)}
-              <line x1={cx(years[0])} x2={cx(0)} y1={cw.h - 44} y2={cw.h - 44} stroke="var(--muted)" stroke-width="2" />
-              <text x={(cx(years[0]) + cx(0)) / 2} y={cw.h - 20} text-anchor="middle" font-size="20" fill="var(--muted)">{`${1 - years[0]}-year build, as in New York`}</text>
-              <text x={cw.w - cw.r} y={cw.h - 2} text-anchor="end" font-size="20" fill="var(--muted)">year after launch · cumulative net cash, C$ (2025, real)</text>
+              {years.filter((y: number) => y > 0).map((y: number) => <text x={cx(y)} y={cw.h - 56} text-anchor="middle" font-size="20" fill="var(--muted)">{y}</text>)}
+              <line x1={cx(years[0])} x2={cx(0)} y1={cw.h - 74} y2={cw.h - 74} stroke="var(--muted)" stroke-width="2" />
+              <text x={cx(years[0])} y={cw.h - 30} text-anchor="start" font-size="20" fill="var(--muted)">{`${1 - years[0]}-year build, as in New York + Toronto implementation time tax`}</text>
+              <text x={cw.w - cw.r} y={cw.h - 4} text-anchor="end" font-size="20" fill="var(--muted)">year after launch · cumulative net cash, C$ (2025, real)</text>
             </svg>
             <figcaption class="small" style="font-size:19px">Line: base case. Shaded: spread across our three scenarios (weaker response with higher costs, base, stronger response with lower costs); they cross, so this is not a high–low bound. Payback across scenarios: year <Fig id="payback_range" class="inline" /> after launch. Illustrative, not confidence intervals.</figcaption>
           </figure>
@@ -324,7 +330,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <div class="sm"><Fig id="t_ttc_fares_cad_m" /> <Fig id="t_go_fares_cad_m" /><span class="lbl">extra TTC fares (City) and GO fares (Metrolinx) per year</span></div>
           </div>
         </div>
-        <p class="src" data-literal>From our ten-year financial model, 2025 dollars. Build cost: New York&apos;s capital spending on tolling infrastructure, US$365.9M to Oct 2025 (<Ref id="B-NYC-021">MTA First Evaluation Report, Jan 2026</Ref>, p.67) ÷ 110 detection points (<Ref id="B-NYC-020">MTA, Jan 2025</Ref>), at the 2025 <Ref id="D-001">Bank of Canada</Ref> rate; low end from the <Ref id="D-008">City of Toronto Gardiner/DVP tolling study (EX8.14, 2015)</Ref>, <Ref id="D-002">CPI</Ref>-adjusted. Running cost: <Ref id="D-006">Stockholm (Börjesson 2018)</Ref>, <Ref id="B-LON-008">London (TfL)</Ref>, <Ref id="D-020">407 ETR (2025 results)</Ref>. Fares: <Ref id="T-001">TTC (Sept 2025)</Ref>, <Ref id="M-001">Metrolinx 2023-24</Ref>. Discount rate: <Ref id="D-003">Treasury Board of Canada</Ref>. Every input: <a class="ref" href={repoFile("config/assumptions.yaml")} target="_blank" rel="noopener">config/assumptions.yaml</a>.</p>
+        <p class="src" data-literal>From our ten-year financial model, 2025 dollars. Build cost: New York&apos;s capital spending on tolling infrastructure, US$365.9M to Oct 2025 (<Ref id="B-NYC-021">MTA First Evaluation Report, Jan 2026</Ref>, p.67) ÷ 110 detection points (<Ref id="B-NYC-020">MTA, Jan 2025</Ref>), at the 2025 <Ref id="D-001">Bank of Canada</Ref> rate; low end from the <Ref id="D-008">City of Toronto Gardiner/DVP tolling study (EX8.14, 2015)</Ref>, <Ref id="D-002">CPI</Ref>-adjusted. Build time: New York installed its tolling equipment in about 10 months (<Ref id="B-NYC-027">NY1, Jun 2023</Ref>; <Ref id="B-NYC-028">amNY, Feb 2024</Ref>); our two years is an assumption. Running cost: <Ref id="D-006">Stockholm (Börjesson 2018)</Ref>, <Ref id="B-LON-008">London (TfL)</Ref>, <Ref id="D-020">407 ETR (2025 results)</Ref>. Fares: <Ref id="T-001">TTC (Sept 2025)</Ref>, <Ref id="M-001">Metrolinx 2023-24</Ref>. Discount rate: <Ref id="D-003">Treasury Board of Canada</Ref>. Every input: <a class="ref" href={repoFile("config/assumptions.yaml")} target="_blank" rel="noopener">config/assumptions.yaml</a>.</p>
         <aside class="notes">We priced the build at what New York actually spent per tolling point, about {d("nyc_per_point")}, so roughly {d("capex")}. The City's own 2015 toll study implies far less. Even so, our base case pays back in year {d("payback")} after launch. It would collect about {d("gross")} a year before running costs, roughly {d("npv")} over ten years in today's money. And if traffic falls more, revenue falls too.</aside>
       </section>
 
@@ -338,7 +344,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
             <ul class="tight">
               <li>Model matches <Fig id="fit_holdout" class="inline" /> of held-out counts, against <Fig id="fit_target" class="inline" /></li>
               <li>No queues in the model: speed gains understated, detours probably overstated</li>
-              <li>No trip-level data, so we can't say <em>who</em> pays by home area or income</li>
+              <li>No origin–destination data from the Transportation Tomorrow Survey (approved access only). Open-source models like SUMO and AequilibraE route each trip from where it starts to where it ends, so we had to infer trips from road counts; real trip origins would firm up the detours and show <em>who</em> pays by home area.</li>
               <li>New York's transit growth is mixed with the return to office</li>
               <li>No open counts on the Gardiner or DVP</li>
               <li>User feedback: <Fig id="feedback_n" class="inline" /> conversation so far</li>
@@ -355,7 +361,7 @@ const oy = (v: number) => ow.t + (0.8 - v) / 0.8 * (ow.h - ow.t - ow.b);
           </div>
         </div>
         <p class="src" data-literal>Sources: <Ref id="B-LON-008">TfL Impacts Monitoring Report 6 (2008)</Ref>; <Ref id="B-ALS-001">Holland &amp; Watson (1977)</Ref>; <Ref id="B-NYC-008">MTA First Evaluation Report (Jan 2026)</Ref>, pp.7, 42; <Ref id="B-STO-001">Eliasson (WCTR)</Ref>. Our model: <a class="ref" href={repoFile("docs/validation.md")} target="_blank" rel="noopener">docs/validation.md</a>; feedback: <a class="ref" href={repoFile("research/user-feedback/log.csv")} target="_blank" rel="noopener">research/user-feedback/log.csv</a>.</p>
-        <aside class="notes">Our model misses the usual fit target, has no queues, and has no trip data, so we can't say who pays. We've logged only one user conversation. Elsewhere: London's congestion relief faded from 30 percent to 8 as road space went to buses and pedestrians, though the car cut lasted. Singapore's first scheme pushed traffic onto the ring road. New York has ten months of data, measured against an estimated before. Stockholm is the success, and it won by running a trial first.</aside>
+        <aside class="notes">Our model misses the usual fit target, has no queues, and has no trip data. Traffic models route trips from origin to destination; we had to infer those trips from road counts. The Transportation Tomorrow Survey would give us real origins and destinations, sharpen the detours, and tell us who pays. We've logged only one user conversation. Elsewhere: London's congestion relief faded from 30 percent to 8 as road space went to buses and pedestrians, though the car cut lasted. Singapore's first scheme pushed traffic onto the ring road. New York has ten months of data, measured against an estimated before. Stockholm is the success, and it won by running a trial first.</aside>
       </section>
 
       <!-- 10 Ask -->

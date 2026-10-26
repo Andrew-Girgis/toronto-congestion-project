@@ -59,6 +59,10 @@ body { margin: 0; }
 [data-step] { transition: opacity .3s ease; }
 [data-step].pending { opacity: 0; }
 
+/* Simulation waffle: the cut squares turn blue with the "with the charge" step. */
+.waffle rect { fill: #b4bdc7; transition: fill .4s ease; }
+.sim:has([data-cap][data-step].on) .waffle rect.cut { fill: var(--less); }
+
 .progress { position: absolute; left: 0; bottom: 0; height: 6px; background: var(--cordon); transition: width .3s ease; }
 .pageno { position: absolute; right: 36px; bottom: 22px; font-size: 18px; color: var(--muted); }
 
@@ -71,9 +75,10 @@ body { margin: 0; }
 }
 .stage.overview .slide.active { outline-color: var(--cordon); }
 .stage.overview [data-step].pending { opacity: 1; }
+.stage.overview .sim .waffle rect.cut { fill: var(--less); }
 
 @media (prefers-reduced-motion: reduce) {
-  .slide, [data-step], .progress { transition: none; }
+  .slide, [data-step], .progress, .waffle rect { transition: none; }
   .clip img { animation: none !important; }
 }
 
@@ -92,7 +97,8 @@ body { margin: 0; }
 .slide .inline .fig { font-size: inherit; font-weight: 700; letter-spacing: 0; line-height: inherit; }
 @media print {
   .clip img { opacity: 0 !important; }
-  .clip img:nth-of-type(3) { opacity: 1 !important; }
+  .clip img:last-of-type { opacity: 1 !important; }
   .caps li { color: var(--muted) !important; font-weight: 400 !important; }
-  .caps li:nth-child(3) { color: var(--ink) !important; font-weight: 700 !important; }
+  .caps li:last-child { color: var(--ink) !important; font-weight: 700 !important; }
+  .waffle rect.cut { fill: var(--less) !important; }
 }

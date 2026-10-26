@@ -419,7 +419,7 @@ design:
 finance:
   ramp_up_year1_collection_factor: {value: 0.9, label: ASSUMPTION, notes: "Enforcement and account set-up in year one"}
   opex_share_by_year: {value: [0.30, 0.22, 0.17, 0.15, 0.13, 0.12, 0.12, 0.11, 0.11, 0.11], label: ASSUMPTION, source_id: [D-006, D-020], notes: "Stockholm 31% -> 7%; 407 ETR 13-16%; start high, mature lower"}
-  implementation_years_before_launch: {value: 6, label: ASSUMPTION, source_id: [B-NYC-017, B-NYC-016], notes: "User decision 2026-10-25: mirror New York, the slowest modern case: 2019 state authorization to 5 Jan 2025 launch (about 6 yrs; federal EA, 2024 pause). Counted from the provincial Act, which is not yet passed. London: 1999 powers to Feb 2003."}
+  implementation_years_before_launch: {value: 2, label: ASSUMPTION, source_id: [B-NYC-027, B-NYC-028, B-NYC-016, B-NYC-017], notes: "User decision 2026-10-25 (revised from 6): New York's physical build took about 10 months once federally approved (310-day install window from late June 2023, MTA Chair Lieber; 104 of 110 gantries up by 28 Feb 2024; ready for a 30 Jun 2024 start). Its 2019 authorization to 5 Jan 2025 launch took about 6 years, mostly the federal EA and the June 2024 pause, not construction. Two years here = New York's build plus procurement and back office, padded for Toronto ('Toronto implementation time tax', a deliberate ASSUMPTION). Counted from the provincial Act, which is not yet passed. London: 1999 powers to Feb 2003."}
   transit_service_share_of_net: {value: 0.6, label: ASSUMPTION (policy choice), notes: "User-adjustable allocation; London/NYC/Stockholm earmarked to transport"}
   equity_mitigation_share_of_net: {value: 0.15, label: ASSUMPTION (policy choice)}
 

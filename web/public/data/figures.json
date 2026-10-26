@@ -590,18 +590,18 @@
   "note": "running cost in year one"
  },
  "npv": {
-  "value": 1186.5,
-  "display": "C$1.2B",
+  "value": 1600.4,
+  "display": "C$1.6B",
   "label": "ESTIMATED",
   "src": "finance.json S4 base npv_net_cad_m 0.07",
   "note": "10-year net cash, today's value at 7%"
  },
  "npv_range": {
   "value": [
-   781.2,
-   1186.5
+   1069.1,
+   1600.4
   ],
-  "display": "C$0.8–1.2B",
+  "display": "C$1.1–1.6B",
   "label": "ESTIMATED",
   "src": "finance.json S4 all cases",
   "note": ""

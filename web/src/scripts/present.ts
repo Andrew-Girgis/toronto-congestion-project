@@ -31,11 +31,21 @@ function show(i: number, st = 0, broadcast = true) {
   step = st < 0 ? all.length : Math.min(st, all.length);
   slides.forEach((x, k) => x.classList.toggle("active", k === idx));
   all.forEach((el, k) => el.classList.toggle("pending", k >= step));
+  clipTo(s);
   progress.style.width = `${((timed.indexOf(s) + 1) / timed.length) * 100}%`;
   pageno.textContent = s.classList.contains("sources") ? "sources" : s.hasAttribute("data-appendix") ? "appendix" : `${timed.indexOf(s) + 1} / ${timed.length}`;
   history.replaceState(null, "", `${location.search}#${idx + 1}`);
   if (broadcast) chan?.postMessage({ idx, step });
   if (isPresenter) renderPresenter();
+}
+
+// Simulation clip: each click cross-fades to the next frame and bolds its caption.
+function clipTo(s: HTMLElement) {
+  const frames = [...s.querySelectorAll<HTMLElement>(".clip [data-frame]")];
+  const caps = [...s.querySelectorAll<HTMLElement>("[data-cap]")];
+  const k = Math.min(step, frames.length - 1);
+  frames.forEach((f, j) => f.classList.toggle("on", j === k));
+  caps.forEach((c, j) => c.classList.toggle("on", j === k));
 }
 
 function next() {
@@ -77,20 +87,6 @@ document.addEventListener("touchend", (e) => {
 });
 chan?.addEventListener("message", (e) => show(e.data.idx, e.data.step, false));
 window.addEventListener("resize", fit);
-
-// Simulation clip: cross-fade the frames of each .clip, captions in step.
-document.querySelectorAll<HTMLElement>(".clip").forEach((clip) => {
-  const frames = [...clip.querySelectorAll<HTMLElement>("[data-frame]")];
-  const caps = [...(clip.closest(".slide")?.querySelectorAll<HTMLElement>("[data-cap]") ?? [])];
-  let k = 0;
-  const go = () => {
-    frames.forEach((f, j) => f.classList.toggle("on", j === k));
-    caps.forEach((c, j) => c.classList.toggle("on", j === k));
-  };
-  go();
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  setInterval(() => { if (clip.closest(".slide")?.classList.contains("active")) { k = (k + 1) % frames.length; go(); } }, Number(clip.dataset.ms ?? 3500));
-});
 
 // Presenter view
 const fmt = (s: number) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
