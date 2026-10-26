@@ -151,4 +151,8 @@ Python · [DuckDB](https://duckdb.org) (spatial) · [Eclipse SUMO](https://eclip
 
 ## Licence
 
-Code licence: to be decided. Data remains under its original publishers' licences (see above).
+Code and original documentation: [MIT](LICENSE).
+
+Not covered by the MIT licence:
+- **Data** stays under its publishers' licences (see [Data sources](#data-sources)).
+- **Third-party images** in `web/public/present/media/` belong to their owners: the London zone map, the Metro Stockholm front page, and the Singapore ERP gantry photo by Streetdirectory.com. See `research/sources.csv` (IMG-001 to IMG-004). Their reuse terms are UNVERIFIED.
