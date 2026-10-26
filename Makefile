@@ -4,7 +4,7 @@ SUMO_HOME := $(shell .venv/bin/python -c "import sumo;print(sumo.SUMO_HOME)")
 export SUMO_HOME
 export PATH := $(CURDIR)/.venv/bin:$(PATH)
 
-.PHONY: all data geometry coverage network demand assign sim model web check serve present present-check present-pdf
+.PHONY: all data geometry coverage network demand assign sim model web check serve present present-check present-pdf deploy
 
 all: data geometry coverage network demand assign model web
 
@@ -65,6 +65,9 @@ present:         ## export deck figures and build the site (deck at /present)
 present-check: present  ## deck numbers match figures.json; slides render at 1920x1080 and 1280x720
 	$(PY) scripts/present/check_figures.py
 	$(PY) scripts/present/render_check.py
+
+deploy: present   ## publish the site to Cloudflare (needs `npx wrangler login`)
+	cd web && npx wrangler deploy
 
 present-pdf:     ## PDF backup of the deck (needs the dev server: make serve)
 	$(PY) scripts/present/export_pdf.py

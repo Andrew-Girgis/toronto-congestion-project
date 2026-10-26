@@ -1,0 +1,9 @@
+// Static site on Cloudflare (Pages, now served by Workers). Deploy: make deploy
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "congestion-cordon",
+  "compatibility_date": "2026-10-23",
+  "assets": {
+    "directory": "./dist"
+  }
+}

@@ -4,6 +4,8 @@
 
 **Could congestion pricing work in Toronto, and if so where and how?** This is an open research and simulation tool built on the City of Toronto's own traffic data. It sits alongside what actually happened in New York, London, Stockholm and Singapore.
 
+**▶ [View the presentation](https://congestion-cordon.andrew-girgis.workers.dev/present/)** · [Interactive site](https://congestion-cordon.andrew-girgis.workers.dev/)
+
 > **Status: work in progress.** Built at a Toronto civic buildathon (October 2026). Sections marked *(planned)* are not built yet. Every number in the tool carries a label saying whether it was **observed**, **estimated** or **simulated**.
 
 ---
@@ -70,6 +72,7 @@ make model         # behaviour + financial model
 make web           # export map data
 make check         # sanity tests
 make serve         # demo at http://localhost:4321
+make deploy        # publish to Cloudflare (after `npx wrangler login`)
 ```
 
 The demo reads only precomputed files in `web/public/data/`, so it works offline.

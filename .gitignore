@@ -22,6 +22,8 @@ web/.astro/
 
 # Local tool state
 .playwright-mcp/
+.wrangler/
+web/.wrangler/
 .claude/settings.local.json
 
 # Simulation intermediates (reproducible with `make sim`; large)
